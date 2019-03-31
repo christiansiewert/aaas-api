@@ -95,14 +95,38 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "egulias/email-validator": {
+        "version": "2.1.7"
+    },
     "fig/link-util": {
         "version": "1.0.0"
+    },
+    "friendsofsymfony/user-bundle": {
+        "version": "v2.1.2"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "lcobucci/jwt": {
+        "version": "3.2.5"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "509b1542f3180a1cfe248ade8b7bf5092c2d4127"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -121,6 +145,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.2"
+    },
+    "paragonie/random_compat": {
+        "version": "v2.0.18"
     },
     "pdepend/pdepend": {
         "version": "2.5.2"
@@ -163,6 +190,9 @@
         "files": [
             "phpcs.xml.dist"
         ]
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.2.0"
     },
     "symfony/asset": {
         "version": "v4.2.3"
@@ -225,6 +255,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v4.2.4"
+    },
     "symfony/framework-bundle": {
         "version": "4.2",
         "recipe": {
@@ -252,6 +285,9 @@
     },
     "symfony/inflector": {
         "version": "v4.2.3"
+    },
+    "symfony/intl": {
+        "version": "v4.2.4"
     },
     "symfony/maker-bundle": {
         "version": "1.0",
@@ -293,6 +329,15 @@
             "config/packages/prod/monolog.yaml",
             "config/packages/test/monolog.yaml"
         ]
+    },
+    "symfony/options-resolver": {
+        "version": "v4.2.4"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.11.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
@@ -353,6 +398,36 @@
     },
     "symfony/stopwatch": {
         "version": "v4.2.3"
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "3db029c03e452b4a23f7fc45cec7c922c2247eb8"
+        },
+        "files": [
+            "config/packages/dev/swiftmailer.yaml",
+            "config/packages/swiftmailer.yaml",
+            "config/packages/test/swiftmailer.yaml"
+        ]
+    },
+    "symfony/templating": {
+        "version": "v4.2.4"
+    },
+    "symfony/translation": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "1fb02a6e1c8f3d4232cce485c9afa868d63b115a"
+        },
+        "files": [
+            "config/packages/translation.yaml",
+            "translations/.gitignore"
+        ]
     },
     "symfony/twig-bridge": {
         "version": "v4.2.3"
