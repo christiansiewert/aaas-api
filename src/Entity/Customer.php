@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Customer")
  * @author Christian Siewert <christian@sieware.international>
  */
 class Customer extends BaseUser

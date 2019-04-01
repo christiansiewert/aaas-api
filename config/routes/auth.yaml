@@ -1,0 +1,2 @@
+auth_login_check:
+    path: /auth/login_check
