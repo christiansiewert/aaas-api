@@ -37,7 +37,6 @@ docker-compose exec php composer install
 Generate JWT Certificate
 
 ```bash
-$ docker-compose exec php mkdir config/jwt
 $ docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 4096
 $ docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
