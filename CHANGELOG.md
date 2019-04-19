@@ -6,13 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Changed
-
 ### Added
 
-## [0.0.2] - 2019-04-16
+- added gedmo tree for representing trees in the database
 
-### Changed
+## [0.0.2] - 2019-04-16
 
 ### Added
 
@@ -20,8 +18,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - added projects and customer entity
 
 ## [0.0.1] - 2019-03-31
-
-### Changed
 
 ### Added
 
