@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use \InvalidArgumentException;
 
 /**
  * A service represents a table in your database and holds
@@ -26,6 +27,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class Service
 {
+    const TYPE_LIST = 'list';
+    const TYPE_TREE = 'tree';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -42,6 +46,11 @@ class Service
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Repository", inversedBy="services")
@@ -84,6 +93,22 @@ class Service
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        if (!in_array($type, array(self::TYPE_LIST, self::TYPE_TREE))) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
+        $this->type = $type;
 
         return $this;
     }

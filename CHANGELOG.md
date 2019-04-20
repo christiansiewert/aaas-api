@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - field options, field asserts and field assert options entities
 
-## [0.0.3] - 2019-04-20
+### Changed
+
+- Services now have a `type` field with which the type can be distinguished (list, tree, etc.) 
+
+## [0.0.3] - 2019-04
 
 ### Added
 
