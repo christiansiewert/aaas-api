@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * A Project holds repositories.
+ *
  * @ApiResource()
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>

@@ -17,6 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * A service represents a table in your database and holds
+ * several field definitions.
+ *
  * @ApiResource()
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>

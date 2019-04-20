@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * A ServiceField represents a column in your database table.
+ *
  * @ApiResource()
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
