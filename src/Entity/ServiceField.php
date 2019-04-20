@@ -11,6 +11,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -75,6 +77,25 @@ class ServiceField
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
+
+    /**
+     * Key-value pairs of options that get passed to the underlying
+     * database platform when generating DDL statements.
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\FieldOption", mappedBy="serviceField", orphanRemoval=true)
+     */
+    private $options;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
+     */
+    private $assertions;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+        $this->assertions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +206,68 @@ class ServiceField
     public function setService(?Service $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FieldOption[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(FieldOption $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+            $option->setServiceField($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(FieldOption $option): self
+    {
+        if ($this->options->contains($option)) {
+            $this->options->removeElement($option);
+            // set the owning side to null (unless already changed)
+            if ($option->getServiceField() === $this) {
+                $option->setServiceField(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FieldAssert[]
+     */
+    public function getAssertions(): Collection
+    {
+        return $this->assertions;
+    }
+
+    public function addAssertion(FieldAssert $assertion): self
+    {
+        if (!$this->assertions->contains($assertion)) {
+            $this->assertions[] = $assertion;
+            $assertion->setServiceField($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssertion(FieldAssert $assertion): self
+    {
+        if ($this->assertions->contains($assertion)) {
+            $this->assertions->removeElement($assertion);
+            // set the owning side to null (unless already changed)
+            if ($assertion->getServiceField() === $this) {
+                $assertion->setServiceField(null);
+            }
+        }
 
         return $this;
     }

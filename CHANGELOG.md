@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- field options, field asserts and field assert options entities
+
 ## [0.0.3] - 2019-04-20
 
 ### Added
