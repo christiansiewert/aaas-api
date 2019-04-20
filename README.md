@@ -41,7 +41,7 @@ $ docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 409
 $ docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
 
-Don't forget to update the passphrase in `.env` file.
+Don't forget to update JWT_PASSPHRASE in `.env` file.
 
 ### 3. Build Database
 
