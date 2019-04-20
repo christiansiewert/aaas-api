@@ -21,7 +21,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
  */
-class Project
+class Service
 {
     /**
      * @ORM\Id()
@@ -41,13 +41,19 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Repository", mappedBy="project", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Repository", inversedBy="services")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $repositories;
+    private $repository;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true)
+     */
+    private $serviceFields;
 
     public function __construct()
     {
-        $this->repositories = new ArrayCollection();
+        $this->serviceFields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,31 +85,43 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection|Repository[]
-     */
-    public function getRepositories(): Collection
+    public function getRepository(): ?Repository
     {
-        return $this->repositories;
+        return $this->repository;
     }
 
-    public function addRepository(Repository $repository): self
+    public function setRepository(?Repository $repository): self
     {
-        if (!$this->repositories->contains($repository)) {
-            $this->repositories[] = $repository;
-            $repository->setProject($this);
+        $this->repository = $repository;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ServiceField[]
+     */
+    public function getServiceFields(): Collection
+    {
+        return $this->serviceFields;
+    }
+
+    public function addServiceField(ServiceField $serviceField): self
+    {
+        if (!$this->serviceFields->contains($serviceField)) {
+            $this->serviceFields[] = $serviceField;
+            $serviceField->setService($this);
         }
 
         return $this;
     }
 
-    public function removeRepository(Repository $repository): self
+    public function removeServiceField(ServiceField $serviceField): self
     {
-        if ($this->repositories->contains($repository)) {
-            $this->repositories->removeElement($repository);
+        if ($this->serviceFields->contains($serviceField)) {
+            $this->serviceFields->removeElement($serviceField);
             // set the owning side to null (unless already changed)
-            if ($repository->getProject() === $this) {
-                $repository->setProject(null);
+            if ($serviceField->getService() === $this) {
+                $serviceField->setService(null);
             }
         }
 

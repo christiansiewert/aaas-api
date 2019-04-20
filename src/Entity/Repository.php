@@ -21,7 +21,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
  */
-class Project
+class Repository
 {
     /**
      * @ORM\Id()
@@ -41,13 +41,19 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Repository", mappedBy="project", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="repositories")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $repositories;
+    private $project;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Service", mappedBy="repository", orphanRemoval=true)
+     */
+    private $services;
 
     public function __construct()
     {
-        $this->repositories = new ArrayCollection();
+        $this->services = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,31 +85,43 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection|Repository[]
-     */
-    public function getRepositories(): Collection
+    public function getProject(): ?Project
     {
-        return $this->repositories;
+        return $this->project;
     }
 
-    public function addRepository(Repository $repository): self
+    public function setProject(?Project $project): self
     {
-        if (!$this->repositories->contains($repository)) {
-            $this->repositories[] = $repository;
-            $repository->setProject($this);
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services[] = $service;
+            $service->setRepository($this);
         }
 
         return $this;
     }
 
-    public function removeRepository(Repository $repository): self
+    public function removeService(Service $service): self
     {
-        if ($this->repositories->contains($repository)) {
-            $this->repositories->removeElement($repository);
+        if ($this->services->contains($service)) {
+            $this->services->removeElement($service);
             // set the owning side to null (unless already changed)
-            if ($repository->getProject() === $this) {
-                $repository->setProject(null);
+            if ($service->getRepository() === $this) {
+                $service->setRepository(null);
             }
         }
 
