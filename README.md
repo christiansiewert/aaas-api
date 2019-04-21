@@ -1,8 +1,8 @@
 # API as a Service API
 
-This is the API as a Service API!
+This is the API as a Service API.
 
-With API as a Service you can build PHP APIs easily with a GUI.
+With API as a Service you can easily build PHP APIs via a GUI.
 
 # Installation Instructions
 

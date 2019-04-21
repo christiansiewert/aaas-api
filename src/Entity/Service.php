@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use \InvalidArgumentException;
 
 /**
@@ -22,6 +23,13 @@ use \InvalidArgumentException;
  * several field definitions.
  *
  * @ApiResource()
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *         "name": "word_start",
+ *         "description" : "word_start"
+ *     }
+ * )
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
  */

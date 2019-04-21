@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- introduced api filter for some entities 
+
 ## [0.0.4] - 2019-04-20
 
 ### Added

@@ -13,12 +13,19 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * Key-value pairs of options that get passed to the underlying
  * database platform when generating DDL statements.
  *
  * @ApiResource()
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *         "name": "word_start"
+ *     }
+ * )
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
  */

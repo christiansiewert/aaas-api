@@ -15,13 +15,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * A ServiceField represents a column in your database table.
  *
  * @ApiResource()
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *         "name": "word_start",
+ *         "description" : "word_start"
+ *     }
+ * )
  * @ORM\Entity()
  * @author Christian Siewert <christian@sieware.international>
+ *
+ * @todo implement relational connections
  */
 class ServiceField
 {
