@@ -99,8 +99,8 @@ docker-compose exec php php bin/phpunit --coverage-html ./docs/coverage
 ## Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php ./vendor/phpmd/phpmd/src/bin/phpmd src/ html \
-cleancode,codesize,unusedcode,naming --reportfile ./docs/phpmd.html
+docker-compose exec php ./vendor/phpmd/phpmd/src/bin/phpmd src/ html phpmd.xml.dist \
+--reportfile ./docs/phpmd.html
 ```
 
 ## Generate PHP Depend Metrics
@@ -108,7 +108,7 @@ cleancode,codesize,unusedcode,naming --reportfile ./docs/phpmd.html
 ```bash
 docker-compose exec php ./vendor/pdepend/pdepend/src/bin/pdepend \
 --summary-xml=./docs/php-pdepend.xml --jdepend-chart=./docs/php-jdepend.svg \
---overview-pyramid=./docs/php-pyramid.svg ./src
+--overview-pyramid=./docs/php-pyramid.svg --ignore=src/Migrations/ ./src
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation

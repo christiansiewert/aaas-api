@@ -10,9 +10,13 @@
 
     <rule ref="PSR2"/>
 
+    <file>bin/</file>
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
     <file>tests/</file>
+
+    <exclude-pattern>src/Migrations/</exclude-pattern>
+    <exclude-pattern>bin/.phpunit/</exclude-pattern>
 
 </ruleset>
