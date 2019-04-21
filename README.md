@@ -73,7 +73,7 @@ It is recommended to add short aliases for the following frequently used contain
 * `docker-compose exec php bin/console` to run Symfony CLI commands
 * `docker-compose exec php bin/console cache:clear` to clear cache
 * `docker-compose exec php composer update` to update composer dependencies
-* `docker-compose exec mariadb mysql` to run MySQL commands
+* `docker-compose exec mariadb mysql -u app -p app` to run MySQL commands (Password is `app`)
 
 ## Running tests
 
