@@ -1,5 +1,8 @@
 /.idea
 
+/docs/phpcs.xml
+/docs/coverage/*
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

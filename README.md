@@ -75,11 +75,25 @@ It is recommended to add short aliases for the following frequently used contain
 * `docker-compose exec php composer update` to update composer dependencies
 * `docker-compose exec mariadb mysql -u app -p app` to run MySQL commands (Password is `app`)
 
-## Running tests
+## Continuous Integration
+
+### Running tests
 
 Run PHP Unit Tests:
 ```bash
 docker-compose exec php php bin/phpunit
+```
+
+### Generate PHP_Codesniffer XML Report
+
+```bash
+docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs --report=xml --report-file=./docs/phpcs.xml
+```
+
+### Generate Code Coverage HTML Report
+
+```bash
+docker-compose exec php php bin/phpunit --coverage-html docs/coverage
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
