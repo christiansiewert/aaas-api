@@ -26,11 +26,12 @@
         "symfony/yaml": "^4.2"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.11",
-        "symfony/profiler-pack": "^1.0",
+        "pdepend/pdepend": "^2.5",
+        "phpmd/phpmd": "^2.6",
         "squizlabs/php_codesniffer": "^3.4",
-        "phpmd/phpmd" : "^2.6",
-        "pdepend/pdepend" : "^2.5"
+        "symfony/maker-bundle": "^1.11",
+        "symfony/phpunit-bridge": "^4.2",
+        "symfony/profiler-pack": "^1.0"
     },
     "config": {
         "preferred-install": {

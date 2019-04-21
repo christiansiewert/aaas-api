@@ -79,7 +79,7 @@ It is recommended to add short aliases for the following frequently used contain
 
 Run PHP Unit Tests:
 ```bash
-docker-compose exec php vendor/bin/simple-phpunit
+docker-compose exec php php bin/phpunit
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
