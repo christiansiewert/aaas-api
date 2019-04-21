@@ -79,7 +79,6 @@ It is recommended to add short aliases for the following frequently used contain
 
 ### Running tests
 
-Run PHP Unit Tests:
 ```bash
 docker-compose exec php php bin/phpunit
 ```
