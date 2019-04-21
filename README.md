@@ -92,7 +92,7 @@ docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs --report=xm
 ### Generate Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html docs/coverage
+docker-compose exec php php bin/phpunit --coverage-html ./docs/coverage
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
