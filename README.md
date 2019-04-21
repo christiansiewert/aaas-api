@@ -8,7 +8,7 @@ With **API as a Service** you can easily build PHP APIs via a GUI.
 
 ## Requirements
 
-* [Docker and Docker Compose](https://docs.docker.com/engine/installation)
+* [Docker and Docker Compose]
 
 ## Configuration
 
@@ -82,4 +82,5 @@ Run PHP Unit Tests:
 docker-compose exec php vendor/bin/simple-phpunit
 ```
 
+[Docker and Docker Compose]: https://docs.docker.com/engine/installation
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
