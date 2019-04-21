@@ -40,8 +40,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.4..HEAD
-[0.0.4]: https://github.com/siewert87/aaas-api/compare/v0.0.3..v0.0.4
-[0.0.3]: https://github.com/siewert87/aaas-api/compare/v0.0.2..v0.0.3
-[0.0.2]: https://github.com/siewert87/aaas-api/compare/v0.0.1..v0.0.2
+[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/siewert87/aaas-api/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/siewert87/aaas-api/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/siewert87/aaas-api/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/siewert87/aaas-api/releases/tag/v0.0.1
