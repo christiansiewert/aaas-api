@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- integration of pdepend ci tool
+
 ## [0.0.5] - 2019-04-21
 
 ### Added
