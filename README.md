@@ -86,13 +86,21 @@ docker-compose exec php php bin/phpunit
 ### Generate PHP_CodeSniffer XML Report
 
 ```bash
-docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs --report=xml --report-file=./docs/phpcs.xml
+docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs \
+    --report=xml --report-file=./docs/phpcs.xml
 ```
 
 ### Generate Code Coverage HTML Report
 
 ```bash
 docker-compose exec php php bin/phpunit --coverage-html ./docs/coverage
+```
+
+### Generate PHP Mess Detector HTML Report
+
+```bash
+docker-compose exec php ./vendor/phpmd/phpmd/src/bin/phpmd src/ html \
+    cleancode,codesize,unusedcode,naming --reportfile docs/phpmd.html
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation

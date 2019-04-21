@@ -1,6 +1,7 @@
 /.idea
 
 /docs/phpcs.xml
+/docs/phpmd.html
 /docs/coverage/*
 
 ###> symfony/framework-bundle ###
