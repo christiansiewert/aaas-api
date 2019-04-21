@@ -84,7 +84,7 @@ Run PHP Unit Tests:
 docker-compose exec php php bin/phpunit
 ```
 
-### Generate PHP_Codesniffer XML Report
+### Generate PHP_CodeSniffer XML Report
 
 ```bash
 docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs --report=xml --report-file=./docs/phpcs.xml
