@@ -64,14 +64,14 @@ class ServiceField
     private $length;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isUnique;
+    private $isUnique = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isNullable;
+    private $isNullable = false;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
