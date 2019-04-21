@@ -1,4 +1,4 @@
-# API as a Service _API_
+# API as a Service - API
 
 This is the **API as a Service** API.
 
