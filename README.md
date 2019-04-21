@@ -1,8 +1,8 @@
-# API as a Service API
+# API as a Service _API_
 
-This is the _API as a Service_ API.
+This is the **API as a Service** API.
 
-With API as a Service you can easily build PHP APIs via a GUI.
+With **API as a Service** you can easily build PHP APIs via a GUI.
 
 # Installation Instructions
 
@@ -43,25 +43,25 @@ $ docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 409
 $ docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
 
-Don't forget to update JWT_PASSPHRASE in `.env` file.
+Don't forget to update `JWT_PASSPHRASE` in `.env` file. By default it's `app!`
 
 ### 3. Build Database
 
+Update database credentials in `.env` and deploy schema:
+
 ```bash
-docker-compose exec php bin/console doctrine:migrations:migrate
+docker-compose exec php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
-Don't forget to run
+If you want to modify the entities, don't forget to run:
 
 ```bash
 docker-compose exec php bin/console doctrine:migrations:diff
 ```
 
-when you are updating your entities.
-
 # Visit Docs
 
-For swagger ui open https://localhost in your browser.
+For [Swagger UI] open https://localhost in your browser.
 
 # Useful commands and shortcuts
 
@@ -70,11 +70,9 @@ It is recommended to add short aliases for the following frequently used contain
 
 * `docker-compose exec php /bin/bash` to run a shell inside the php container
 * `docker-compose exec php php` to run php in container
+* `docker-compose exec php bin/console` to run Symfony CLI commands
 * `docker-compose exec php bin/console cache:clear` to clear cache
 * `docker-compose exec php composer update` to update composer dependencies
-* `docker-compose exec php bin/console` to run Symfony CLI commands
-* `docker-compose exec php bin/console doctrine:migrations:diff` to run a diff on your database when editing entities
-* `docker-compose exec php bin/console --no-interaction doctrine:migrations:migrate` run run the database migration
 * `docker-compose exec mariadb mysql` to run MySQL commands
 
 ## Running tests
@@ -83,3 +81,5 @@ Run PHP Unit Tests:
 ```bash
 docker-compose exec php vendor/bin/simple-phpunit
 ```
+
+[Swagger UI]: https://swagger.io/tools/swagger-ui/
