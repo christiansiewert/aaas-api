@@ -28,8 +28,8 @@ if ('prod' !== $_SERVER['APP_ENV']) {
     (new Dotenv())->loadEnv(dirname(__DIR__).'/.env');
 }
 
-$filterVar = filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN);
-
 $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] ?: $_ENV['APP_ENV'] ?: 'dev';
 $_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? 'prod' !== $_SERVER['APP_ENV'];
+
+$filterVar = filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN);
 $_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || $filterVar ? '1' : '0';
