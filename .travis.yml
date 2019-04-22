@@ -11,7 +11,7 @@ matrix:
 
 install:
     - travis_retry composer clearcache
-    - travis_retry composer install --no-interaction --prefer-dist --optimize-autoloader
+    - travis_retry composer update
 script:
     - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
 
