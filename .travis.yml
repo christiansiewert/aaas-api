@@ -27,16 +27,15 @@ jobs:
 
         - stage: analysis
           php: 7.3
-          name: "Phpunit code coverage"
+          name: "Phpunit code coverage and analysis"
           script:
-              - $HOME/.composer/vendor/bin/phpunit
+              - $HOME/.composer/vendor/bin/phpunit --coverage-html ./build/coverage
           after_script:
-              - travis_retry wget --no-verbose https://phar.io/releases/phive.phar
-              - travis_retry php phive.phar --no-progress install --trust-gpg-keys E82B2FB314E9906E php-coveralls/php-coveralls && ./tools/php-coveralls --verbose
-              - travis_retry wget --no-verbose https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+              - travis_retry $HOME/.composer/vendor/bin/phpcs --report=xml --report-file=./build/phpcs.xml
+              - travis_retry $HOME/.composer/vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile ./build/phpmd.html
+              - travis_retry $HOME/.composer/vendor/vendor/bin/pdepend --summary-xml=./build/php-pdepend.xml --jdepend-chart=./build/php-jdepend.svg --overview-pyramid=./build/php-pyramid.svg --ignore=src/Migrations/ ./src
 
 cache:
     directories:
         - $HOME/.composer
-        - $HOME/.phive
         - ./docker

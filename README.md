@@ -95,8 +95,7 @@ docker-compose exec php php bin/phpunit
 ## Generate PHP CodeSniffer XML Report
 
 ```bash
-docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs \
---report=xml --report-file=./docs/phpcs.xml
+docker-compose exec php ./vendor/bin/phpcs --report=xml --report-file=./docs/phpcs.xml
 ```
 
 ## Generate Code Coverage HTML Report
@@ -108,16 +107,15 @@ docker-compose exec php php bin/phpunit --coverage-html ./docs/coverage
 ## Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php ./vendor/phpmd/phpmd/src/bin/phpmd src/ html phpmd.xml.dist \
---reportfile ./docs/phpmd.html
+docker-compose exec php ./vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile ./docs/phpmd.html
 ```
 
 ## Generate PHP Depend Metrics
 
 ```bash
-docker-compose exec php ./vendor/pdepend/pdepend/src/bin/pdepend \
---summary-xml=./docs/php-pdepend.xml --jdepend-chart=./docs/php-jdepend.svg \
---overview-pyramid=./docs/php-pyramid.svg --ignore=src/Migrations/ ./src
+docker-compose exec php ./vendor/bin/pdepend --summary-xml=./docs/php-pdepend.xml \
+--jdepend-chart=./docs/php-jdepend.svg --overview-pyramid=./docs/php-pyramid.svg \
+--ignore=src/Migrations/ ./src
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
