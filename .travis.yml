@@ -19,7 +19,7 @@ script:
 jobs:
     include:
 
-        - stage: analysis
+        - stage: Test
           php: 7.3
           name: "PHPUnit"
           script:
