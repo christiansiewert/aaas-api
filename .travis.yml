@@ -1,5 +1,5 @@
 language: php
-php: [ 7.1, 7.2, 7.3, nightly ]
+php: [ 7.3 ]
 sudo: false
 
 branches:
@@ -20,7 +20,7 @@ jobs:
     include:
 
         - stage: test
-          php: 7.1
+          php: 7.3
           name: "php 7.1 Smoke test"
           before_script:
               - travis_retry sudo apt install graphviz
@@ -28,7 +28,7 @@ jobs:
               - ./bin/phpdoc run
 
         - stage: analysis
-          php: 7.1
+          php: 7.3
           name: "Phpunit code coverage"
           script:
               - $HOME/.composer/vendor/bin/phpunit
