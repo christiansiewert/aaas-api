@@ -1,5 +1,7 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/github/license/siewert87/aaas-api.svg)](https://opensource.org/licenses/MIT)
 [![Travis Status](https://img.shields.io/travis/siewert87/aaas-api.svg?label=Build)](https://travis-ci.org/siewert87/aaas-api)
+![Code Size](https://img.shields.io/github/languages/code-size/siewert87/aaas-api.svg)
+[![Latest Tag](https://img.shields.io/github/tag/siewert87/aaas-api.svg?label=Latest)](https://github.com/siewert87/aaas-api/releases)
 
 # API as a Service - API
 
