@@ -89,7 +89,7 @@ It is recommended to add short aliases for the following frequently used contain
 docker-compose exec php php bin/phpunit
 ```
 
-## Generate PHP_CodeSniffer XML Report
+## Generate PHP CodeSniffer XML Report
 
 ```bash
 docker-compose exec php ./vendor/squizlabs/php_codesniffer/bin/phpcs \
