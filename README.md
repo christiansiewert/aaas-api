@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Travis Status](https://img.shields.io/travis/siewert87/aaas-api.svg?label=Build)](https://travis-ci.org/siewert87/aaas-api)
+
 # API as a Service - API
 
 This is the **API as a Service** API.
