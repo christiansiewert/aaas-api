@@ -25,9 +25,9 @@ jobs:
           script:
               - $HOME/.composer/vendor/bin/phpunit --coverage-html ./build/coverage
           after_success:
-              - php $HOME/.composer/vendor/bin/phpcs --report=xml --report-file=./build/phpcs.xml
-              - $HOME/.composer/vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile ./build/phpmd.html
-              - $HOME/.composer/vendor/vendor/bin/pdepend --summary-xml=./build/php-pdepend.xml --jdepend-chart=./build/php-jdepend.svg --overview-pyramid=./build/php-pyramid.svg --ignore=src/Migrations/ ./src
+              - $TRAVIS_BUILD_DIR/vendor/bin/phpcs --report=xml --report-file=./build/phpcs.xml
+              - $TRAVIS_BUILD_DIR/vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile ./build/phpmd.html
+              - $TRAVIS_BUILD_DIR/vendor/vendor/bin/pdepend --summary-xml=./build/php-pdepend.xml --jdepend-chart=./build/php-jdepend.svg --overview-pyramid=./build/php-pyramid.svg --ignore=src/Migrations/ ./src
 
 cache:
     directories:
