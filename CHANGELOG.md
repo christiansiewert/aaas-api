@@ -6,9 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.6] - 2019-04-22
+
 ### Added
 
 - some database fixtures and test data
+- .travis-ci.yml for ci on travis-ci.org
 
 ### Changed
 
@@ -54,7 +57,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.5...HEAD
+[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.6...HEAD
+[0.0.6]: https://github.com/siewert87/aaas-api/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/siewert87/aaas-api/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/siewert87/aaas-api/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/siewert87/aaas-api/compare/v0.0.2...v0.0.3
