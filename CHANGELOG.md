@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - integration of pdepend ci tool
 - excluding of src/Migrations directory for ci tools
+- ci improvements
 
 ## [0.0.5] - 2019-04-21
 
