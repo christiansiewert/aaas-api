@@ -2,8 +2,8 @@ INSERT INTO app.project (id, name, description) VALUES (1, 'My Online Shop', 'My
 INSERT INTO app.repository (id, project_id, name, description) VALUES (1, 1, 'Blog', 'Blog repository holds services for our blog.');
 INSERT INTO app.repository (id, project_id, name, description) VALUES (2, 1, 'Catalog', 'Catalog repository holds services for our catalog.');
 INSERT INTO app.service (id, repository_id, name, description, type) VALUES (1, 1, 'Article', 'Articles for our blog repository.', 'list');
-INSERT INTO app.service (id, repository_id, name, description, type) VALUES (2, 1, 'Label', 'Labels for our blog articles.', 'list');
-INSERT INTO app.service (id, repository_id, name, description, type) VALUES (3, 1, 'Comment', 'Comments for our blog articles.', 'list');
+INSERT INTO app.service (id, repository_id, name, description, type) VALUES (2, 1, 'Label', 'Labels for our blog repository.', 'list');
+INSERT INTO app.service (id, repository_id, name, description, type) VALUES (3, 1, 'Comment', 'Comments for our blog repository.', 'list');
 INSERT INTO app.service (id, repository_id, name, description, type) VALUES (4, 2, 'Product', 'Products service for our catalog repository.', 'list');
 INSERT INTO app.service (id, repository_id, name, description, type) VALUES (5, 2, 'Category', 'Categories for our catalog repository.', 'tree');
 INSERT INTO app.service_field (id, service_id, name, description, data_type, length, is_unique, is_nullable, data_type_precision, data_type_scale) VALUES (1, 1, 'title', 'Title for our blog post.', 'string', '255', 0, 0, null, null);
