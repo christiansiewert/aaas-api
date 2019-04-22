@@ -19,12 +19,6 @@ script:
 jobs:
     include:
 
-        - stage: test
-          php: 7.3
-          name: "php 7.3 Smoke test"
-          before_script:
-              - travis_retry sudo apt install graphviz
-
         - stage: analysis
           php: 7.3
           name: "Phpunit code coverage and analysis"
