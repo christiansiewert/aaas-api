@@ -1,4 +1,3 @@
-INSERT INTO app.migration (version, executed_at) VALUES ('20190420184127', '2019-04-20 18:41:39');
 INSERT INTO app.project (id, name, description) VALUES (1, 'My Online Shop', 'My fance online shop which uses AaaS.');
 INSERT INTO app.repository (id, project_id, name, description) VALUES (1, 1, 'Blog', 'Blog repository holds services for our blog.');
 INSERT INTO app.repository (id, project_id, name, description) VALUES (2, 1, 'Catalog', 'Catalog repository holds services for our catalog.');

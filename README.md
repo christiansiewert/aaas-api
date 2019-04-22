@@ -59,6 +59,12 @@ If you want to modify the entities, don't forget to run:
 docker-compose exec php bin/console doctrine:migrations:diff
 ```
 
+If you want to load the fixtures run:
+
+```bash
+docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
+```
+
 # Visit Docs
 
 For [Swagger UI] open https://localhost in your browser.
