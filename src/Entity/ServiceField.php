@@ -59,11 +59,9 @@ class ServiceField
     private $dataType;
 
     /**
-     * @todo this should be an integer
-     *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
-    private $length;
+    private $length = 255;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
