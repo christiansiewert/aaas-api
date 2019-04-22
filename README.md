@@ -36,7 +36,7 @@ docker-compose up
 Install dependencies
 
 ```bash
-docker-compose exec php composer install
+docker-compose exec php composer install --prefer-dist --optimize-autoloader
 ```
 
 Generate JWT Certificate
