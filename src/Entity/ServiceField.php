@@ -59,6 +59,8 @@ class ServiceField
     private $dataType;
 
     /**
+     * @todo this should be an integer
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $length;
