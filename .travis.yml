@@ -11,10 +11,8 @@ matrix:
 
 install:
     - travis_retry composer install --no-interaction --prefer-dist --optimize-autoloader
-before_script:
-    - travis_retry composer global require phpunit/phpunit ^6 # cannot use phpunit.phar or require-dev, because this package is a phpunit dep
 script:
-    - $HOME/.composer/vendor/bin/phpunit --no-coverage
+    - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
 
 jobs:
     include:
