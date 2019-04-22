@@ -10,19 +10,9 @@ matrix:
         - php: nightly
 
 install:
-    - travis_retry composer clearcache
-    - travis_retry composer update
+    - travis_retry composer install --no-interaction --prefer-dist --optimize-autoloader
 script:
     - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
-
-jobs:
-    include:
-
-        - stage: Test
-          php: 7.3
-          name: "PHPUnit"
-          script:
-              - $TRAVIS_BUILD_DIR/.composer/vendor/bin/phpunit --no-coverage
 
 cache:
     directories:
