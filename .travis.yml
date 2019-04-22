@@ -21,11 +21,9 @@ jobs:
 
         - stage: test
           php: 7.3
-          name: "php 7.1 Smoke test"
+          name: "php 7.3 Smoke test"
           before_script:
               - travis_retry sudo apt install graphviz
-          script:
-              - ./bin/phpdoc run
 
         - stage: analysis
           php: 7.3
