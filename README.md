@@ -12,7 +12,7 @@ With _API as a Service_ you can easily build PHP APIs via a GUI.
 ## Table of Contents
 
 1. [Essential](#essential)
-2. [Start Containers](#start-containers)
+2. [Installation](#installation)
 3. [Visit Docs](#visit-docs)
 4. [Useful commands for development](#useful-commands-for-development)
 5. [Continuous Integration](#continuous-integration)
