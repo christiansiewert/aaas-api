@@ -9,6 +9,14 @@ This is the _API as a Service_ API.
 
 With _API as a Service_ you can easily build PHP APIs via a GUI.
 
+## Table of Contents
+
+1. [Essential](#essential)
+2. [Start Containers](#start-containers)
+3. [Visit Docs](#visit-docs)
+4. [Useful commands for development](#useful-commands-for-development)
+5. [Continuous Integration](#continuous-integration)
+
 ## Essential
 
 #### Requirements
@@ -22,18 +30,18 @@ Application configuration is stored in `.env` file.
 #### Application environment
 You can change application environment to `dev` of `prod` by changing `APP_ENV` variable in `.env` file.
 
-#### DB name and credentials
+#### Database and credentials
 An `app` database is created by default with user `app` and password `app`. root password is `app`.
 
 ## Installation
 
-### 1. Start Containers 
+### Start Containers 
 
 ```bash
 docker-compose up
 ```
 
-### 2. Build Backend
+### Build Backend
 
 #### Install dependencies
 
@@ -50,7 +58,7 @@ $ docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out co
 
 Don't forget to update `JWT_PASSPHRASE` in `.env` file. By default it's `app!`
 
-### 3. Build Database
+### Deploy Database Schema
 
 Update database credentials in `.env` and deploy schema:
 
