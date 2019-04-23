@@ -14,99 +14,99 @@ namespace App\Tests\Entitiy;
 use App\Entity\Repository;
 use App\Entity\Service;
 use App\Entity\ServiceField;
-use PHPUnit\Framework\TestCase;
+use App\Tests\EntityTestCase;
+use \InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceTest extends TestCase
+class ServiceTest extends EntityTestCase
 {
     /**
      * @var Service
      */
-    private $service;
+    private $object;
 
     /**
      * @inheritDoc
      */
     protected function setUp()
     {
-        $this->service = new Service();
+        $this->object = new Service();
     }
 
     public function testIdGettable()
     {
-        $this->assertNull($this->service->getId());
+        $this->assertMemberEquals('id', $this->object);
     }
 
     public function testNameGettable()
     {
-        $this->assertNull($this->service->getName());
+        $this->assertMemberEquals('name', $this->object);
     }
 
     public function testNameSettable()
     {
-        $this->service->setName('name');
-        $this->assertEquals('name', $this->service->getName());
+        $this->object->setName('name');
+        $this->assertMemberEquals('name', $this->object, 'name');
     }
 
     public function testDescriptionGettable()
     {
-        $this->assertNull($this->service->getDescription());
+        $this->assertMemberEquals('description', $this->object);
     }
 
     public function testDescriptionSettable()
     {
-        $this->service->setDescription('description');
-        $this->assertEquals('description', $this->service->getDescription());
+        $this->object->setDescription('description');
+        $this->assertMemberEquals('description', $this->object, 'description');
     }
 
     public function testTypeGettable()
     {
-        $this->assertNull($this->service->getType());
+        $this->assertMemberEquals('type', $this->object);
     }
 
     public function testTypeSettable()
     {
-        $this->service->setType(Service::TYPE_LIST);
-        $this->assertEquals(Service::TYPE_LIST, $this->service->getType());
+        $this->object->setType(Service::TYPE_LIST);
+        $this->assertMemberEquals('type', $this->object, Service::TYPE_LIST);
     }
 
     public function testInvalidTypeRaisesException()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->service->setType('nil');
+        $this->expectException(InvalidArgumentException::class);
+        $this->object->setType('nil');
     }
 
     public function testRepositoryGettable()
     {
-        $this->assertNull($this->service->getRepository());
+        $this->assertNull($this->object->getRepository());
     }
 
     public function testRepositorySettable()
     {
-        $repository = new Repository();
-        $this->service->setRepository($repository);
-        $this->assertEquals($repository, $this->service->getRepository());
+        $relation = new Repository();
+        $this->object->setRepository(new Repository());
+        $this->assertEquals($relation, $this->object->getRepository());
     }
 
     public function testServiceFieldsGettable()
     {
-        $this->assertCount(0, $this->service->getServiceFields());
+        $this->assertCount(0, $this->object->getServiceFields());
     }
 
     public function testServiceFieldsAddable()
     {
-        $serviceField = new ServiceField();
-        $this->service->addServiceField($serviceField);
-        $this->assertCount(1, $this->service->getServiceFields());
+        $this->object->addServiceField(new ServiceField());
+        $this->assertCount(1, $this->object->getServiceFields());
     }
 
     public function testServiceFieldsRemovable()
     {
-        $serviceField = new ServiceField();
-        $this->service->addServiceField($serviceField);
-        $this->service->removeServiceField($serviceField);
-        $this->assertCount(0, $this->service->getServiceFields());
+        $relation = new ServiceField();
+        $this->object->addServiceField($relation);
+        $this->object->removeServiceField($relation);
+        $this->assertCount(0, $this->object->getServiceFields());
     }
 }
