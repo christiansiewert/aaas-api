@@ -5,24 +5,24 @@
 
 # API as a Service - API
 
-This is the **API as a Service** API.
+This is the _API as a Service_ API.
 
-With **API as a Service** you can easily build PHP APIs via a GUI.
+With _API as a Service_ you can easily build PHP APIs via a GUI.
 
-# Installation Instructions
+## Essential
 
-## Requirements
+#### Requirements
 
 * [Docker and Docker Compose]
 
-## Configuration
+#### Configuration
 
 Application configuration is stored in `.env` file. 
 
-### Application environment
+#### Application environment
 You can change application environment to `dev` of `prod` by changing `APP_ENV` variable in `.env` file.
 
-### DB name and credentials
+#### DB name and credentials
 An `app` database is created by default with user `app` and password `app`. root password is `app`.
 
 ## Installation
@@ -35,13 +35,13 @@ docker-compose up
 
 ### 2. Build Backend
 
-Install dependencies
+#### Install dependencies
 
 ```bash
 docker-compose exec php composer update
 ```
 
-Generate JWT Certificate
+#### Generate JWT Certificate
 
 ```bash
 $ docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 4096
@@ -70,13 +70,12 @@ If you want to load the fixtures run:
 docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
 ```
 
-# Visit Docs
+## Visit Docs
 
 For [Swagger UI] open https://localhost in your browser.
 
-# Useful commands and shortcuts
+## Useful commands for development
 
-## Shortcuts
 It is recommended to add short aliases for the following frequently used container commands:
 
 * `docker-compose exec php /bin/bash` to run a shell inside the php container
@@ -84,11 +83,11 @@ It is recommended to add short aliases for the following frequently used contain
 * `docker-compose exec php bin/console` to run Symfony CLI commands
 * `docker-compose exec php bin/console cache:clear` to clear cache
 * `docker-compose exec php composer update` to update composer dependencies
-* `docker-compose exec mariadb mysql -u app -p app` to run MySQL commands (Password is `app`)
+* `docker-compose exec mariadb mysql -u app -p app` to run MySQL commands
 
-# Continuous Integration
+## Continuous Integration
 
-#### Running tests
+#### Running PHPUnit Tests
 
 ```bash
 docker-compose exec php bin/phpunit
@@ -97,27 +96,27 @@ docker-compose exec php bin/phpunit
 #### Generate PHP CodeSniffer XML Report
 
 ```bash
-docker-compose exec php ./vendor/bin/phpcs --report=xml --report-file=./docs/phpcs.xml
+docker-compose exec php vendor/bin/phpcs --report=xml --report-file=docs/phpcs.xml
 ```
 
-#### Generate Code Coverage HTML Report
+#### Generate PHPUnit Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html ./docs/coverage
+docker-compose exec php php bin/phpunit --coverage-html docs/coverage
 ```
 
 #### Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php ./vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile ./docs/phpmd.html
+docker-compose exec php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile docs/phpmd.html
 ```
 
 #### Generate PHP Depend Metrics
 
 ```bash
-docker-compose exec php ./vendor/bin/pdepend --summary-xml=./docs/php-pdepend.xml \
---jdepend-chart=./docs/php-jdepend.svg --overview-pyramid=./docs/php-pyramid.svg \
---ignore=src/Migrations/ ./src
+docker-compose exec php vendor/bin/pdepend --summary-xml=docs/php-pdepend.xml \
+--jdepend-chart=docs/php-jdepend.svg --overview-pyramid=docs/php-pyramid.svg \
+--ignore=src/Migrations/ src/
 ```
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
