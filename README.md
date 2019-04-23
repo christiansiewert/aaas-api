@@ -6,7 +6,7 @@
 
 # API as a Service - API
 
-This is the _API as a Service_ API.
+This is the API for _API as a Service_.
 
 With _API as a Service_ you can easily build PHP APIs via a GUI.
 
