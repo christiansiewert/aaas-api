@@ -24,9 +24,9 @@ class EntityTestCase extends TestCase
      *
      * @param string $member
      * @param $object
-     * @param string|null $expected
+     * @param mixed|null $expected
      */
-    public function assertMemberEquals(string $member, $object, string $expected = null)
+    public function assertMemberEquals(string $member, $object, $expected = null)
     {
         $method = 'get' . ucfirst($member);
 
