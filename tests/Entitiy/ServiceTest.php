@@ -14,13 +14,13 @@ namespace App\Tests\Entitiy;
 use App\Entity\Repository;
 use App\Entity\Service;
 use App\Entity\ServiceField;
-use App\Tests\EntityTestCase;
+use PHPUnit\Framework\TestCase;
 use \InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceTest extends EntityTestCase
+class ServiceTest extends TestCase
 {
     /**
      * @var Service
@@ -37,40 +37,40 @@ class ServiceTest extends EntityTestCase
 
     public function testIdGettable()
     {
-        $this->assertMemberEquals('id', $this->object);
+        $this->assertNull($this->object->getId());
     }
 
     public function testNameGettable()
     {
-        $this->assertMemberEquals('name', $this->object);
+        $this->assertNull($this->object->getName());
     }
 
     public function testNameSettable()
     {
         $this->object->setName('name');
-        $this->assertMemberEquals('name', $this->object, 'name');
+        $this->assertEquals('name', $this->object->getName());
     }
 
     public function testDescriptionGettable()
     {
-        $this->assertMemberEquals('description', $this->object);
+        $this->assertNull($this->object->getDescription());
     }
 
     public function testDescriptionSettable()
     {
         $this->object->setDescription('description');
-        $this->assertMemberEquals('description', $this->object, 'description');
+        $this->assertEquals('description', $this->object->getDescription());
     }
 
     public function testTypeGettable()
     {
-        $this->assertMemberEquals('type', $this->object);
+        $this->assertNull($this->object->getType());
     }
 
     public function testTypeSettable()
     {
         $this->object->setType(Service::TYPE_LIST);
-        $this->assertMemberEquals('type', $this->object, Service::TYPE_LIST);
+        $this->assertEquals(Service::TYPE_LIST, $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()

@@ -13,12 +13,12 @@ namespace App\Tests\Entitiy;
 
 use App\Entity\AssertOption;
 use App\Entity\FieldAssert;
-use App\Tests\EntityTestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class AssertOptionTest extends EntityTestCase
+class AssertOptionTest extends TestCase
 {
     /**
      * @var AssertOption
@@ -35,34 +35,34 @@ class AssertOptionTest extends EntityTestCase
 
     public function testIdGettable()
     {
-        $this->assertMemberEquals('id', $this->object);
+        $this->assertNull($this->object->getId());
     }
 
     public function testNameGettable()
     {
-        $this->assertMemberEquals('name', $this->object);
+        $this->assertNull($this->object->getName());
     }
 
     public function testNameSettable()
     {
         $this->object->setName('name');
-        $this->assertMemberEquals('name', $this->object, 'name');
+        $this->assertEquals('name', $this->object->getName());
     }
 
     public function testValueGettable()
     {
-        $this->assertMemberEquals('value', $this->object);
+        $this->assertNull($this->object->getValue());
     }
 
     public function testValueSettable()
     {
         $this->object->setValue('value');
-        $this->assertMemberEquals('value', $this->object, 'value');
+        $this->assertEquals('value', $this->object->getValue());
     }
 
     public function testFieldAssertGettable()
     {
-        $this->assertMemberEquals('fieldAssert', $this->object);
+        $this->assertNull($this->object->getFieldAssert());
     }
 
     public function testFieldAssertSettable()

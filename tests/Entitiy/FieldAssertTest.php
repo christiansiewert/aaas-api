@@ -14,12 +14,12 @@ namespace App\Tests\Entitiy;
 use App\Entity\AssertOption;
 use App\Entity\FieldAssert;
 use App\Entity\ServiceField;
-use App\Tests\EntityTestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldAssertTest extends EntityTestCase
+class FieldAssertTest extends TestCase
 {
     /**
      * @var FieldAssert
@@ -36,18 +36,18 @@ class FieldAssertTest extends EntityTestCase
 
     public function testIdGettable()
     {
-        $this->assertMemberEquals('id', $this->object);
+        $this->assertNull($this->object->getId());
     }
 
     public function testNameGettable()
     {
-        $this->assertMemberEquals('name', $this->object);
+        $this->assertNull($this->object->getName());
     }
 
     public function testNameSettable()
     {
         $this->object->setName('name');
-        $this->assertMemberEquals('name', $this->object, 'name');
+        $this->assertEquals('name', $this->object->getName());
     }
 
     public function testOptionsGettable()
@@ -71,7 +71,7 @@ class FieldAssertTest extends EntityTestCase
 
     public function testServiceFieldGettable()
     {
-        $this->assertMemberEquals('serviceField', $this->object);
+        $this->assertNull($this->object->getServiceField());
     }
 
     public function testServiceFieldSettable()

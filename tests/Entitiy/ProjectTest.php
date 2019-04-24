@@ -13,12 +13,12 @@ namespace App\Tests\Entitiy;
 
 use App\Entity\Project;
 use App\Entity\Repository;
-use App\Tests\EntityTestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectTest extends EntityTestCase
+class ProjectTest extends TestCase
 {
     /**
      * @var Project
@@ -35,29 +35,29 @@ class ProjectTest extends EntityTestCase
 
     public function testIdGettable()
     {
-        $this->assertMemberEquals('id', $this->object);
+        $this->assertNull($this->object->getId());
     }
 
     public function testNameGettable()
     {
-        $this->assertMemberEquals('name', $this->object);
+        $this->assertNull($this->object->getName());
     }
 
     public function testNameSettable()
     {
         $this->object->setName('name');
-        $this->assertMemberEquals('name', $this->object, 'name');
+        $this->assertEquals('name', $this->object->getName());
     }
 
     public function testDescriptionGettable()
     {
-        $this->assertMemberEquals('description', $this->object);
+        $this->assertNull($this->object->getDescription());
     }
 
     public function testDescriptionSettable()
     {
         $this->object->setDescription('description');
-        $this->assertMemberEquals('description', $this->object, 'description');
+        $this->assertEquals('description', $this->object->getDescription());
     }
 
     public function testRepositoriesGettable()
