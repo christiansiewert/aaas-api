@@ -15,7 +15,7 @@ use App\Entity\Repository;
 use App\Entity\Service;
 use App\Entity\ServiceField;
 use PHPUnit\Framework\TestCase;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
