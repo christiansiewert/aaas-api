@@ -15,6 +15,7 @@ use App\Entity\FieldAssert;
 use App\Entity\FieldOption;
 use App\Entity\ServiceField;
 use PHPUnit\Framework\TestCase;
+use \InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
@@ -63,7 +64,7 @@ class ServiceFieldTest extends TestCase
 
     public function testDataTypeGettable()
     {
-        $this->assertNull($this->object->getDataType());
+        $this->assertEquals('string', $this->object->getDataType());
     }
 
     public function testDataTypeSettable()
@@ -163,5 +164,11 @@ class ServiceFieldTest extends TestCase
         $this->object->addAssertion($relation);
         $this->object->removeAssertion($relation);
         $this->assertCount(0, $this->object->getAssertions());
+    }
+
+    public function testInvalidDataTypeRaisesException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->object->setDataType('NIL');
     }
 }

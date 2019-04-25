@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use InvalidArgumentException;
 
 /**
  * A ServiceField represents a column in your database table.
@@ -37,6 +38,16 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 class ServiceField
 {
     /**
+     * @todo add more data types
+     */
+    const VALID_DATA_TYPES = array(
+        'string',
+        'integer',
+        'boolean',
+        'text'
+    );
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -56,7 +67,7 @@ class ServiceField
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $dataType;
+    private $dataType = 'string';
 
     /**
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -144,6 +155,10 @@ class ServiceField
 
     public function setDataType(string $dataType): self
     {
+        if (!in_array($dataType, self::VALID_DATA_TYPES)) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
         $this->dataType = $dataType;
 
         return $this;

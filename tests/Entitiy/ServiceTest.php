@@ -76,7 +76,7 @@ class ServiceTest extends TestCase
     public function testInvalidTypeRaisesException()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->object->setType('nil');
+        $this->object->setType('NIL');
     }
 
     public function testRepositoryGettable()
