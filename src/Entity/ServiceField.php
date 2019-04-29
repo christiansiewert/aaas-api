@@ -38,6 +38,8 @@ use InvalidArgumentException;
 class ServiceField
 {
     /**
+     * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.4/reference/types.html
+     *
      * @todo add more data types
      */
     const VALID_DATA_TYPES = array(
@@ -65,12 +67,12 @@ class ServiceField
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"default" : "string"})
      */
     private $dataType = 'string';
 
     /**
-     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 255, "unsigned"=true})
      */
     private $length = 255;
 
