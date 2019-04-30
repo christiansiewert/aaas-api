@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -31,6 +31,7 @@ use InvalidArgumentException;
  *     }
  * )
  * @ORM\Entity()
+ * @ORM\Table(name="App_Service_Field")
  * @author Christian Siewert <christian@sieware.international>
  *
  * @todo implement relational connections
@@ -38,13 +39,17 @@ use InvalidArgumentException;
 class ServiceField
 {
     /**
-     * @todo add more data types
+     * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.9/reference/types.html#types
      */
     const VALID_DATA_TYPES = array(
         'string',
         'integer',
         'boolean',
-        'text'
+        'text',
+        'float',
+        'date',
+        'time',
+        'datetime'
     );
 
     /**
@@ -65,12 +70,12 @@ class ServiceField
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"default" : "string"})
      */
     private $dataType = 'string';
 
     /**
-     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 255, "unsigned"=true})
      */
     private $length = 255;
 
@@ -95,7 +100,7 @@ class ServiceField
     private $dataTypeScale;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="serviceFields")
+     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="serviceFields")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
@@ -224,12 +229,12 @@ class ServiceField
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getService(): ?RepositoryService
     {
         return $this->service;
     }
 
-    public function setService(?Service $service): self
+    public function setService(?RepositoryService $service): self
     {
         $this->service = $service;
 

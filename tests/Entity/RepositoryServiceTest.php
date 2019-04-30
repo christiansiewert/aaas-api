@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Tests\Entitiy;
+namespace App\Tests\Entity;
 
-use App\Entity\Repository;
-use App\Entity\Service;
+use App\Entity\ProjectRepository;
+use App\Entity\RepositoryService;
 use App\Entity\ServiceField;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
@@ -20,10 +20,10 @@ use InvalidArgumentException;
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceTest extends TestCase
+class RepositoryServiceTest extends TestCase
 {
     /**
-     * @var Service
+     * @var RepositoryService
      */
     private $object;
 
@@ -32,7 +32,7 @@ class ServiceTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new Service();
+        $this->object = new RepositoryService();
     }
 
     public function testIdGettable()
@@ -69,8 +69,8 @@ class ServiceTest extends TestCase
 
     public function testTypeSettable()
     {
-        $this->object->setType(Service::TYPE_LIST);
-        $this->assertEquals(Service::TYPE_LIST, $this->object->getType());
+        $this->object->setType(RepositoryService::TYPE_LIST);
+        $this->assertEquals(RepositoryService::TYPE_LIST, $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()
@@ -86,8 +86,8 @@ class ServiceTest extends TestCase
 
     public function testRepositorySettable()
     {
-        $relation = new Repository();
-        $this->object->setRepository(new Repository());
+        $relation = new ProjectRepository();
+        $this->object->setRepository(new ProjectRepository());
         $this->assertEquals($relation, $this->object->getRepository());
     }
 
