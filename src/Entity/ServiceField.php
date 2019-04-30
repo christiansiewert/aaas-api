@@ -38,15 +38,17 @@ use InvalidArgumentException;
 class ServiceField
 {
     /**
-     * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.4/reference/types.html
-     *
-     * @todo add more data types
+     * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.9/reference/types.html#types
      */
     const VALID_DATA_TYPES = array(
         'string',
         'integer',
         'boolean',
-        'text'
+        'text',
+        'float',
+        'date',
+        'time',
+        'datetime'
     );
 
     /**
