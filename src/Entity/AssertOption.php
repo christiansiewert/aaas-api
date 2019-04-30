@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -27,6 +27,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     }
  * )
  * @ORM\Entity()
+ * @ORM\Table(name="App_Assert_Option")
  * @author Christian Siewert <christian@sieware.international>
  */
 class AssertOption
