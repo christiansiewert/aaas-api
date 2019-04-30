@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -30,6 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     }
  * )
  * @ORM\Entity()
+ * @ORM\Table(name="App_Project")
  * @author Christian Siewert <christian@sieware.international>
  */
 class Project
@@ -52,7 +53,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Repository", mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true)
      */
     private $repositories;
 
@@ -91,14 +92,14 @@ class Project
     }
 
     /**
-     * @return Collection|Repository[]
+     * @return Collection|ProjectRepository[]
      */
     public function getRepositories(): Collection
     {
         return $this->repositories;
     }
 
-    public function addRepository(Repository $repository): self
+    public function addRepository(ProjectRepository $repository): self
     {
         if (!$this->repositories->contains($repository)) {
             $this->repositories[] = $repository;
@@ -108,7 +109,7 @@ class Project
         return $this;
     }
 
-    public function removeRepository(Repository $repository): self
+    public function removeRepository(ProjectRepository $repository): self
     {
         if ($this->repositories->contains($repository)) {
             $this->repositories->removeElement($repository);

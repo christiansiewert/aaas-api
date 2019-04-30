@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -9,19 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Tests\Entitiy;
+namespace App\Tests\Entity;
 
 use App\Entity\Project;
-use App\Entity\Repository;
+use App\Entity\ProjectRepository;
+use App\Entity\RepositoryService;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectTest extends TestCase
+class ProjectRepositoryTest extends TestCase
 {
     /**
-     * @var Project
+     * @var ProjectRepository
      */
     private $object;
 
@@ -30,7 +31,7 @@ class ProjectTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new Project();
+        $this->object = new ProjectRepository();
     }
 
     public function testIdGettable()
@@ -60,22 +61,34 @@ class ProjectTest extends TestCase
         $this->assertEquals('description', $this->object->getDescription());
     }
 
-    public function testRepositoriesGettable()
+    public function testProjectGettable()
     {
-        $this->assertCount(0, $this->object->getRepositories());
+        $this->assertNull($this->object->getProject());
     }
 
-    public function testRepositoriesAddable()
+    public function testProjectSettable()
     {
-        $this->object->addRepository(new Repository());
-        $this->assertCount(1, $this->object->getRepositories());
+        $project = new Project();
+        $this->object->setProject($project);
+        $this->assertEquals($project, $this->object->getProject());
     }
 
-    public function testRepositoriesRemovable()
+    public function testServicesGettable()
     {
-        $relation = new Repository();
-        $this->object->addRepository($relation);
-        $this->object->removeRepository($relation);
-        $this->assertCount(0, $this->object->getRepositories());
+        $this->assertCount(0, $this->object->getServices());
+    }
+
+    public function testServicesAddable()
+    {
+        $this->object->addService(new RepositoryService());
+        $this->assertCount(1, $this->object->getServices());
+    }
+
+    public function testServicesRemovable()
+    {
+        $relation = new RepositoryService();
+        $this->object->addService($relation);
+        $this->object->removeService($relation);
+        $this->assertCount(0, $this->object->getServices());
     }
 }

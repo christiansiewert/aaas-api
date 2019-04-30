@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -17,9 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use \InvalidArgumentException;
 
 /**
- * A Repository holds services.
+ * A service represents a table in your database and holds
+ * several field definitions.
  *
  * @ApiResource()
  * @ApiFilter(
@@ -30,10 +32,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     }
  * )
  * @ORM\Entity()
+ * @ORM\Table(name="App_Repository_Service")
  * @author Christian Siewert <christian@sieware.international>
  */
-class Repository
+class RepositoryService
 {
+    const TYPE_LIST = 'list';
+    const TYPE_TREE = 'tree';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -52,19 +58,24 @@ class Repository
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="repositories")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $project;
+    private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Service", mappedBy="repository", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRepository", inversedBy="services")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $services;
+    private $repository;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true)
+     */
+    private $serviceFields;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection();
+        $this->serviceFields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,43 +107,59 @@ class Repository
         return $this;
     }
 
-    public function getProject(): ?Project
+    public function getType(): ?string
     {
-        return $this->project;
+        return $this->type;
     }
 
-    public function setProject(?Project $project): self
+    public function setType(string $type): self
     {
-        $this->project = $project;
+        if (!in_array($type, array(self::TYPE_LIST, self::TYPE_TREE))) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getRepository(): ?ProjectRepository
+    {
+        return $this->repository;
+    }
+
+    public function setRepository(?ProjectRepository $repository): self
+    {
+        $this->repository = $repository;
 
         return $this;
     }
 
     /**
-     * @return Collection|Service[]
+     * @return Collection|ServiceField[]
      */
-    public function getServices(): Collection
+    public function getServiceFields(): Collection
     {
-        return $this->services;
+        return $this->serviceFields;
     }
 
-    public function addService(Service $service): self
+    public function addServiceField(ServiceField $serviceField): self
     {
-        if (!$this->services->contains($service)) {
-            $this->services[] = $service;
-            $service->setRepository($this);
+        if (!$this->serviceFields->contains($serviceField)) {
+            $this->serviceFields[] = $serviceField;
+            $serviceField->setService($this);
         }
 
         return $this;
     }
 
-    public function removeService(Service $service): self
+    public function removeServiceField(ServiceField $serviceField): self
     {
-        if ($this->services->contains($service)) {
-            $this->services->removeElement($service);
+        if ($this->serviceFields->contains($serviceField)) {
+            $this->serviceFields->removeElement($serviceField);
             // set the owning side to null (unless already changed)
-            if ($service->getRepository() === $this) {
-                $service->setRepository(null);
+            if ($serviceField->getService() === $this) {
+                $serviceField->setService(null);
             }
         }
 

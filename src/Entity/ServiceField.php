@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API as a Service Project.
+ * This file is part of API as a Service.
  *
  * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
  *
@@ -31,6 +31,7 @@ use InvalidArgumentException;
  *     }
  * )
  * @ORM\Entity()
+ * @ORM\Table(name="App_Service_Field")
  * @author Christian Siewert <christian@sieware.international>
  *
  * @todo implement relational connections
@@ -99,7 +100,7 @@ class ServiceField
     private $dataTypeScale;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="serviceFields")
+     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="serviceFields")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
@@ -228,12 +229,12 @@ class ServiceField
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getService(): ?RepositoryService
     {
         return $this->service;
     }
 
-    public function setService(?Service $service): self
+    public function setService(?RepositoryService $service): self
     {
         $this->service = $service;
 
