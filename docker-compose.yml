@@ -21,7 +21,7 @@ services:
         depends_on:
             - mariadb
         volumes:
-            - .:/app
+            - .:/app:cached
         working_dir: /app
         user: "1000:1000"
     nginx:
@@ -46,3 +46,5 @@ services:
 volumes:
     mariadb_data:
     redis_data:
+    app_var:
+    app_vendor:
