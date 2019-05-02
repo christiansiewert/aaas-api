@@ -27,19 +27,19 @@ class RelationJoincolumn
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"default" : "id"})
      */
-    private $referencedColumnName;
+    private $referencedColumnName = 'id';
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isUnique;
+    private $isUnique = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $isNullable;
+    private $isNullable = true;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", mappedBy="joinColumn", cascade={"persist", "remove"})

@@ -39,12 +39,14 @@ class FieldRelation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=2, options={"default" : "1n"})
      */
-    private $type;
+    private $type = '1n';
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @todo maybe we should map this to an object instead of a string
      */
     private $targetEntity;
 
