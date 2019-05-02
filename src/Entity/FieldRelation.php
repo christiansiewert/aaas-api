@@ -76,7 +76,11 @@ class FieldRelation
     private $cascades;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\RelationJoincolumn", inversedBy="fieldRelation", cascade={"persist", "remove"})
+     * @ORM\OneToOne(
+     *     targetEntity="App\Entity\RelationJoincolumn",
+     *     inversedBy="fieldRelation",
+     *     cascade={"persist", "remove"}
+     * )
      */
     private $joinColumn;
 
