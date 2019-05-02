@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Service fields now can contain relational connections to other service fields
+
+### Changed
+
+- Improvements to docker-compose.yml
+
 ## [0.0.8] - 2019-04-30
 
 ### Added

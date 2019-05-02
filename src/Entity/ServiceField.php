@@ -33,8 +33,6 @@ use InvalidArgumentException;
  * @ORM\Entity()
  * @ORM\Table(name="App_Service_Field")
  * @author Christian Siewert <christian@sieware.international>
- *
- * @todo implement relational connections
  */
 class ServiceField
 {
@@ -117,6 +115,11 @@ class ServiceField
      * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
      */
     private $assertions;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", inversedBy="serviceField", cascade={"persist", "remove"})
+     */
+    private $relation;
 
     public function __construct()
     {
@@ -299,6 +302,18 @@ class ServiceField
                 $assertion->setServiceField(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRelation(): ?FieldRelation
+    {
+        return $this->relation;
+    }
+
+    public function setRelation(?FieldRelation $relation): self
+    {
+        $this->relation = $relation;
 
         return $this;
     }
