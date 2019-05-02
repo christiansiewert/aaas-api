@@ -1,48 +1,47 @@
-version: "3.4"
-
+version: "3.7"
 services:
-    mariadb:
-        image: bitnami/mariadb:latest
-        environment:
-            - MARIADB_USER=app
-            - MARIADB_PASSWORD=app
-            - MARIADB_DATABASE=app
-            - MARIADB_ROOT_PASSWORD=app
-        restart: always
-        ports:
-            - 3306:3306
-        volumes:
-            - mariadb_data:/bitnami
-            - ./docs:/app/docs
-    php:
-        image: webdevops/php-dev:7.3
-        environment:
-            - PHP_DATE_TIMEZONE=Europe/Berlin
-        depends_on:
-            - mariadb
-        volumes:
-            - .:/app:cached
-        working_dir: /app
-        user: "1000:1000"
-    nginx:
-        image: webdevops/nginx-dev:alpine
-        environment:
-            - WEB_DOCUMENT_ROOT=/app/public
-        volumes:
-            - .:/app
-            - ./config/docker/etc/nginx/vhost.common.d:/opt/docker/etc/nginx/vhost.common.d
-        ports:
-            - 80:80
-            - 443:443
-    redis:
-        image: bitnami/redis:latest
-        environment:
-            - REDIS_MASTER_PASSWORD=app
-            - REDIS_PASSWORD=app
-        ports:
-            - 6379:6379
-        volumes:
-            - redis_data:/bitnami/redis
+  mariadb:
+    image: bitnami/mariadb:latest
+    environment:
+      - MARIADB_USER=app
+      - MARIADB_PASSWORD=app
+      - MARIADB_DATABASE=app
+      - MARIADB_ROOT_PASSWORD=app
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data:/bitnami
+      - ./docs:/app/docs
+  php:
+    image: webdevops/php-dev:7.3
+    environment:
+      - PHP_DATE_TIMEZONE=Europe/Berlin
+    depends_on:
+      - mariadb
+    volumes:
+      - .:/app:cached
+    working_dir: /app
+    user: "1000:1000"
+  nginx:
+    image: webdevops/nginx-dev:alpine
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+    volumes:
+      - .:/app
+      - ./config/docker/etc/nginx/vhost.common.d:/opt/docker/etc/nginx/vhost.common.d
+    ports:
+      - 80:80
+      - 443:443
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - REDIS_MASTER_PASSWORD=app
+      - REDIS_PASSWORD=app
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/bitnami/redis
 volumes:
-    mariadb_data:
-    redis_data:
+  mariadb_data:
+  redis_data:
