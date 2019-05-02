@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.9] - 2019-05-02
+
+### Added
+
+- Service fields now can contain relational connections to other service fields
+
+### Changed
+
+- Improvements to docker-compose.yml
+
+## [0.0.8] - 2019-04-30
+
 ### Added
 
 - Check for valid data types in service fields
@@ -73,7 +85,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.7...HEAD
+[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.0.9...HEAD
+[0.0.9]: https://github.com/siewert87/aaas-api/compare/v0.0.8...v0.0.9
+[0.0.8]: https://github.com/siewert87/aaas-api/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/siewert87/aaas-api/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/siewert87/aaas-api/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/siewert87/aaas-api/compare/v0.0.4...v0.0.5
