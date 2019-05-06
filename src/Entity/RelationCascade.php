@@ -13,6 +13,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use InvalidArgumentException;
 
 /**
  * This maps cascade options of field relations.
@@ -23,6 +24,18 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class RelationCascade
 {
+    /**
+     * Valid cascade operations
+     */
+    const CASCADE_OPERATIONS = array(
+        'persist',
+        'remove',
+        'merge',
+        'detach',
+        'refresh',
+        'all'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -53,6 +66,10 @@ class RelationCascade
 
     public function setValue(string $value): self
     {
+        if (!in_array($value, self::CASCADE_OPERATIONS)) {
+            throw new InvalidArgumentException('NIL');
+        }
+
         $this->value = $value;
 
         return $this;

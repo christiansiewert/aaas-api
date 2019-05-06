@@ -114,6 +114,50 @@ class FieldRelationTest extends TestCase
         $this->assertEquals($serviceField, $this->object->getServiceField());
     }
 
+    public function testJoinColumnIsUniqueGettable()
+    {
+        $this->assertFalse($this->object->getJoinColumnIsUnique());
+    }
+
+    public function testJoinColumnIsUniqueSettable()
+    {
+        $this->object->setJoinColumnIsUnique(true);
+        $this->assertTrue($this->object->getJoinColumnIsUnique());
+    }
+
+    public function testJoinColumnIsNullableGettable()
+    {
+        $this->assertTrue($this->object->getJoinColumnIsNullable());
+    }
+
+    public function testJoinColumnIsNullableSettable()
+    {
+        $this->object->setJoinColumnIsNullable(false);
+        $this->assertFalse($this->object->getJoinColumnIsNullable());
+    }
+
+    public function testJoinColumnNameGettable()
+    {
+        $this->assertNull($this->object->getJoinColumnName());
+    }
+
+    public function testJoinColumnNameSettable()
+    {
+        $this->object->setJoinColumnName('name');
+        $this->assertEquals('name', $this->object->getJoinColumnName());
+    }
+
+    public function testJoinColumnReferencedColumnNameGettable()
+    {
+        $this->assertEquals('id', $this->object->getJoinColumnReferencedColumnName());
+    }
+
+    public function testJoinColumnReferencedColumnNameSettable()
+    {
+        $this->object->setJoinColumnReferencedColumnName('name');
+        $this->assertEquals('name', $this->object->getJoinColumnReferencedColumnName());
+    }
+
     public function testCascadesGettable()
     {
         $this->assertCount(0, $this->object->getCascades());
@@ -131,17 +175,5 @@ class FieldRelationTest extends TestCase
         $this->object->addCascade($cascade);
         $this->object->removeCascade($cascade);
         $this->assertCount(0, $this->object->getCascades());
-    }
-
-    public function testJoincolumnGettable()
-    {
-        $this->assertNull($this->object->getJoinColumn());
-    }
-
-    public function testJoinColumnSettable()
-    {
-        $joinColumn = new RelationJoincolumn();
-        $this->object->setJoinColumn($joinColumn);
-        $this->assertEquals($joinColumn, $this->object->getJoinColumn());
     }
 }
