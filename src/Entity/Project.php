@@ -21,7 +21,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * A Project holds repositories.
  *
- * @ApiResource()
+ * @ApiResource(
+ *     itemOperations={
+ *         "generator" = {"route_name" = "project_generator"}
+ *     }
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
