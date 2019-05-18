@@ -12,4 +12,8 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
+    App\Action\:
+        resource: '../src/Action/'
+        tags: ['controller.service_arguments']
+
     Symfony\Bundle\MakerBundle\Generator: '@maker.generator'

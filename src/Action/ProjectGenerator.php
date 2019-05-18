@@ -13,6 +13,7 @@ namespace App\Action;
 
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Project;
 
 /**
  * Generator actions for project resources
@@ -36,18 +37,19 @@ class ProjectGenerator
 
     /**
      * @Route(
-     *     name = "project_generator",
-     *     methods = {"POST"},
-     *     path = "/projects/{id}/generate",
-     *     defaults = {
+     *     name="project_generator",
+     *     methods={"GET"},
+     *     path="/projects/{id}/generate",
+     *     defaults={
      *         "_api_resource_class"=Project::class,
      *         "_api_item_operation_name"="generator"
      *     }
      * )
-     * @param mixed $data
      */
     public function __invoke($data)
     {
-        // TODO: Implement __invoke() method.
+        die("foo");
+
+        return $data;
     }
 }

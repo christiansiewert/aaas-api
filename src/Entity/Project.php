@@ -23,7 +23,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ApiResource(
  *     itemOperations={
- *         "generator" = {"route_name" = "project_generator"}
+ *         "get"={"method"="GET"},
+ *         "put"={"method"="PUT"},
+ *         "delete"={"method"="DELETE"},
+ *         "generator"={"route_name"="project_generator"}
  *     }
  * )
  * @ApiFilter(
