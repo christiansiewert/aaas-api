@@ -13,7 +13,6 @@ namespace App\Tests\Entity;
 
 use App\Entity\FieldRelation;
 use App\Entity\RelationCascade;
-use App\Entity\RelationJoincolumn;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -48,6 +47,12 @@ class RelationCascadeTest extends TestCase
     {
         $this->object->setValue('persist');
         $this->assertEquals('persist', $this->object->getValue());
+    }
+
+    public function testInvalidValueRaisesException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->object->setValue('NIL');
     }
 
     public function testFieldRelationGettable()

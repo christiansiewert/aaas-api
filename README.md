@@ -105,26 +105,26 @@ docker-compose exec php bin/phpunit
 #### Generate PHP CodeSniffer XML Report
 
 ```bash
-docker-compose exec php vendor/bin/phpcs --report=xml --report-file=docs/phpcs.xml
+docker-compose exec php vendor/bin/phpcs --report=xml --report-file=build/phpcs.xml
 ```
 
 #### Generate PHPUnit Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html docs/coverage
+docker-compose exec php php bin/phpunit --coverage-html build/coverage
 ```
 
 #### Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile docs/phpmd.html
+docker-compose exec php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile build/phpmd.html
 ```
 
 #### Generate PHP Depend Metrics
 
 ```bash
-docker-compose exec php vendor/bin/pdepend --summary-xml=docs/php-pdepend.xml \
---jdepend-chart=docs/php-jdepend.svg --overview-pyramid=docs/php-pyramid.svg \
+docker-compose exec php vendor/bin/pdepend --summary-xml=build/php-pdepend.xml \
+--jdepend-chart=build/php-jdepend.svg --overview-pyramid=build/php-pyramid.svg \
 --ignore=src/Migrations/ src/
 ```
 
