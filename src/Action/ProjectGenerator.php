@@ -11,9 +11,9 @@
 
 namespace App\Action;
 
-use Symfony\Bundle\MakerBundle\Generator;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Project;
+use App\Service\ProjectBuilder;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Generator actions for project resources
@@ -23,16 +23,16 @@ use App\Entity\Project;
 class ProjectGenerator
 {
     /**
-     * @var Generator
+     * @var ProjectBuilder
      */
-    private $generator;
+    private $builder;
 
     /**
-     * @param Generator $generator
+     * @param ProjectBuilder $builder
      */
-    public function __construct(Generator $generator)
+    public function __construct(ProjectBuilder $builder)
     {
-        $this->generator = $generator;
+        $this->builder = $builder;
     }
 
     /**
@@ -45,10 +45,12 @@ class ProjectGenerator
      *         "_api_item_operation_name"="generator"
      *     }
      * )
+     * @param Project $data
+     * @return Project
      */
     public function __invoke($data)
     {
-        die("foo");
+        $this->builder->build($data);
 
         return $data;
     }
