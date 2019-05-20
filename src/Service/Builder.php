@@ -15,6 +15,7 @@ use App\Entity\Project;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
+use \Exception;
 
 /**
  * Builder builds source code from our project
@@ -26,7 +27,7 @@ class Builder
     /**
      * Namespace to use for our generated entities
      */
-    const NAMESPACE = 'App\Entity\\';
+    const NAMESPACE = 'Build\\';
 
     /**
      * @var Generator
@@ -70,24 +71,26 @@ class Builder
      */
     public function buildService(RepositoryService $service)
     {
-        $targetPath = $this->generateTargetPath(self::NAMESPACE . $service->getName());
-        $dumpPath = str_replace('src', 'build', $targetPath);
-        $this->generator->dumpFile($dumpPath, $this->generator->getFileContentsForPendingOperation($dumpPath));
+        $className = $service->getName();
+        $fqcn = self::NAMESPACE . 'Entity\\' . $className;
+        $targetPath = $this->generateTargetPath($fqcn, $className);
+        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
         $this->generator->writeChanges();
     }
 
     /**
+     * @param string $fqcn
      * @param string $className
+     * @return string
      */
-    public function generateTargetPath(string $className)
+    public function generateTargetPath(string $fqcn, string $className)
     {
         return $this->generator->generateClass(
-            $className,
+            $fqcn,
             'doctrine/Entity.tpl.php',
             array(
-                'namespace' => self::NAMESPACE,
                 'api_resource' => true,
-                'repository_full_class_name' => $className
+                'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository'
             )
         );
     }
