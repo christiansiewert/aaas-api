@@ -12,7 +12,7 @@
 namespace App\Action;
 
 use App\Entity\Project;
-use App\Service\ProjectBuilder;
+use App\Service\Builder;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectGenerator
+class ProjectBuilder
 {
     /**
      * @var ProjectBuilder
@@ -28,21 +28,21 @@ class ProjectGenerator
     private $builder;
 
     /**
-     * @param ProjectBuilder $builder
+     * @param Builder $builder
      */
-    public function __construct(ProjectBuilder $builder)
+    public function __construct(Builder $builder)
     {
         $this->builder = $builder;
     }
 
     /**
      * @Route(
-     *     name="project_generator",
+     *     name="project_builder",
      *     methods={"GET"},
-     *     path="/projects/{id}/generate",
+     *     path="/projects/{id}/build",
      *     defaults={
      *         "_api_resource_class"=Project::class,
-     *         "_api_item_operation_name"="generator"
+     *         "_api_item_operation_name"="builder"
      *     }
      * )
      * @param Project $data

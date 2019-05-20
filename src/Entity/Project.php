@@ -26,7 +26,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "get"={"method"="GET"},
  *         "put"={"method"="PUT"},
  *         "delete"={"method"="DELETE"},
- *         "generator"={"route_name"="project_generator"}
+ *         "builder"={"route_name"="project_builder"}
  *     }
  * )
  * @ApiFilter(

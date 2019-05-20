@@ -17,14 +17,17 @@ use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
 
 /**
- * Project builder builds source code from our project
+ * Builder builds source code from our project
  *
  * @author Christian Siewert <christian@sieware.international>
- *
- * @todo refactor
  */
-class ProjectBuilder
+class Builder
 {
+    /**
+     * Namespace to use for our generated entities
+     */
+    const NAMESPACE = 'App\Entity\\';
+
     /**
      * @var Generator
      */
@@ -48,8 +51,6 @@ class ProjectBuilder
         foreach ($repositories as $repository) {
             $this->buildRepository($repository);
         }
-
-        $this->generator->writeChanges();
     }
 
     /**
@@ -69,18 +70,25 @@ class ProjectBuilder
      */
     public function buildService(RepositoryService $service)
     {
-        $targetPath = $this->generator->generateClass(
-            sprintf('App\Entity\%s', $service->getName()),
+        $targetPath = $this->generateTargetPath(self::NAMESPACE . $service->getName());
+        $dumpPath = str_replace('src', 'build', $targetPath);
+        $this->generator->dumpFile($dumpPath, $this->generator->getFileContentsForPendingOperation($dumpPath));
+        $this->generator->writeChanges();
+    }
+
+    /**
+     * @param string $className
+     */
+    public function generateTargetPath(string $className)
+    {
+        return $this->generator->generateClass(
+            $className,
             'doctrine/Entity.tpl.php',
             array(
-                'namespace' => 'App\Entity',
+                'namespace' => self::NAMESPACE,
                 'api_resource' => true,
-                'repository_full_class_name' => sprintf('App\Entity\%s', $service->getName())
+                'repository_full_class_name' => $className
             )
         );
-
-        $dumpPath = str_replace('src', 'build', $targetPath);
-
-        $this->generator->dumpFile($dumpPath, $this->generator->getFileContentsForPendingOperation($targetPath));
     }
 }
