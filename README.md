@@ -23,7 +23,7 @@ With _API as a Service_ you can easily build PHP APIs via a GUI.
 #### Requirements
 
 * [Docker and Docker Compose]
-* [Docker Sync] if you want to develop on OSX or Windows
+* [Docker Sync] if you want to develop on OSX or Windows (Optional)
 
 #### Configuration
 

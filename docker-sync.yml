@@ -1,15 +1,12 @@
 version: "2"
-options:
-    verbose: true
 syncs:
     symfony-docker-vendor-sync:
         src: "./vendor/"
         sync_strategy: "unison"
         sync_host_port: 10874
         sync_excludes: ["bin/"]
-        sync_args: "-perms=0"
+        sync_userid: "1000"
     symfony-docker-app-sync:
         src: "./"
         sync_host_port: 10877
         sync_excludes: ["./var/cache", "./var/logs", "./var/sessions", "vendor", ".idea", ".git"]
-        notify_terminal: true
