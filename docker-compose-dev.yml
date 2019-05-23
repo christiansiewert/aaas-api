@@ -1,0 +1,15 @@
+version: "3.0"
+services:
+    php:
+        volumes:
+            - symfony-docker-vendor-sync:/app/vendor:nocopy
+            - symfony-docker-app-sync:/app:nocopy
+    nginx:
+        volumes:
+            - symfony-docker-vendor-sync:/app/vendor:nocopy
+            - symfony-docker-app-sync:/app:nocopy
+volumes:
+    symfony-docker-vendor-sync:
+        external: true
+    symfony-docker-app-sync:
+        external: true

@@ -1,5 +1,4 @@
 version: "3.0"
-
 services:
     mariadb:
         image: bitnami/mariadb:latest

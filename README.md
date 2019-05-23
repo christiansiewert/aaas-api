@@ -23,6 +23,7 @@ With _API as a Service_ you can easily build PHP APIs via a GUI.
 #### Requirements
 
 * [Docker and Docker Compose]
+* [Docker Sync] if you want to develop on OSX or Windows
 
 #### Configuration
 
@@ -40,6 +41,12 @@ An `app` database is created by default with user `app` and password `app`. root
 
 ```bash
 docker-compose up
+```
+
+If you want to use `Docker Sync` on OSX or Windows you can run
+
+```bash
+docker-sync-stack start
 ```
 
 ### Build Backend
@@ -130,3 +137,4 @@ docker-compose exec php vendor/bin/pdepend --summary-xml=build/php-pdepend.xml \
 
 [Docker and Docker Compose]: https://docs.docker.com/engine/installation
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
+[Docker Sync]: http://docker-sync.io/
