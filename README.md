@@ -60,8 +60,8 @@ docker-compose exec php composer update
 #### Generate JWT Certificate
 
 ```bash
-$ docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 4096
-$ docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+docker-compose exec php openssl genrsa -out config/jwt/private.pem -aes256 4096
+docker-compose exec php openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
 
 Don't forget to update `JWT_PASSPHRASE` in `.env` file. By default it's `app!`

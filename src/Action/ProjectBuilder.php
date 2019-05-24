@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectBuilder
 {
     /**
-     * @var ProjectBuilder
+     * @var Builder
      */
     private $builder;
 
