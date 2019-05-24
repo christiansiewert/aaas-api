@@ -22,8 +22,8 @@ With _API as a Service_ you can easily build PHP APIs via a GUI.
 
 #### Requirements
 
-* [Docker and Docker Compose]
-* [Docker Sync] if you want to develop on OSX or Windows (Optional)
+* [Docker] and [Docker Compose]
+* [Docker Sync] if you want to develop at full speed on OSX or Windows (Optional)
 
 #### Configuration
 
@@ -135,6 +135,7 @@ docker-compose exec php vendor/bin/pdepend --summary-xml=build/php-pdepend.xml \
 --ignore=src/Migrations/ src/
 ```
 
-[Docker and Docker Compose]: https://docs.docker.com/engine/installation
+[Docker]: https://docs.docker.com/engine/installation
+[Docker Compose]: https://docs.docker.com/compose/install/
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
 [Docker Sync]: http://docker-sync.io/
