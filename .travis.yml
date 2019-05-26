@@ -10,7 +10,7 @@ matrix:
         - php: nightly
 
 install:
-    - travis_retry composer update --no-interaction
+    - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --no-interaction
 script:
     - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
 
