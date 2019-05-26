@@ -1,4 +1,4 @@
-version: "3.0"
+version: '3'
 services:
     mariadb:
         image: bitnami/mariadb:latest
@@ -22,7 +22,7 @@ services:
         volumes:
             - .:/app:cached
         working_dir: /app
-        user: "1000:1000"
+        user: '1000:1000'
     nginx:
         image: webdevops/nginx-dev:alpine
         environment:
