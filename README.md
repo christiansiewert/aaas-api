@@ -17,6 +17,7 @@ With _API as a Service_ you can easily build PHP APIs via a GUI.
 3. [Visit Docs](#visit-docs)
 4. [Useful commands for development](#useful-commands-for-development)
 5. [Continuous Integration](#continuous-integration)
+6. [Wiki](#wiki)
 
 ## Essential
 
@@ -141,7 +142,15 @@ docker-compose exec php php vendor/bin/pdepend --summary-xml=build/ci/php-pdepen
 --ignore=src/Migrations/ src/
 ```
 
+## Wiki
+
+Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of Aaas API.
+
 [Docker]: https://docs.docker.com/engine/installation
 [Docker Compose]: https://docs.docker.com/compose/install/
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
 [Docker Sync]: http://docker-sync.io/
+[AaaS-API-Wiki]: https://github.com/siewert87/aaas-api/wiki
+
+
+
