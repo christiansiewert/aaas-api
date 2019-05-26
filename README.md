@@ -77,13 +77,13 @@ Don't forget to update `JWT_PASSPHRASE` in `.env` file. By default it's `app!`
 Update database credentials in `.env` and deploy schema:
 
 ```bash
-docker-compose exec php bin/console doctrine:migrations:migrate --no-interaction
+docker-compose exec php php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 If you want to modify the entities, don't forget to run:
 
 ```bash
-docker-compose exec php bin/console doctrine:migrations:diff
+docker-compose exec php php bin/console doctrine:migrations:diff
 ```
 
 If you want to load the fixtures run:
@@ -102,8 +102,8 @@ It is recommended to add short aliases for the following frequently used contain
 
 * `docker-compose exec php /bin/bash` to run a shell inside the php container
 * `docker-compose exec php php` to run php in container
-* `docker-compose exec php bin/console` to run Symfony CLI commands
-* `docker-compose exec php bin/console cache:clear` to clear cache
+* `docker-compose exec php php bin/console` to run Symfony CLI commands
+* `docker-compose exec php php bin/console cache:clear` to clear cache
 * `docker-compose exec php composer update` to update composer dependencies
 * `docker-compose exec mariadb mysql -u app -p app` to run MySQL commands
 
@@ -112,32 +112,32 @@ It is recommended to add short aliases for the following frequently used contain
 #### Running PHPUnit Tests
 
 ```bash
-docker-compose exec php bin/phpunit
+docker-compose exec php php bin/phpunit
 ```
 
 #### Generate PHP CodeSniffer XML Report
 
 ```bash
-docker-compose exec php vendor/bin/phpcs --report=xml --report-file=build/phpcs.xml
+docker-compose exec php php vendor/bin/phpcs --report=xml --report-file=build/ci/phpcs.xml
 ```
 
 #### Generate PHPUnit Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html build/coverage
+docker-compose exec php php bin/phpunit --coverage-html build/ci/coverage
 ```
 
 #### Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile build/phpmd.html
+docker-compose exec php php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile build/ci/phpmd.html
 ```
 
 #### Generate PHP Depend Metrics
 
 ```bash
-docker-compose exec php vendor/bin/pdepend --summary-xml=build/php-pdepend.xml \
---jdepend-chart=build/php-jdepend.svg --overview-pyramid=build/php-pyramid.svg \
+docker-compose exec php php vendor/bin/pdepend --summary-xml=build/ci/php-pdepend.xml \
+--jdepend-chart=build/ci/php-jdepend.svg --overview-pyramid=build/ci/php-pyramid.svg \
 --ignore=src/Migrations/ src/
 ```
 
