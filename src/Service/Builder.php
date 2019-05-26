@@ -15,7 +15,7 @@ use App\Entity\Project;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
-use \Exception;
+use Exception;
 
 /**
  * Builder builds source code from our project
@@ -27,7 +27,7 @@ class Builder
     /**
      * Namespace to use for our generated entities
      */
-    const NAMESPACE = 'Build\\';
+    const NAMESPACE = 'Aaas\\';
 
     /**
      * @var Generator
@@ -45,7 +45,7 @@ class Builder
     /**
      * @param Project $project
      */
-    public function build(Project $project)
+    public function buildProject(Project $project)
     {
         $repositories = $project->getRepositories();
 
@@ -85,13 +85,21 @@ class Builder
      */
     public function generateTargetPath(string $fqcn, string $className)
     {
-        return $this->generator->generateClass(
-            $fqcn,
-            'doctrine/Entity.tpl.php',
-            array(
-                'api_resource' => true,
-                'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository'
-            )
-        );
+        $targetPath = null;
+
+        try {
+
+            $targetPath = $this->generator->generateClass(
+                $fqcn,
+                'doctrine/Entity.tpl.php',
+                array(
+                    'api_resource' => true,
+                    'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository'
+                )
+            );
+
+        } catch (Exception $e) { }
+
+        return $targetPath;
     }
 }

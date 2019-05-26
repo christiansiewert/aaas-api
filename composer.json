@@ -43,7 +43,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "Build\\": "build/src"
+            "Aaas\\": "build/src"
         }
     },
     "autoload-dev": {
