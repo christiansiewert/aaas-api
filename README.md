@@ -54,7 +54,7 @@ If you want to use `Docker Sync` on OSX or Windows you can run
 docker-sync-stack start
 ```
 
-instead.
+from your WSL console instead.
 
 ### Build Backend
 
@@ -62,6 +62,12 @@ instead.
 
 ```bash
 docker-compose exec php composer update
+```
+
+If composer runs out of memory when doing this the first time you should run
+
+```bash
+docker-compose exec php COMPOSER_MEMORY_LIMIT=-1 composer update
 ```
 
 #### Generate JWT Certificate
@@ -144,7 +150,7 @@ docker-compose exec php php vendor/bin/pdepend --summary-xml=build/ci/php-pdepen
 
 ## Wiki
 
-Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of Aaas API.
+Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of AaaS API.
 
 [Docker]: https://docs.docker.com/engine/installation
 [Docker Compose]: https://docs.docker.com/compose/install/
