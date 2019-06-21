@@ -68,32 +68,53 @@ class Builder
 
     /**
      * @param RepositoryService $service
+     *
+     * @todo refactore
      */
     public function buildService(RepositoryService $service)
     {
         $className = $service->getName();
         $fqcn = self::NAMESPACE . 'Entity\\' . $className;
+
+        /**
+         * Generate entity class
+         */
         $targetPath = $this->generateTargetPath($fqcn, $className);
         $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+
+        /**
+         * Generate repository class
+         */
+        $fqcn = self::NAMESPACE . 'Repository\\' . $className . 'Repository';
+        $targetPath = $this->generateTargetPath($fqcn, $className, 'doctrine/Repository.tpl.php');
+        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+
         $this->generator->writeChanges();
     }
 
     /**
      * @param string $fqcn
      * @param string $className
+     * @param string $template
      * @return string
+     *
+     * @todo refactore
      */
-    public function generateTargetPath(string $fqcn, string $className)
+    public function generateTargetPath(string $fqcn, string $className, string $template = 'doctrine/Entity.tpl.php')
     {
         $targetPath = null;
 
         try {
             $targetPath = $this->generator->generateClass(
                 $fqcn,
-                'doctrine/Entity.tpl.php',
+                $template,
                 array(
                     'api_resource' => true,
-                    'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository'
+                    'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository',
+                    'entity_class_name' => $className,
+                    'entity_full_class_name' => self::NAMESPACE . 'Entity\\' . $className,
+                    'entity_alias' => lcfirst($className)[0]
+
                 )
             );
         } catch (Exception $e) {
