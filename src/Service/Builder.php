@@ -89,11 +89,9 @@ class Builder
      */
     public function buildClass(string $name, bool $isRepository = false)
     {
-        $fqcn = $isRepository === false ?
-            self::NAMESPACE . 'Entity\\' . $name :
-            self::NAMESPACE . 'Repository\\' . $name . 'Repository';
-
         $template = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Repository' : 'Entity');
+        $fqcn = sprintf(self::NAMESPACE . '%s\\%s', $isRepository ? 'Repository' : 'Entity', $name);
+        $fqcn = sprintf($fqcn . '%s', $isRepository ? 'Repository' : '');
 
         $targetPath = $this->generateTargetPath($fqcn, $name, $template);
         $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
