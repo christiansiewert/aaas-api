@@ -68,46 +68,53 @@ class Builder
 
     /**
      * @param RepositoryService $service
-     *
-     * @todo refactore
      */
     public function buildService(RepositoryService $service)
     {
-        $className = $service->getName();
-        $fqcn = self::NAMESPACE . 'Entity\\' . $className;
+        $name = $service->getName();
 
-        /**
-         * Generate entity class
-         */
-        $targetPath = $this->generateTargetPath($fqcn, $className);
-        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+        $this->buildClass($name);
+        $this->buildClass($name, true);
 
-        /**
-         * Generate repository class
-         */
-        $fqcn = self::NAMESPACE . 'Repository\\' . $className . 'Repository';
-        $targetPath = $this->generateTargetPath($fqcn, $className, 'doctrine/Repository.tpl.php');
-        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+        // @todo get service fields and add them as properties to our entities
 
         $this->generator->writeChanges();
     }
 
     /**
+     * Builds and dumps either an entity or an repository
+     *
+     * @param string $name
+     * @param bool $isRepository
+     */
+    public function buildClass(string $name, bool $isRepository = false)
+    {
+        $template = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Entity' : 'Repository');
+
+        $fqcn = $isRepository === false ?
+            self::NAMESPACE . 'Entity\\' . $name :
+            self::NAMESPACE . 'Repository\\' . $name . 'Repository';
+
+        $targetPath = $this->generateTargetPath($fqcn, $name, $template);
+        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+    }
+
+    /**
      * @param string $fqcn
      * @param string $className
-     * @param string $template
+     * @param string $templateName
      * @return string
      *
      * @todo refactore
      */
-    public function generateTargetPath(string $fqcn, string $className, string $template = 'doctrine/Entity.tpl.php')
+    public function generateTargetPath(string $fqcn, string $className, string $templateName)
     {
         $targetPath = null;
 
         try {
             $targetPath = $this->generator->generateClass(
                 $fqcn,
-                $template,
+                $templateName,
                 array(
                     'api_resource' => true,
                     'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository',
