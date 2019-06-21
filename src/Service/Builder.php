@@ -44,6 +44,7 @@ class Builder
 
     /**
      * @param Project $project
+     * @return Project
      */
     public function buildProject(Project $project)
     {
@@ -52,6 +53,8 @@ class Builder
         foreach ($repositories as $repository) {
             $this->buildRepository($repository);
         }
+
+        return $project;
     }
 
     /**
