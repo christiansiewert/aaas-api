@@ -107,7 +107,7 @@ class Builder
      * @param string $templateName
      * @return string
      */
-    public function generateClassTargetPath(string $fqcn, string $templateName)
+    public function generateClassTargetPath(string $fqcn, string $templateName) : string
     {
         $className  = explode('\\', $fqcn);
         $className  = end($className);
