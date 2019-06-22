@@ -25,9 +25,11 @@ use Exception;
 class Builder
 {
     /**
-     * Namespace to use for our generated entities
+     * Namespaces to use for our generated entities and repositories
      */
-    const NAMESPACE = 'Aaas\\';
+    const BASE_NAMESPACE        = 'Aaas\\';
+    const ENTITY_NAMESPACE      = self::BASE_NAMESPACE . 'Entity\\';
+    const REPOSITORY_NAMESPACE  = self::BASE_NAMESPACE . 'Repository\\';
 
     /**
      * @var Generator
@@ -92,42 +94,37 @@ class Builder
      */
     public function buildClass(string $name, bool $isRepository = false)
     {
-        $template = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Repository' : 'Entity');
-        $fqcn = sprintf(self::NAMESPACE . '%s\\%s', $isRepository ? 'Repository' : 'Entity', $name);
-        $fqcn = sprintf($fqcn . '%s', $isRepository ? 'Repository' : '');
+        $templateName = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Repository' : 'Entity');
+        $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
 
-        $targetPath = $this->generateTargetPath($fqcn, $name, $template);
+        $targetPath = $this->generateClassTargetPath($fqcn, $templateName);
         $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
     }
 
     /**
+     * Generates target path for entities and repositories
+     *
      * @param string $fqcn
-     * @param string $className
      * @param string $templateName
      * @return string
-     *
-     * @todo refactore
      */
-    public function generateTargetPath(string $fqcn, string $className, string $templateName)
+    public function generateClassTargetPath(string $fqcn, string $templateName)
     {
         $targetPath = null;
+        $className  = explode('\\', $fqcn);
+        $className  = end($className);
 
-        try {
-            $targetPath = $this->generator->generateClass(
-                $fqcn,
-                $templateName,
-                array(
-                    'api_resource' => true,
-                    'repository_full_class_name' => self::NAMESPACE . 'Repository\\' . $className . 'Repository',
-                    'entity_class_name' => $className,
-                    'entity_full_class_name' => self::NAMESPACE . 'Entity\\' . $className,
-                    'entity_alias' => lcfirst($className)[0]
+        /**
+         * @see vendor/symfony/maker-bundle/src/Resources/skeleton/doctrine
+         */
+        $options = array(
+            'api_resource' => true,
+            'entity_class_name' => $className,
+            'entity_alias' => lcfirst($className)[0],
+            'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $className . 'Repository',
+            'entity_full_class_name' => self::ENTITY_NAMESPACE . preg_split('/(?=[A-Z])/', $className)[1]
+        );
 
-                )
-            );
-        } catch (Exception $e) {
-        }
-
-        return $targetPath;
+        return $this->generator->generateClass($fqcn, $templateName, $options);
     }
 }
