@@ -110,21 +110,15 @@ class Builder
      */
     public function generateClassTargetPath(string $fqcn, string $templateName)
     {
-        $targetPath = null;
         $className  = explode('\\', $fqcn);
         $className  = end($className);
 
-        /**
-         * @see vendor/symfony/maker-bundle/src/Resources/skeleton/doctrine
-         */
-        $options = array(
+        return $this->generator->generateClass($fqcn, $templateName, array(
             'api_resource' => true,
             'entity_class_name' => $className,
             'entity_alias' => lcfirst($className)[0],
             'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $className . 'Repository',
             'entity_full_class_name' => self::ENTITY_NAMESPACE . preg_split('/(?=[A-Z])/', $className)[1]
-        );
-
-        return $this->generator->generateClass($fqcn, $templateName, $options);
+        ));
     }
 }
