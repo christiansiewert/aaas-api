@@ -15,7 +15,6 @@ use App\Entity\Project;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
-use Exception;
 
 /**
  * Builder builds source code from our project
