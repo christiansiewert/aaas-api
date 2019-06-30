@@ -133,9 +133,12 @@ class Builder
         $options = array(
             'fieldName' => $fieldName,
             'type' => $dataType,
-            'unique' => $serviceField->getIsUnique(),
             'nullable' => $serviceField->getIsNullable()
         );
+
+        if ($serviceField->getIsUnique() === true) {
+            $options['unique'] = true;
+        }
 
         if ($dataType === 'string') {
             $options['length'] = $serviceField->getLength();
