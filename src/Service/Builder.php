@@ -132,9 +132,12 @@ class Builder
 
         $options = array(
             'fieldName' => $fieldName,
-            'type' => $dataType,
-            'nullable' => $serviceField->getIsNullable()
+            'type' => $dataType
         );
+
+        if ($serviceField->getIsNullable() === true) {
+            $options['nullable'] = true;
+        }
 
         if ($serviceField->getIsUnique() === true) {
             $options['unique'] = true;
