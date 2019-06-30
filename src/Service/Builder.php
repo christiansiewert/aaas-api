@@ -79,7 +79,6 @@ class Builder
     {
         $name             = $service->getName();
         $serviceFields    = $service->getServiceFields();
-
         $entityTargetPath = $this->generateClass($name);
         $sourceCode       = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
