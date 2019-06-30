@@ -133,6 +133,7 @@ class Builder
         $options = array(
             'fieldName' => $fieldName,
             'type' => $dataType,
+            'unique' => $serviceField->getIsUnique(),
             'nullable' => $serviceField->getIsNullable()
         );
 
