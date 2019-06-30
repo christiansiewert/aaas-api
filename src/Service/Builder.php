@@ -147,6 +147,11 @@ class Builder
             $options['length'] = $serviceField->getLength();
         }
 
+        if ($dataType === 'float') {
+            $options['precision'] = $serviceField->getDataTypePrecision();
+            $options['scale'] = $serviceField->getDataTypeScale();
+        }
+
         $manipulator->addEntityField($fieldName, $options);
 
         return $manipulator->getSourceCode();
