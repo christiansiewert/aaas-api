@@ -145,9 +145,7 @@ class Builder
 
         if ($dataType === 'string') {
             $options['length'] = $serviceField->getLength();
-        }
-
-        if ($dataType === 'float') {
+        } elseif ($dataType === 'float') {
             $options['precision'] = $serviceField->getDataTypePrecision();
             $options['scale'] = $serviceField->getDataTypeScale();
         }
