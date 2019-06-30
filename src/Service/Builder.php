@@ -14,7 +14,9 @@ namespace App\Service;
 use App\Entity\Project;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
+use App\Entity\ServiceField;
 use Symfony\Bundle\MakerBundle\Generator;
+use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
  * Builder builds source code from our project
@@ -75,12 +77,24 @@ class Builder
      */
     public function buildService(RepositoryService $service)
     {
-        $name = $service->getName();
+        $name             = $service->getName();
+        $serviceFields    = $service->getServiceFields();
 
-        $this->buildClass($name);
+        /**
+         * Build entity
+         */
+        $entityTargetPath = $this->buildClass($name);
+        $sourceCode       = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
+
+        foreach ($serviceFields as $serviceField) {
+            $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
+            $this->generator->dumpFile($entityTargetPath, $sourceCode);
+        }
+
+        /**
+         * Build repository
+         */
         $this->buildClass($name, true);
-
-        // @todo get service fields and add them as properties to our entities
 
         $this->generator->writeChanges();
     }
@@ -90,6 +104,7 @@ class Builder
      *
      * @param string $name
      * @param bool $isRepository
+     * @return string
      */
     public function buildClass(string $name, bool $isRepository = false)
     {
@@ -97,7 +112,37 @@ class Builder
         $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
 
         $targetPath = $this->generateClassTargetPath($fqcn, $templateName);
-        $this->generator->dumpFile($targetPath, $this->generator->getFileContentsForPendingOperation($targetPath));
+
+        return $targetPath;
+    }
+
+    /**
+     * Builds service fields. Adds properties and getters/setters.
+     *
+     * @param ServiceField $serviceField
+     * @param string $sourceCode
+     * @return string
+     */
+    public function buildServiceField(ServiceField $serviceField, string $sourceCode) : string
+    {
+        $fieldName   = $serviceField->getName();
+        $dataType    = $serviceField->getDataType();
+
+        $manipulator = new ClassSourceManipulator($sourceCode);
+
+        $options = array(
+            'fieldName' => $fieldName,
+            'type' => $dataType,
+            'nullable' => $serviceField->getIsNullable()
+        );
+
+        if ($dataType === 'string') {
+            $options['length'] = $serviceField->getLength();
+        }
+
+        $manipulator->addEntityField($fieldName, $options);
+
+        return $manipulator->getSourceCode();
     }
 
     /**
