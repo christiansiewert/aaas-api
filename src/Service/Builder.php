@@ -28,9 +28,8 @@ class Builder
     /**
      * Namespaces to use for our generated entities and repositories
      */
-    const BASE_NAMESPACE        = 'Aaas\\';
-    const ENTITY_NAMESPACE      = self::BASE_NAMESPACE . 'Entity\\';
-    const REPOSITORY_NAMESPACE  = self::BASE_NAMESPACE . 'Repository\\';
+    const ENTITY_NAMESPACE      = 'Aaas\\Entity\\';
+    const REPOSITORY_NAMESPACE  = 'Aaas\\Repository\\';
 
     /**
      * @var Generator
@@ -47,17 +46,10 @@ class Builder
 
     /**
      * @param Project $project
-     * @return Project
      */
     public function buildProject(Project $project)
     {
-        $repositories = $project->getRepositories();
-
-        foreach ($repositories as $repository) {
-            $this->buildRepository($repository);
-        }
-
-        return $project;
+        array_map([$this, 'buildRepository'], $project->getRepositories()->toArray());
     }
 
     /**
@@ -65,11 +57,7 @@ class Builder
      */
     public function buildRepository(ProjectRepository $repository)
     {
-        $services = $repository->getServices();
-
-        foreach ($services as $service) {
-            $this->buildService($service);
-        }
+        array_map([$this, 'buildService'], $repository->getServices()->toArray());
     }
 
     /**
@@ -78,17 +66,15 @@ class Builder
     public function buildService(RepositoryService $service)
     {
         $name             = $service->getName();
-        $serviceFields    = $service->getServiceFields();
         $entityTargetPath = $this->generateClass($name);
         $sourceCode       = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
-        foreach ($serviceFields as $serviceField) {
+        foreach ($service->getServiceFields() as $serviceField) {
             $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
-            $this->generator->dumpFile($entityTargetPath, $sourceCode);
         }
 
-        $this->generateClass($name, true); // build repository
-
+        $this->generateClass($name, true);
+        $this->generator->dumpFile($entityTargetPath, $sourceCode);
         $this->generator->writeChanges();
     }
 
@@ -100,7 +86,7 @@ class Builder
      * @param bool $isRepository
      * @return string
      */
-    public function generateClass(string $name, bool $isRepository = false)
+    public function generateClass(string $name, bool $isRepository = false) : string
     {
         $templateName = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Repository' : 'Entity');
         $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;

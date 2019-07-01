@@ -50,6 +50,8 @@ class ProjectBuilder
      */
     public function __invoke(Project $data)
     {
-        return $this->builder->buildProject($data);
+        $this->builder->buildProject($data);
+
+        return $data;
     }
 }
