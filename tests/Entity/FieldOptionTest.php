@@ -38,28 +38,6 @@ class FieldOptionTest extends TestCase
         $this->assertNull($this->object->getId());
     }
 
-    public function testNameGettable()
-    {
-        $this->assertNull($this->object->getName());
-    }
-
-    public function testNameSettable()
-    {
-        $this->object->setName('name');
-        $this->assertEquals('name', $this->object->getName());
-    }
-
-    public function testValueGettable()
-    {
-        $this->assertNull($this->object->getValue());
-    }
-
-    public function testValueSettable()
-    {
-        $this->object->setValue('value');
-        $this->assertEquals('value', $this->object->getValue());
-    }
-
     public function testServiceFieldGettable()
     {
         $this->assertNull($this->object->getServiceField());
