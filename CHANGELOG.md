@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - build directory
 - code generator for entities
 - code generator for repositories
+- field options now have specific options (default value, unsigned for integers, comment)
 
 ## [0.0.9] - 2019-05-02
 
