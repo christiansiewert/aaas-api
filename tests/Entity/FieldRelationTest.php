@@ -43,13 +43,13 @@ class FieldRelationTest extends TestCase
 
     public function testTypeGettable()
     {
-        $this->assertEquals(FieldRelation::TYPE_ONE_TO_MANY, $this->object->getType());
+        $this->assertEquals(FieldRelation::VALID_RELATION_TYPES[0], $this->object->getType());
     }
 
     public function testTypeSettable()
     {
-        $this->object->setType(FieldRelation::TYPE_ONE_TO_ONE);
-        $this->assertEquals(FieldRelation::TYPE_ONE_TO_ONE, $this->object->getType());
+        $this->object->setType(FieldRelation::VALID_RELATION_TYPES[0]);
+        $this->assertEquals(FieldRelation::VALID_RELATION_TYPES[0], $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()

@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 
 /**
  * A Field relation relates a service field to another service field. We use it to
@@ -28,12 +29,14 @@ use InvalidArgumentException;
 class FieldRelation
 {
     /**
-     * You can map 1 to 1, 1 to n and n to 1 relationships
+     * Relations, which we can map
      */
-    const TYPE_ONE_TO_ONE   = '1';
-    const TYPE_ONE_TO_MANY  = '1n';
-    const TYPE_MANY_TO_ONE  = 'n1';
-    const TYPE_MANY_TO_MANY = 'mn';
+    const VALID_RELATION_TYPES = [
+        EntityRelation::ONE_TO_MANY,
+        EntityRelation::MANY_TO_ONE,
+        EntityRelation::MANY_TO_MANY,
+        EntityRelation::ONE_TO_ONE
+    ];
 
     /**
      * @ORM\Id()
@@ -43,9 +46,9 @@ class FieldRelation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=2, options={"default" : "1n"})
+     * @ORM\Column(type="string", length=10, options={"default" : "OneToMany"})
      */
-    private $type = '1n';
+    private $type = self::VALID_RELATION_TYPES[0];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -114,17 +117,7 @@ class FieldRelation
 
     public function setType(string $type): self
     {
-        /**
-         * @todo refactore
-         */
-        $validTypes = [
-            self::TYPE_ONE_TO_ONE,
-            self::TYPE_ONE_TO_MANY,
-            self::TYPE_MANY_TO_ONE,
-            self::TYPE_MANY_TO_MANY
-        ];
-
-        if (!in_array($type, $validTypes)) {
+        if (!in_array($type, self::VALID_RELATION_TYPES)) {
             throw new InvalidArgumentException("Invalid type");
         }
 

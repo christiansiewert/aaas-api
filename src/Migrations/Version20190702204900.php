@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190702123048 extends AbstractMigration
+final class Version20190702204900 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -26,7 +26,7 @@ final class Version20190702123048 extends AbstractMigration
         $this->addSql('CREATE TABLE App_Project_Repository (id INT AUTO_INCREMENT NOT NULL, project_id INT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, INDEX IDX_BECDCEA4166D1F9C (project_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Project (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Assert_Option (id INT AUTO_INCREMENT NOT NULL, field_assert_id INT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_1751E07A113B5DA9 (field_assert_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE App_Field_Relation (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(2) DEFAULT \'1n\' NOT NULL, target_entity VARCHAR(255) NOT NULL, mapped_by VARCHAR(255) DEFAULT NULL, inversed_by VARCHAR(255) DEFAULT NULL, orphan_removal TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_name VARCHAR(255) DEFAULT NULL, join_column_referenced_column_name VARCHAR(255) DEFAULT \'id\' NOT NULL, join_column_is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_is_nullable TINYINT(1) DEFAULT \'1\' NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE App_Field_Relation (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(10) DEFAULT \'OneToMany\' NOT NULL, target_entity VARCHAR(255) NOT NULL, mapped_by VARCHAR(255) DEFAULT NULL, inversed_by VARCHAR(255) DEFAULT NULL, orphan_removal TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_name VARCHAR(255) DEFAULT NULL, join_column_referenced_column_name VARCHAR(255) DEFAULT \'id\' NOT NULL, join_column_is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_is_nullable TINYINT(1) DEFAULT \'1\' NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Relation_Cascade (id INT AUTO_INCREMENT NOT NULL, field_relation_id INT NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_491CEC52F7E1228C (field_relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Option (id INT AUTO_INCREMENT NOT NULL, service_field_id INT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_BAEE3380BD415C8D (service_field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Assert (id INT AUTO_INCREMENT NOT NULL, service_field_id INT NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_51877C9BBD415C8D (service_field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');

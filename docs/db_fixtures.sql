@@ -58,7 +58,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `App_Field_Relation` WRITE;
 /*!40000 ALTER TABLE `App_Field_Relation` DISABLE KEYS */;
-INSERT INTO `App_Field_Relation` VALUES (1,'1','Detail',NULL,NULL,0,NULL,'id',0,1);
+INSERT INTO `App_Field_Relation` VALUES (1,'OneToOne','Detail',NULL,NULL,0,NULL,'id',0,1);
 /*!40000 ALTER TABLE `App_Field_Relation` ENABLE KEYS */;
 UNLOCK TABLES;
 
