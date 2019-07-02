@@ -13,10 +13,10 @@ namespace App\Tests\Entity;
 
 use App\Entity\FieldRelation;
 use App\Entity\RelationCascade;
-use App\Entity\RelationJoincolumn;
 use App\Entity\ServiceField;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
+use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
@@ -43,13 +43,13 @@ class FieldRelationTest extends TestCase
 
     public function testTypeGettable()
     {
-        $this->assertEquals(FieldRelation::VALID_RELATION_TYPES[0], $this->object->getType());
+        $this->assertEquals(EntityRelation::ONE_TO_MANY, $this->object->getType());
     }
 
     public function testTypeSettable()
     {
-        $this->object->setType(FieldRelation::VALID_RELATION_TYPES[0]);
-        $this->assertEquals(FieldRelation::VALID_RELATION_TYPES[0], $this->object->getType());
+        $this->object->setType(EntityRelation::MANY_TO_ONE);
+        $this->assertEquals(EntityRelation::MANY_TO_ONE, $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()

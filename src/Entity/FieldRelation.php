@@ -29,16 +29,6 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 class FieldRelation
 {
     /**
-     * Relations, which we can map
-     */
-    const VALID_RELATION_TYPES = [
-        EntityRelation::ONE_TO_MANY,
-        EntityRelation::MANY_TO_ONE,
-        EntityRelation::MANY_TO_MANY,
-        EntityRelation::ONE_TO_ONE
-    ];
-
-    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -48,7 +38,7 @@ class FieldRelation
     /**
      * @ORM\Column(type="string", length=10, options={"default" : "OneToMany"})
      */
-    private $type = self::VALID_RELATION_TYPES[0];
+    private $type = EntityRelation::ONE_TO_MANY;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -117,7 +107,7 @@ class FieldRelation
 
     public function setType(string $type): self
     {
-        if (!in_array($type, self::VALID_RELATION_TYPES)) {
+        if (!in_array($type, EntityRelation::getValidRelationTypes())) {
             throw new InvalidArgumentException("Invalid type");
         }
 
