@@ -47,7 +47,8 @@ class ServiceField
         'float',
         'date',
         'time',
-        'datetime'
+        'datetime',
+        'relation'
     );
 
     /**
