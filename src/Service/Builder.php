@@ -11,10 +11,12 @@
 
 namespace App\Service;
 
+use App\Entity\FieldRelation;
 use App\Entity\Project;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use App\Entity\ServiceField;
+use Symfony\Bundle\MakerBundle\Doctrine\BaseSingleRelation;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
@@ -28,8 +30,8 @@ class Builder
     /**
      * Namespaces to use for our generated entities and repositories
      */
-    const ENTITY_NAMESPACE      = 'Aaas\\Entity\\';
-    const REPOSITORY_NAMESPACE  = 'Aaas\\Repository\\';
+    const ENTITY_NAMESPACE = 'Aaas\\Entity\\';
+    const REPOSITORY_NAMESPACE = 'Aaas\\Repository\\';
 
     /**
      * @var Generator
@@ -65,9 +67,9 @@ class Builder
      */
     public function buildService(RepositoryService $service)
     {
-        $name             = $service->getName();
+        $name = $service->getName();
         $entityTargetPath = $this->generateClass($name);
-        $sourceCode       = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
+        $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
         foreach ($service->getServiceFields() as $serviceField) {
             $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
@@ -79,8 +81,7 @@ class Builder
     }
 
     /**
-     * Generates class target paths and adds them to
-     * pending operations of our generator.
+     * Generates class target paths and adds them to pending operations of our generator
      *
      * @param string $name
      * @param bool $isRepository
@@ -109,24 +110,22 @@ class Builder
      */
     public function buildServiceField(ServiceField $serviceField, string $sourceCode) : string
     {
-        $fieldName   = $serviceField->getName();
-        $dataType    = $serviceField->getDataType();
-
+        $name = $serviceField->getName();
+        $dataType = $serviceField->getDataType();
         $manipulator = new ClassSourceManipulator($sourceCode);
 
+        if ($dataType === 'relation') {
+            return $this->buildFieldRelation($serviceField, $manipulator);
+        }
+
         $options = [
-            'fieldName' => $fieldName,
+            'fieldName' => $name,
             'type' => $dataType,
             'options' => []
         ];
 
-        if ($serviceField->getIsNullable() === true) {
-            $options['nullable'] = true;
-        }
-
-        if ($serviceField->getIsUnique() === true) {
-            $options['unique'] = true;
-        }
+        $serviceField->getIsUnique() === false ?: $options['unique'] = true;
+        $serviceField->getIsNullable() === false ?: $options['nullable'] = true;
 
         if ($dataType === 'string') {
             $options['length'] = $serviceField->getLength();
@@ -139,7 +138,24 @@ class Builder
             $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
         }
 
-        $manipulator->addEntityField($fieldName, $options);
+        $manipulator->addEntityField($name, $options);
+
+        return $manipulator->getSourceCode();
+    }
+
+    /**
+     * Adds a field relation to our manipulator and returns the generated source code
+     *
+     * @param ServiceField $serviceField
+     * @param ClassSourceManipulator $manipulator
+     * @return string
+     */
+    public function buildFieldRelation(ServiceField $serviceField, ClassSourceManipulator $manipulator) : string
+    {
+        $relation = $serviceField->getRelation();
+
+        //echo $relation->getType();
+        //die();
 
         return $manipulator->getSourceCode();
     }
