@@ -172,12 +172,12 @@ class ServiceField
         return $this;
     }
 
-    public function getLength(): ?string
+    public function getLength(): ?int
     {
         return $this->length;
     }
 
-    public function setLength(int $length): self
+    public function setLength(?int $length): self
     {
         $this->length = $length;
 
