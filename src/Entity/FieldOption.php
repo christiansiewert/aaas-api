@@ -41,29 +41,49 @@ class FieldOption
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $value;
+
+    /**
+     * test
      * @ORM\ManyToOne(targetEntity="App\Entity\ServiceField", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
      */
     private $serviceField;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $defaultValue;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isUnsigned;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $comment;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): self
+    {
+        $this->value = $value;
+
+        return $this;
     }
 
     public function getServiceField(): ?ServiceField
@@ -74,42 +94,6 @@ class FieldOption
     public function setServiceField(?ServiceField $serviceField): self
     {
         $this->serviceField = $serviceField;
-
-        return $this;
-    }
-
-    public function getDefaultValue(): ?string
-    {
-        return $this->defaultValue;
-    }
-
-    public function setDefaultValue(string $defaultValue): self
-    {
-        $this->defaultValue = $defaultValue;
-
-        return $this;
-    }
-
-    public function getIsUnsigned(): ?bool
-    {
-        return $this->isUnsigned;
-    }
-
-    public function setIsUnsigned(bool $isUnsigned): self
-    {
-        $this->isUnsigned = $isUnsigned;
-
-        return $this;
-    }
-
-    public function getComment(): ?string
-    {
-        return $this->comment;
-    }
-
-    public function setComment(string $comment): self
-    {
-        $this->comment = $comment;
 
         return $this;
     }
