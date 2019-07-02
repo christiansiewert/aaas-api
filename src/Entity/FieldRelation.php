@@ -30,9 +30,10 @@ class FieldRelation
     /**
      * You can map 1 to 1, 1 to n and n to 1 relationships
      */
-    const TYPE_ONE_TO_ONE  = '1';
-    const TYPE_ONE_TO_MANY = '1n';
-    const TYPE_MANY_TO_ONE = 'n1';
+    const TYPE_ONE_TO_ONE   = '1';
+    const TYPE_ONE_TO_MANY  = '1n';
+    const TYPE_MANY_TO_ONE  = 'n1';
+    const TYPE_MANY_TO_MANY = 'mn';
 
     /**
      * @ORM\Id()
@@ -113,7 +114,17 @@ class FieldRelation
 
     public function setType(string $type): self
     {
-        if (!in_array($type, array(self::TYPE_ONE_TO_ONE, self::TYPE_ONE_TO_MANY, self::TYPE_MANY_TO_ONE))) {
+        /**
+         * @todo refactore
+         */
+        $validTypes = [
+            self::TYPE_ONE_TO_ONE,
+            self::TYPE_ONE_TO_MANY,
+            self::TYPE_MANY_TO_ONE,
+            self::TYPE_MANY_TO_MANY
+        ];
+
+        if (!in_array($type, $validTypes)) {
             throw new InvalidArgumentException("Invalid type");
         }
 
