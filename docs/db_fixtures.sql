@@ -98,7 +98,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `App_Repository_Service` WRITE;
 /*!40000 ALTER TABLE `App_Repository_Service` DISABLE KEYS */;
-INSERT INTO `App_Repository_Service` VALUES (1,1,'Article','Articles for our blog repository.','list'),(2,1,'Label','Labels for our blog repository.','list'),(3,1,'Comment','Comments for our blog repository.','list'),(4,2,'Product','Products service for our catalog repository.','list'),(5,2,'Category','Categories for our catalog repository.','tree'),(6,2,'Product Detail','Details for our products.','list');
+INSERT INTO `App_Repository_Service` VALUES (1,1,'Article','Articles for our blog repository.','list'),(2,1,'Label','Labels for our blog repository.','list'),(3,1,'Comment','Comments for our blog repository.','list'),(4,2,'Product','Products service for our catalog repository.','list'),(5,2,'Category','Categories for our catalog repository.','tree'),(6,2,'ProductDetail','Details for our products.','list');
 /*!40000 ALTER TABLE `App_Repository_Service` ENABLE KEYS */;
 UNLOCK TABLES;
 
