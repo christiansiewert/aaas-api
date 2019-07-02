@@ -114,10 +114,11 @@ class Builder
 
         $manipulator = new ClassSourceManipulator($sourceCode);
 
-        $options = array(
+        $options = [
             'fieldName' => $fieldName,
-            'type' => $dataType
-        );
+            'type' => $dataType,
+            'options' => []
+        ];
 
         if ($serviceField->getIsNullable() === true) {
             $options['nullable'] = true;
@@ -132,6 +133,10 @@ class Builder
         } elseif ($dataType === 'float') {
             $options['precision'] = $serviceField->getDataTypePrecision();
             $options['scale'] = $serviceField->getDataTypeScale();
+        }
+
+        foreach ($serviceField->getOptions() as $fieldOption) {
+            $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
         }
 
         $manipulator->addEntityField($fieldName, $options);
