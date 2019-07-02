@@ -15,3 +15,7 @@ INSERT INTO app.App_Service_Field (id, service_id, name, description, data_type,
 INSERT INTO app.App_Service_Field (id, service_id, name, description, data_type, length, is_unique, is_nullable, data_type_precision, data_type_scale) VALUES (7, 4, 'description', 'The product description.', 'text', 4096, 0, 0, null, null);
 INSERT INTO app.App_Service_Field (id, service_id, name, description, data_type, length, is_unique, is_nullable, data_type_precision, data_type_scale) VALUES (8, 4, 'prize', 'The product prize.', 'float', 10, 0, 1, 2, 3);
 INSERT INTO app.App_Service_Field (id, service_id, name, description, data_type, length, is_unique, is_nullable, data_type_precision, data_type_scale) VALUES (9, 5, 'name', 'The category name.', 'string', 255, 1, 0, null, null);
+INSERT INTO app.App_Service_Field (id, service_id, relation_id, name, description, data_type, length, is_unique, is_nullable, data_type_precision, data_type_scale) VALUES (10, 5, null, 'numProducts', 'The actual number of products of this category.', 'integer', null, 0, 0, null, null);
+INSERT INTO app.App_Field_Option (id, service_field_id, name, value) VALUES (1, 6, 'default', 'A fancy product');
+INSERT INTO app.App_Field_Option (id, service_field_id, name, value) VALUES (2, 6, 'comment', 'The name of our product.');
+INSERT INTO app.App_Field_Option (id, service_field_id, name, value) VALUES (3, 10, 'unsigned', 'true');
