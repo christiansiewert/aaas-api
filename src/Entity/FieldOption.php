@@ -51,7 +51,6 @@ class FieldOption
     private $value;
 
     /**
-     * test
      * @ORM\ManyToOne(targetEntity="App\Entity\ServiceField", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
      */
