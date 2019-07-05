@@ -11,13 +11,12 @@
 
 namespace App\Service;
 
-use App\Entity\FieldRelation;
 use App\Entity\Project;
+use App\Entity\ServiceField;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
-use App\Entity\ServiceField;
-use Symfony\Bundle\MakerBundle\Doctrine\BaseSingleRelation;
 use Symfony\Bundle\MakerBundle\Generator;
+use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
@@ -81,7 +80,7 @@ class Builder
     }
 
     /**
-     * Generates class target paths and adds them to pending operations of our generator
+     * Generates class target paths and adds them to pending operations of our generator.
      *
      * @param string $name
      * @param bool $isRepository
@@ -102,7 +101,7 @@ class Builder
     }
 
     /**
-     * Builds service fields and adds properties and getters/setters.
+     * Adds an entity field to our manipulator and returns the generated source code.
      *
      * @param ServiceField $serviceField
      * @param string $sourceCode
@@ -144,18 +143,41 @@ class Builder
     }
 
     /**
-     * Adds a field relation to our manipulator and returns the generated source code
+     * Adds a field relation to our manipulator and returns the generated source code.
      *
      * @param ServiceField $serviceField
      * @param ClassSourceManipulator $manipulator
      * @return string
+     * @todo refactore
      */
     public function buildFieldRelation(ServiceField $serviceField, ClassSourceManipulator $manipulator) : string
     {
         $relation = $serviceField->getRelation();
+        $relationType = $relation->getType();
+        $inversedBy = $relation->getInversedBy();
+        $owningClass = self::ENTITY_NAMESPACE . $serviceField->getService()->getName();
+        $inverseClass = self::ENTITY_NAMESPACE . $relation->getTargetEntity();
 
-        //echo $relation->getType();
-        //die();
+        $entityRelation = new EntityRelation($relationType, $owningClass, $inverseClass);
+        $entityRelation->setOwningProperty($serviceField->getName());
+        $entityRelation->setIsNullable($serviceField->getIsNullable());
+        $entityRelation->setMapInverseRelation(false);
+
+        // @todo https://github.com/siewert87/aaas-api/issues/10
+        /*if ($inversedBy !== null) {
+            $entityRelation->setMapInverseRelation(true);
+            $entityRelation->setInverseProperty($inversedBy);
+        }*/
+
+        if ($relationType === EntityRelation::ONE_TO_ONE) {
+            $manipulator->addOneToOneRelation($entityRelation->getOwningRelation());
+        } elseif ($relationType === EntityRelation::MANY_TO_ONE) {
+            $manipulator->addManyToOneRelation($entityRelation->getOwningRelation());
+        } elseif ($relationType === EntityRelation::ONE_TO_MANY) {
+            $manipulator->addOneToManyRelation($entityRelation->getOwningRelation());
+        } else {
+            $manipulator->addManyToManyRelation($entityRelation->getOwningRelation());
+        }
 
         return $manipulator->getSourceCode();
     }
