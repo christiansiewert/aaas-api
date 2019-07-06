@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- route prefix for application API
+
 ## [0.3.0] - 2019-07-06
 
 ### Changed

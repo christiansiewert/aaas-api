@@ -22,6 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * A Project holds repositories.
  *
  * @ApiResource(
+ *     routePrefix="/aaas",
  *     itemOperations={
  *         "get"={"method"="GET"},
  *         "put"={"method"="PUT"},

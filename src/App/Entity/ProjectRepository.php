@@ -21,7 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * A ProjectRepository holds services.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

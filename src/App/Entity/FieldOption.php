@@ -20,7 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * Key-value pairs of options that get passed to the underlying
  * database platform when generating DDL statements.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

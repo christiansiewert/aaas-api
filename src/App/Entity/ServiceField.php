@@ -22,7 +22,7 @@ use InvalidArgumentException;
 /**
  * A ServiceField represents a column in your database table.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
