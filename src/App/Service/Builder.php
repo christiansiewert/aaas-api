@@ -131,7 +131,7 @@ class Builder
         }
 
         $options = [
-            'fieldName' => $name,
+            //'fieldName' => $name,
             'type' => $dataType,
             'options' => []
         ];
@@ -161,7 +161,6 @@ class Builder
      * @param ServiceField $serviceField
      * @param ClassSourceManipulator $manipulator
      * @return string
-     * @todo refactore
      */
     public function buildFieldRelation(ServiceField $serviceField, ClassSourceManipulator $manipulator) : string
     {
