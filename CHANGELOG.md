@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- builder now can generate nested set entities and nested set repositories
+
 ## [0.1.0] - 2019-07-06
 
 ### Added
