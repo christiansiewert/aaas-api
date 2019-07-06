@@ -54,7 +54,7 @@ If you want to use `Docker Sync` on OSX or Windows you can run
 docker-sync-stack start
 ```
 
-from your WSL console instead.
+from your OSX- or WSL-Console instead.
 
 ### Build Backend
 
