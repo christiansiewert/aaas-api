@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - builder now can generate nested set entities and nested set repositories
 
+### Changed
+
+- Kicked fos/user-bundle and implemented own user entity
+
 ## [0.1.0] - 2019-07-06
 
 ### Added
