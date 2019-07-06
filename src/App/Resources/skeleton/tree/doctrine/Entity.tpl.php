@@ -25,8 +25,31 @@ class <?= $class_name."\n" ?>
      */
     private $id;
 
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="<?= $class_name ?>", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="<?= $class_name ?>", mappedBy="parent")
+     * @ORM\OrderBy({"left" = "ASC"})
+     */
+    private $children;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setParent(<?= $class_name ?> $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
     }
 }
