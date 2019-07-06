@@ -1,7 +1,7 @@
 version: '3'
 services:
     mariadb:
-        image: bitnami/mariadb:latest
+        image: bitnami/mariadb:10.3
         environment:
             - MARIADB_USER=app
             - MARIADB_PASSWORD=app

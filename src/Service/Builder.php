@@ -23,6 +23,8 @@ use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
  * Builder builds source code from our project
  *
  * @author Christian Siewert <christian@sieware.international>
+ *
+ * @todo refactore
  */
 class Builder
 {
@@ -67,14 +69,22 @@ class Builder
     public function buildService(RepositoryService $service)
     {
         $name = $service->getName();
-        $entityTargetPath = $this->generateClass($name);
+        $type = $service->getType();
+
+        $entityTargetPath = $type === RepositoryService::TYPE_LIST ?
+            $this->generateClass($name) :
+            $this->generateClass($name, false, true);
+
         $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
         foreach ($service->getServiceFields() as $serviceField) {
             $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
         }
 
-        $this->generateClass($name, true);
+        $type === RepositoryService::TYPE_LIST ?
+            $this->generateClass($name, true) :
+            $this->generateClass($name, true, true) ;
+
         $this->generator->dumpFile($entityTargetPath, $sourceCode);
         $this->generator->writeChanges();
     }
@@ -84,11 +94,14 @@ class Builder
      *
      * @param string $name
      * @param bool $isRepository
+     * @param bool $isTree
      * @return string
      */
-    public function generateClass(string $name, bool $isRepository = false) : string
+    public function generateClass(string $name, bool $isRepository = false, bool $isTree = false) : string
     {
-        $templateName = sprintf('doctrine/%s.tpl.php', $isRepository ? 'Repository' : 'Entity');
+        $format = 'doctrine/%s.tpl.php';
+        $isTree === false ?: $format = dirname(__DIR__) . '/Resources/skeleton/tree/' . $format;
+        $templateName = sprintf($format, $isRepository ? 'Repository' : 'Entity');
         $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
 
         return $this->generator->generateClass($fqcn, $templateName, array(

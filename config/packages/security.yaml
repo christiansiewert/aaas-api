@@ -1,10 +1,15 @@
 security:
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        App\Entity\Customer:
+            algorithm: bcrypt # we should switch to sodium
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username_email
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Customer
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -13,7 +18,7 @@ security:
             pattern:  ^/auth/login
             stateless: true
             anonymous: true
-            provider: fos_userbundle
+            provider: app_user_provider
             json_login:
                 check_path: /auth/login_check
                 username_path: email
@@ -22,7 +27,7 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
         main:
             pattern:   ^/
-            provider:  fos_userbundle
+            provider:  app_user_provider
             stateless: true
             anonymous: true
             guard:
