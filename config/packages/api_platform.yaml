@@ -8,6 +8,7 @@ parameters:
 api_platform:
     mapping:
         paths:
-            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/App/Entity'
+            - '%kernel.project_dir%/src/Aaas/Entity'
     title: API as a Service - API
     version: 1.0.0

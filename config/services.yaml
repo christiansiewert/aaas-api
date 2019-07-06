@@ -9,11 +9,15 @@ services:
         autoconfigure: true
 
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/App/*'
+        exclude: '../src/App/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    Aaas\:
+        resource: '../src/Aaas/*'
+        exclude: '../src/Aaas/{Entity}'
 
     App\Action\:
-        resource: '../src/Action/'
+        resource: '../src/App/Action/'
         tags: ['controller.service_arguments']
 
     Symfony\Bundle\MakerBundle\Generator: '@maker.generator'
