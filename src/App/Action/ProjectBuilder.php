@@ -52,6 +52,10 @@ class ProjectBuilder
     {
         $this->builder->buildProject($data);
 
+        $this->builder->diffDatabase();
+        $this->builder->migrateDatabase();
+        $this->builder->clearApplicationCache();
+
         return $data;
     }
 }

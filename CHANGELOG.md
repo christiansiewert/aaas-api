@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- after generating source code our builder now
+    - migrates the database to the new state 
+    - clears application cache
+
 ## [0.4.0] - 2019-07-07
 
 ### Added

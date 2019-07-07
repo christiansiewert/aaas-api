@@ -16,7 +16,11 @@ use App\Entity\ServiceField;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
@@ -40,11 +44,18 @@ class Builder
     private $generator;
 
     /**
-     * @param Generator $generator
+     * @var KernelInterface
      */
-    public function __construct(Generator $generator)
+    private $kernel;
+
+    /**
+     * @param Generator $generator
+     * @param KernelInterface $kernel
+     */
+    public function __construct(Generator $generator, KernelInterface $kernel)
     {
         $this->generator = $generator;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -192,5 +203,42 @@ class Builder
         }
 
         return $manipulator->getSourceCode();
+    }
+
+    /**
+     * Creates a new migration file based on the generated api source code.
+     *
+     * @throws \Exception
+     */
+    public function diffDatabase()
+    {
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+        $application->run(new ArrayInput(['command' => 'doctrine:migrations:diff']), new NullOutput());
+    }
+
+    /**
+     * Migrates the old database schema to the new one.
+     *
+     * @throws \Exception
+     */
+    public function migrateDatabase()
+    {
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+        $application->run(new ArrayInput([
+            'command' => 'doctrine:migrations:migrate',
+            '--no-interaction' => true
+        ]), new NullOutput());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function clearApplicationCache()
+    {
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+        $application->run(new ArrayInput(['command' => 'cache:clear']), new NullOutput());
     }
 }
