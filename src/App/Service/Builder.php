@@ -109,7 +109,7 @@ class Builder
             'entity_class_name' => $name,
             'entity_alias' => lcfirst($name)[0],
             'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $name . 'Repository',
-            'entity_full_class_name' => self::ENTITY_NAMESPACE . str_replace('Repository', '', $name)
+            'entity_full_class_name' => self::ENTITY_NAMESPACE . $name
         ));
     }
 
