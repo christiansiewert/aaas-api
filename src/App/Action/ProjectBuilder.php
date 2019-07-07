@@ -48,7 +48,7 @@ class ProjectBuilder
      * @param Project $data
      * @return Project
      */
-    public function __invoke(Project $data)
+    public function __invoke(Project $data) : Project
     {
         $this->builder->buildProject($data);
 
