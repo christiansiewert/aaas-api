@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Tree\Traits\NestedSetEntity;
 
 /**
-<?php if ($api_resource): ?> * @ApiResource()
+<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api")
 <?php endif ?>
  * @ORM\Entity(repositoryClass="<?= $repository_full_class_name ?>")
  * @Gedmo\Tree(type="nested")
