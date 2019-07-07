@@ -23,7 +23,7 @@ use \InvalidArgumentException;
  * A service represents a table in your database and holds
  * several field definitions.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

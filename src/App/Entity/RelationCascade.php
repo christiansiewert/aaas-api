@@ -18,7 +18,7 @@ use InvalidArgumentException;
 /**
  * This maps cascade options of field relations.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ORM\Entity()
  * @ORM\Table(name="App_Relation_Cascade")
  */

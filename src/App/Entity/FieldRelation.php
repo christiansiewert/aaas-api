@@ -22,7 +22,7 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
  * A Field relation relates a service field to another service field. We use it to
  * map One-To-One, One-To-Many and Many-To-One relations in our database.
  *
- * @ApiResource()
+ * @ApiResource(routePrefix="/aaas")
  * @ORM\Entity()
  * @ORM\Table(name="App_Field_Relation")
  */

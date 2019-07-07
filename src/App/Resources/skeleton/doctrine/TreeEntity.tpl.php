@@ -1,5 +1,14 @@
 <?= "<?php\n" ?>
 
+/*
+ * This file is part of API as a Service.
+ *
+ * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace <?= $namespace ?>;
 
 <?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;
@@ -9,9 +18,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Tree\Traits\NestedSetEntity;
 
 /**
-<?php if ($api_resource): ?> * @ApiResource()
+<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api")
 <?php endif ?>
  * @ORM\Entity(repositoryClass="<?= $repository_full_class_name ?>")
+ * @ORM\Table(name="Api_<?= $class_name ?>")
  * @Gedmo\Tree(type="nested")
  */
 class <?= $class_name."\n" ?>

@@ -22,11 +22,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * A Project holds repositories.
  *
  * @ApiResource(
+ *     routePrefix="/aaas",
  *     itemOperations={
  *         "get"={"method"="GET"},
  *         "put"={"method"="PUT"},
  *         "delete"={"method"="DELETE"},
- *         "builder"={"route_name"="project_builder"}
+ *         "builder"={
+ *             "route_name"="project_builder",
+ *             "swagger_context"={
+ *                 "summary"="Generates API from an existing project."
+ *             }
+ *         }
  *     }
  * )
  * @ApiFilter(

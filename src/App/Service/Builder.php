@@ -99,8 +99,8 @@ class Builder
      */
     public function generateClass(string $name, bool $isRepository = false, bool $isTree = false) : string
     {
-        $format = 'doctrine/%s.tpl.php';
-        $isTree === false ?: $format = dirname(__DIR__) . '/Resources/skeleton/tree/' . $format;
+        $format = dirname(__DIR__) . '/Resources/skeleton/doctrine/%s.tpl.php';
+        $isTree !== true ?: $format = sprintf($format, 'Tree%s');
         $templateName = sprintf($format, $isRepository ? 'Repository' : 'Entity');
         $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
 
@@ -109,7 +109,7 @@ class Builder
             'entity_class_name' => $name,
             'entity_alias' => lcfirst($name)[0],
             'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $name . 'Repository',
-            'entity_full_class_name' => self::ENTITY_NAMESPACE . preg_split('/(?=[A-Z])/', $name)[1]
+            'entity_full_class_name' => self::ENTITY_NAMESPACE . $name
         ));
     }
 
