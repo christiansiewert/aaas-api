@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - route prefix for application API
 - route prefix for generated API
+- table name prefix for generated database tables
 
 ## [0.3.0] - 2019-07-06
 

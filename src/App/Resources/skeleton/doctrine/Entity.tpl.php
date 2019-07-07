@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 <?php if ($api_resource): ?> * @ApiResource(routePrefix="/api")
 <?php endif ?>
  * @ORM\Entity(repositoryClass="<?= $repository_full_class_name ?>")
+ * @ORM\Table(name="Api_<?= $class_name ?>")
  */
 class <?= $class_name."\n" ?>
 {
