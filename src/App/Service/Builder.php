@@ -204,41 +204,4 @@ class Builder
 
         return $manipulator->getSourceCode();
     }
-
-    /**
-     * Creates a new migration file based on the generated api source code.
-     *
-     * @throws \Exception
-     */
-    public function diffDatabase()
-    {
-        $application = new Application($this->kernel);
-        $application->setAutoExit(false);
-        $application->run(new ArrayInput(['command' => 'doctrine:migrations:diff']), new NullOutput());
-    }
-
-    /**
-     * Migrates the old database schema to the new one.
-     *
-     * @throws \Exception
-     */
-    public function migrateDatabase()
-    {
-        $application = new Application($this->kernel);
-        $application->setAutoExit(false);
-        $application->run(new ArrayInput([
-            'command' => 'doctrine:migrations:migrate',
-            '--no-interaction' => true
-        ]), new NullOutput());
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function clearApplicationCache()
-    {
-        $application = new Application($this->kernel);
-        $application->setAutoExit(false);
-        $application->run(new ArrayInput(['command' => 'cache:clear']), new NullOutput());
-    }
 }

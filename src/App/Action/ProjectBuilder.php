@@ -52,13 +52,6 @@ class ProjectBuilder
     {
         $this->builder->buildProject($data);
 
-        /**
-         * @todo refactore
-         */
-        $this->builder->diffDatabase();
-        $this->builder->migrateDatabase();
-        $this->builder->clearApplicationCache();
-
         return $data;
     }
 }
