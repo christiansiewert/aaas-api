@@ -14,6 +14,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -27,6 +29,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "name": "word_start"
  *     }
  * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "option"
+ *         }
+ *     }
+ * )
  * @ORM\Entity()
  * @ORM\Table(name="App_Field_Option")
  * @author Christian Siewert <christian@sieware.international>
@@ -37,16 +47,19 @@ class FieldOption
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("option")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("option")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("option")
      */
     private $value;
 

@@ -91,22 +91,22 @@ class RepositoryServiceTest extends TestCase
         $this->assertEquals($relation, $this->object->getRepository());
     }
 
-    public function testServiceFieldsGettable()
+    public function testFieldsGettable()
     {
-        $this->assertCount(0, $this->object->getServiceFields());
+        $this->assertCount(0, $this->object->getFields());
     }
 
-    public function testServiceFieldsAddable()
+    public function testFieldsAddable()
     {
-        $this->object->addServiceField(new ServiceField());
-        $this->assertCount(1, $this->object->getServiceFields());
+        $this->object->addField(new ServiceField());
+        $this->assertCount(1, $this->object->getFields());
     }
 
-    public function testServiceFieldsRemovable()
+    public function testFieldsRemovable()
     {
         $relation = new ServiceField();
-        $this->object->addServiceField($relation);
-        $this->object->removeServiceField($relation);
-        $this->assertCount(0, $this->object->getServiceFields());
+        $this->object->addField($relation);
+        $this->object->removeField($relation);
+        $this->assertCount(0, $this->object->getFields());
     }
 }

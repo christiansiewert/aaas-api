@@ -16,11 +16,8 @@ use App\Entity\ServiceField;
 use App\Entity\ProjectRepository;
 use App\Entity\RepositoryService;
 use Symfony\Bundle\MakerBundle\Generator;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
@@ -88,7 +85,7 @@ class Builder
 
         $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
-        foreach ($service->getServiceFields() as $serviceField) {
+        foreach ($service->getFields() as $serviceField) {
             $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
         }
 

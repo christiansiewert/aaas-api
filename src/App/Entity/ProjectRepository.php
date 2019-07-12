@@ -14,8 +14,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -29,6 +31,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "description" : "word_start"
  *     }
  * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "repository",
+ *             "service"
+ *         }
+ *     }
+ * )
  * @ORM\Entity()
  * @ORM\Table(name="App_Project_Repository")
  * @author Christian Siewert <christian@sieware.international>
@@ -39,16 +50,19 @@ class ProjectRepository
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("repository")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("repository")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("repository")
      */
     private $description;
 
@@ -60,6 +74,7 @@ class ProjectRepository
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RepositoryService", mappedBy="repository", orphanRemoval=true)
+     * @Groups({"repository", "service"})
      */
     private $services;
 
@@ -109,9 +124,6 @@ class ProjectRepository
         return $this;
     }
 
-    /**
-     * @return Collection|RepositoryService[]
-     */
     public function getServices(): Collection
     {
         return $this->services;

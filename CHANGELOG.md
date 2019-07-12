@@ -8,9 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- after generating source code our builder now
-    - migrates the database to the new state 
-    - clears application cache
+- first parts of our documentation (https://aaas-api.readthedocs.io)
+- serialization groups for our entities
 
 ## [0.4.0] - 2019-07-07
 

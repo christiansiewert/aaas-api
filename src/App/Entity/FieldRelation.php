@@ -16,6 +16,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 
 /**
@@ -24,6 +27,14 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
  *
  * @ApiResource(routePrefix="/aaas")
  * @ORM\Entity()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "relation"
+ *         }
+ *     }
+ * )
  * @ORM\Table(name="App_Field_Relation")
  */
 class FieldRelation
@@ -32,51 +43,61 @@ class FieldRelation
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("relation")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10, options={"default" : "OneToMany"})
+     * @Groups("relation")
      */
     private $type = EntityRelation::ONE_TO_MANY;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("relation")
      */
     private $targetEntity;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("relation")
      */
-    private $mappedBy;
+    private $mappedBy = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("relation")
      */
-    private $inversedBy;
+    private $inversedBy = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("relation")
      */
     private $orphanRemoval = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("relation")
      */
-    private $joinColumnName;
+    private $joinColumnName = null;
 
     /**
      * @ORM\Column(type="string", length=255, options={"default" : "id"})
+     * @Groups("relation")
      */
     private $joinColumnReferencedColumnName = 'id';
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("relation")
      */
     private $joinColumnIsUnique = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
+     * @Groups("relation")
      */
     private $joinColumnIsNullable = true;
 
@@ -87,6 +108,7 @@ class FieldRelation
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RelationCascade", mappedBy="fieldRelation", orphanRemoval=true)
+     * @Groups("relation")
      */
     private $cascades;
 

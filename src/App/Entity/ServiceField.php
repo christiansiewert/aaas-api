@@ -16,6 +16,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
 
@@ -28,6 +30,17 @@ use InvalidArgumentException;
  *     properties={
  *         "name": "word_start",
  *         "description" : "word_start"
+ *     }
+ * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "field",
+ *             "option",
+ *             "assertion",
+ *             "relation"
+ *         }
  *     }
  * )
  * @ORM\Entity()
@@ -55,51 +68,60 @@ class ServiceField
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("field")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("field")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("field")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, options={"default" : "string"})
+     * @Groups("field")
      */
     private $dataType = 'string';
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("field")
+     */
+    private $dataTypePrecision = null;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("field")
+     */
+    private $dataTypeScale = null;
+
+    /**
      * @ORM\Column(type="integer", nullable=true, options={"default" : 255, "unsigned"=true})
+     * @Groups("field")
      */
     private $length = 255;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("field")
      */
     private $isUnique = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("field")
      */
     private $isNullable = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dataTypePrecision;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dataTypeScale;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="serviceFields")
+     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
@@ -109,16 +131,19 @@ class ServiceField
      * database platform when generating DDL statements.
      *
      * @ORM\OneToMany(targetEntity="App\Entity\FieldOption", mappedBy="serviceField", orphanRemoval=true)
+     * @Groups({"field", "option"})
      */
     private $options;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
+     * @Groups({"field", "assertion"})
      */
     private $assertions;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", inversedBy="serviceField", cascade={"persist", "remove"})
+     * @Groups({"field", "relation"})
      */
     private $relation;
 
@@ -173,6 +198,30 @@ class ServiceField
         return $this;
     }
 
+    public function getDataTypePrecision(): ?int
+    {
+        return $this->dataTypePrecision;
+    }
+
+    public function setDataTypePrecision(?int $dataTypePrecision): self
+    {
+        $this->dataTypePrecision = $dataTypePrecision;
+
+        return $this;
+    }
+
+    public function getDataTypeScale(): ?int
+    {
+        return $this->dataTypeScale;
+    }
+
+    public function setDataTypeScale(?int $dataTypeScale): self
+    {
+        $this->dataTypeScale = $dataTypeScale;
+
+        return $this;
+    }
+
     public function getLength(): ?int
     {
         return $this->length;
@@ -205,30 +254,6 @@ class ServiceField
     public function setIsNullable(bool $isNullable): self
     {
         $this->isNullable = $isNullable;
-
-        return $this;
-    }
-
-    public function getDataTypePrecision(): ?int
-    {
-        return $this->dataTypePrecision;
-    }
-
-    public function setDataTypePrecision(?int $dataTypePrecision): self
-    {
-        $this->dataTypePrecision = $dataTypePrecision;
-
-        return $this;
-    }
-
-    public function getDataTypeScale(): ?int
-    {
-        return $this->dataTypeScale;
-    }
-
-    public function setDataTypeScale(?int $dataTypeScale): self
-    {
-        $this->dataTypeScale = $dataTypeScale;
 
         return $this;
     }

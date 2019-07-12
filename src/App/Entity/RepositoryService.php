@@ -16,8 +16,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * A service represents a table in your database and holds
@@ -29,6 +31,15 @@ use \InvalidArgumentException;
  *     properties={
  *         "name": "word_start",
  *         "description" : "word_start"
+ *     }
+ * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "service",
+ *             "field"
+ *         }
  *     }
  * )
  * @ORM\Entity()
@@ -44,21 +55,25 @@ class RepositoryService
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("service")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("service")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("service")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("service")
      */
     private $type;
 
@@ -70,12 +85,13 @@ class RepositoryService
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true)
+     * @Groups({"service", "field"})
      */
-    private $serviceFields;
+    private $fields;
 
     public function __construct()
     {
-        $this->serviceFields = new ArrayCollection();
+        $this->fields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,28 +151,25 @@ class RepositoryService
         return $this;
     }
 
-    /**
-     * @return Collection|ServiceField[]
-     */
-    public function getServiceFields(): Collection
+    public function getFields(): Collection
     {
-        return $this->serviceFields;
+        return $this->fields;
     }
 
-    public function addServiceField(ServiceField $serviceField): self
+    public function addField(ServiceField $serviceField): self
     {
-        if (!$this->serviceFields->contains($serviceField)) {
-            $this->serviceFields[] = $serviceField;
+        if (!$this->fields->contains($serviceField)) {
+            $this->fields[] = $serviceField;
             $serviceField->setService($this);
         }
 
         return $this;
     }
 
-    public function removeServiceField(ServiceField $serviceField): self
+    public function removeField(ServiceField $serviceField): self
     {
-        if ($this->serviceFields->contains($serviceField)) {
-            $this->serviceFields->removeElement($serviceField);
+        if ($this->fields->contains($serviceField)) {
+            $this->fields->removeElement($serviceField);
             // set the owning side to null (unless already changed)
             if ($serviceField->getService() === $this) {
                 $serviceField->setService(null);

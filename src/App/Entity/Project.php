@@ -16,6 +16,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -42,6 +44,20 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "description" : "word_start"
  *     }
  * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "project",
+ *             "repository",
+ *             "service",
+ *             "field",
+ *             "option",
+ *             "assertion",
+ *             "relation"
+ *         }
+ *     }
+ * )
  * @ORM\Entity()
  * @ORM\Table(name="App_Project")
  * @author Christian Siewert <christian@sieware.international>
@@ -52,21 +68,25 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("project")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("project")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("project")
      */
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
+     * @Groups({"project", "repository"})
      */
     private $repositories;
 
@@ -104,9 +124,6 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection|ProjectRepository[]
-     */
     public function getRepositories(): Collection
     {
         return $this->repositories;
