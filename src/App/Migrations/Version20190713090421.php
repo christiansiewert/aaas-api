@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190706093939 extends AbstractMigration
+final class Version20190713090421 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -30,8 +30,8 @@ final class Version20190706093939 extends AbstractMigration
         $this->addSql('CREATE TABLE App_Relation_Cascade (id INT AUTO_INCREMENT NOT NULL, field_relation_id INT NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_491CEC52F7E1228C (field_relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Option (id INT AUTO_INCREMENT NOT NULL, service_field_id INT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_BAEE3380BD415C8D (service_field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Assert (id INT AUTO_INCREMENT NOT NULL, service_field_id INT NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_51877C9BBD415C8D (service_field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE App_Service_Field (id INT AUTO_INCREMENT NOT NULL, service_id INT NOT NULL, relation_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, data_type VARCHAR(255) DEFAULT \'string\' NOT NULL, length INT UNSIGNED DEFAULT 255, is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, is_nullable TINYINT(1) DEFAULT \'0\' NOT NULL, data_type_precision INT DEFAULT NULL, data_type_scale INT DEFAULT NULL, INDEX IDX_34E6C318ED5CA9E6 (service_id), UNIQUE INDEX UNIQ_34E6C3183256915B (relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE Acl_Customer (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_627894A6E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE App_Service_Field (id INT AUTO_INCREMENT NOT NULL, service_id INT NOT NULL, relation_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, data_type VARCHAR(255) DEFAULT \'string\' NOT NULL, data_type_precision INT DEFAULT NULL, data_type_scale INT DEFAULT NULL, length INT UNSIGNED DEFAULT 255, is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, is_nullable TINYINT(1) DEFAULT \'0\' NOT NULL, INDEX IDX_34E6C318ED5CA9E6 (service_id), UNIQUE INDEX UNIQ_34E6C3183256915B (relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Acl_Customer (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_627894A6E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE App_Repository_Service ADD CONSTRAINT FK_3A0A7CC450C9D4F7 FOREIGN KEY (repository_id) REFERENCES App_Project_Repository (id)');
         $this->addSql('ALTER TABLE App_Project_Repository ADD CONSTRAINT FK_BECDCEA4166D1F9C FOREIGN KEY (project_id) REFERENCES App_Project (id)');
         $this->addSql('ALTER TABLE App_Assert_Option ADD CONSTRAINT FK_1751E07A113B5DA9 FOREIGN KEY (field_assert_id) REFERENCES App_Field_Assert (id)');
