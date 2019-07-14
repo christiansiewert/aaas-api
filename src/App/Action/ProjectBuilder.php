@@ -39,7 +39,7 @@ class ProjectBuilder
      * @Route(
      *     name="project_builder",
      *     methods={"GET"},
-     *     path="/projects/{id}/build",
+     *     path="/aaas/projects/{id}/build",
      *     defaults={
      *         "_api_resource_class"=Project::class,
      *         "_api_item_operation_name"="builder"
