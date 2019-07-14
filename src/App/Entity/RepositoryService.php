@@ -87,7 +87,7 @@ class RepositoryService
     private $repository;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"service", "field"})
      */
     private $fields;
