@@ -89,6 +89,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"project", "repository"})
+     * @Assert\Valid
      */
     private $repositories;
 

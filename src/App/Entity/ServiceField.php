@@ -18,6 +18,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
 
@@ -75,6 +76,7 @@ class ServiceField
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("field")
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -87,6 +89,7 @@ class ServiceField
     /**
      * @ORM\Column(type="string", length=255, options={"default" : "string"})
      * @Groups("field")
+     * @Assert\NotBlank
      */
     private $dataType = 'string';
 
@@ -103,10 +106,10 @@ class ServiceField
     private $dataTypeScale = null;
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default" : 255, "unsigned"=true})
+     * @ORM\Column(type="integer", nullable=true, options={"unsigned"=true})
      * @Groups("field")
      */
-    private $length = 255;
+    private $length;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -132,18 +135,21 @@ class ServiceField
      *
      * @ORM\OneToMany(targetEntity="App\Entity\FieldOption", mappedBy="serviceField", orphanRemoval=true)
      * @Groups({"field", "option"})
+     * @Assert\Valid
      */
     private $options;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
      * @Groups({"field", "assertion"})
+     * @Assert\Valid
      */
     private $assertions;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", inversedBy="serviceField", cascade={"persist", "remove"})
      * @Groups({"field", "relation"})
+     * @Assert\Valid
      */
     private $relation;
 

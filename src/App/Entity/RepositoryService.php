@@ -18,6 +18,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
 
@@ -62,6 +63,7 @@ class RepositoryService
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("service")
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -72,10 +74,11 @@ class RepositoryService
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"default" : "list"})
      * @Groups("service")
+     * @Assert\NotBlank
      */
-    private $type;
+    private $type = self::TYPE_LIST;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRepository", inversedBy="services")

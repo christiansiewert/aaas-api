@@ -77,8 +77,9 @@ class ProjectRepository
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RepositoryService", mappedBy="repository", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\RepositoryService", mappedBy="repository", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"repository", "service"})
+     * @Assert\Valid
      */
     private $services;
 
