@@ -30,7 +30,8 @@ use InvalidArgumentException;
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start",
- *         "description" : "word_start"
+ *         "description" : "word_start",
+ *         "service" : "exact"
  *     }
  * )
  * @ApiFilter(

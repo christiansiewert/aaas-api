@@ -29,7 +29,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start",
- *         "description" : "word_start"
+ *         "description" : "word_start",
+ *         "project" : "exact"
  *     }
  * )
  * @ApiFilter(
