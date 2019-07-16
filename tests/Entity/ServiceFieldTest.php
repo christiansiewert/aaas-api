@@ -75,7 +75,7 @@ class ServiceFieldTest extends TestCase
 
     public function testLengthGettable()
     {
-        $this->assertEquals(255, $this->object->getLength());
+        $this->assertNull($this->object->getLength());
     }
 
     public function testLengthSettable()

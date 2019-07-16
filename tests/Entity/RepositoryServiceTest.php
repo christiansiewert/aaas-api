@@ -64,7 +64,7 @@ class RepositoryServiceTest extends TestCase
 
     public function testTypeGettable()
     {
-        $this->assertNull($this->object->getType());
+        $this->assertEquals(RepositoryService::TYPE_LIST, $this->object->getType());
     }
 
     public function testTypeSettable()
