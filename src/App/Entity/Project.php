@@ -27,9 +27,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiResource(
  *     routePrefix="/aaas",
  *     itemOperations={
- *         "get"={"method"="GET"},
- *         "put"={"method"="PUT"},
- *         "delete"={"method"="DELETE"},
+ *         "get",
+ *         "put",
+ *         "delete",
  *         "builder"={
  *             "route_name"="project_builder",
  *             "swagger_context"={
