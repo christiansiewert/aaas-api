@@ -12,9 +12,9 @@
 namespace App\Service;
 
 use App\Entity\Project;
-use App\Entity\ServiceField;
-use App\Entity\ProjectRepository;
-use App\Entity\RepositoryService;
+use App\Entity\Field;
+use App\Entity\Repository;
+use App\Entity\Service;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
@@ -64,22 +64,22 @@ class Builder
     }
 
     /**
-     * @param ProjectRepository $repository
+     * @param Repository $repository
      */
-    public function buildRepository(ProjectRepository $repository)
+    public function buildRepository(Repository $repository)
     {
         array_map([$this, 'buildService'], $repository->getServices()->toArray());
     }
 
     /**
-     * @param RepositoryService $service
+     * @param Service $service
      */
-    public function buildService(RepositoryService $service)
+    public function buildService(Service $service)
     {
         $name = $service->getName();
         $type = $service->getType();
 
-        $entityTargetPath = $type === RepositoryService::TYPE_LIST ?
+        $entityTargetPath = $type === Service::TYPE_LIST ?
             $this->generateClass($name) :
             $this->generateClass($name, false, true);
 
@@ -89,7 +89,7 @@ class Builder
             $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
         }
 
-        $type === RepositoryService::TYPE_LIST ?
+        $type === Service::TYPE_LIST ?
             $this->generateClass($name, true) :
             $this->generateClass($name, true, true) ;
 
@@ -124,11 +124,11 @@ class Builder
     /**
      * Adds an entity field to our manipulator and returns the generated source code.
      *
-     * @param ServiceField $serviceField
+     * @param Field $serviceField
      * @param string $sourceCode
      * @return string
      */
-    public function buildServiceField(ServiceField $serviceField, string $sourceCode) : string
+    public function buildServiceField(Field $serviceField, string $sourceCode) : string
     {
         $name = $serviceField->getName();
         $dataType = $serviceField->getDataType();
@@ -166,11 +166,11 @@ class Builder
     /**
      * Adds a field relation to our manipulator and returns the generated source code.
      *
-     * @param ServiceField $serviceField
+     * @param Field $serviceField
      * @param ClassSourceManipulator $manipulator
      * @return string
      */
-    public function buildFieldRelation(ServiceField $serviceField, ClassSourceManipulator $manipulator) : string
+    public function buildFieldRelation(Field $serviceField, ClassSourceManipulator $manipulator) : string
     {
         $relation = $serviceField->getRelation();
         $relationType = $relation->getType();
