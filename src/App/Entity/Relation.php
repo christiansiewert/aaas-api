@@ -11,12 +11,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
@@ -25,8 +23,8 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
  * A Field relation relates a service field to another service field. We use it to
  * map One-To-One, One-To-Many and Many-To-One relations in our database.
  *
- * @ApiResource(routePrefix="/aaas")
- * @ORM\Entity()
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/field")
  * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={
@@ -37,7 +35,7 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
  * )
  * @ORM\Table(name="App_Field_Relation")
  */
-class FieldRelation
+class Relation
 {
     /**
      * @ORM\Id()
@@ -102,20 +100,9 @@ class FieldRelation
     private $joinColumnIsNullable = true;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ServiceField", mappedBy="relation", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Field", mappedBy="relation", cascade={"persist", "remove"})
      */
     private $serviceField;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RelationCascade", mappedBy="fieldRelation", orphanRemoval=true)
-     * @Groups("relation")
-     */
-    private $cascades;
-
-    public function __construct()
-    {
-        $this->cascades = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -186,12 +173,12 @@ class FieldRelation
         return $this;
     }
 
-    public function getServiceField(): ?ServiceField
+    public function getServiceField(): ?Field
     {
         return $this->serviceField;
     }
 
-    public function setServiceField(?ServiceField $serviceField): self
+    public function setServiceField(?Field $serviceField): self
     {
         $this->serviceField = $serviceField;
 
@@ -248,37 +235,6 @@ class FieldRelation
     public function setJoinColumnIsNullable(bool $joinColumnIsNullable): self
     {
         $this->joinColumnIsNullable = $joinColumnIsNullable;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|RelationCascade[]
-     */
-    public function getCascades(): Collection
-    {
-        return $this->cascades;
-    }
-
-    public function addCascade(RelationCascade $cascade): self
-    {
-        if (!$this->cascades->contains($cascade)) {
-            $this->cascades[] = $cascade;
-            $cascade->setFieldRelation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCascade(RelationCascade $cascade): self
-    {
-        if ($this->cascades->contains($cascade)) {
-            $this->cascades->removeElement($cascade);
-            // set the owning side to null (unless already changed)
-            if ($cascade->getFieldRelation() === $this) {
-                $cascade->setFieldRelation(null);
-            }
-        }
 
         return $this;
     }

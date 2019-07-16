@@ -24,8 +24,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * A Project holds repositories.
  *
+ * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/aaas",
  *     itemOperations={
  *         "get",
  *         "put",
@@ -54,12 +54,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *             "service",
  *             "field",
  *             "option",
- *             "assertion",
+ *             "constraint",
  *             "relation"
  *         }
  *     }
  * )
- * @ORM\Entity()
  * @ORM\Table(name="App_Project")
  * @author Christian Siewert <christian@sieware.international>
  */
@@ -87,7 +86,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Repository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"project", "repository"})
      * @Assert\Valid
      */
@@ -132,7 +131,7 @@ class Project
         return $this->repositories;
     }
 
-    public function addRepository(ProjectRepository $repository): self
+    public function addRepository(Repository $repository): self
     {
         if (!$this->repositories->contains($repository)) {
             $this->repositories[] = $repository;
@@ -142,7 +141,7 @@ class Project
         return $this;
     }
 
-    public function removeRepository(ProjectRepository $repository): self
+    public function removeRepository(Repository $repository): self
     {
         if ($this->repositories->contains($repository)) {
             $this->repositories->removeElement($repository);

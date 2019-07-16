@@ -23,9 +23,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
 
 /**
- * A ServiceField represents a column in your database table.
+ * A Field represents a column in your database table.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/service")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -40,16 +41,15 @@ use InvalidArgumentException;
  *         "whitelist" : {
  *             "field",
  *             "option",
- *             "assertion",
+ *             "constraint",
  *             "relation"
  *         }
  *     }
  * )
- * @ORM\Entity()
  * @ORM\Table(name="App_Service_Field")
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceField
+class Field
 {
     /**
      * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.9/reference/types.html#types
@@ -125,7 +125,7 @@ class ServiceField
     private $isNullable = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="fields")
+     * @ORM\ManyToOne(targetEntity="Service", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;
@@ -134,21 +134,21 @@ class ServiceField
      * Key-value pairs of options that get passed to the underlying
      * database platform when generating DDL statements.
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\FieldOption", mappedBy="serviceField", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Option", mappedBy="serviceField", orphanRemoval=true)
      * @Groups({"field", "option"})
      * @Assert\Valid
      */
     private $options;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
-     * @Groups({"field", "assertion"})
+     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="serviceField", orphanRemoval=true)
+     * @Groups({"field", "constraint"})
      * @Assert\Valid
      */
-    private $assertions;
+    private $constraints;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", inversedBy="serviceField", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Relation", inversedBy="serviceField", cascade={"persist", "remove"})
      * @Groups({"field", "relation"})
      * @Assert\Valid
      */
@@ -157,7 +157,7 @@ class ServiceField
     public function __construct()
     {
         $this->options = new ArrayCollection();
-        $this->assertions = new ArrayCollection();
+        $this->constraints = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,12 +265,12 @@ class ServiceField
         return $this;
     }
 
-    public function getService(): ?RepositoryService
+    public function getService(): ?Service
     {
         return $this->service;
     }
 
-    public function setService(?RepositoryService $service): self
+    public function setService(?Service $service): self
     {
         $this->service = $service;
 
@@ -278,14 +278,14 @@ class ServiceField
     }
 
     /**
-     * @return Collection|FieldOption[]
+     * @return Collection|Option[]
      */
     public function getOptions(): Collection
     {
         return $this->options;
     }
 
-    public function addOption(FieldOption $option): self
+    public function addOption(Option $option): self
     {
         if (!$this->options->contains($option)) {
             $this->options[] = $option;
@@ -295,7 +295,7 @@ class ServiceField
         return $this;
     }
 
-    public function removeOption(FieldOption $option): self
+    public function removeOption(Option $option): self
     {
         if ($this->options->contains($option)) {
             $this->options->removeElement($option);
@@ -309,42 +309,42 @@ class ServiceField
     }
 
     /**
-     * @return Collection|FieldAssert[]
+     * @return Collection|Constraint[]
      */
-    public function getAssertions(): Collection
+    public function getConstraints(): Collection
     {
-        return $this->assertions;
+        return $this->constraints;
     }
 
-    public function addAssertion(FieldAssert $assertion): self
+    public function addConstraint(Constraint $constraint): self
     {
-        if (!$this->assertions->contains($assertion)) {
-            $this->assertions[] = $assertion;
-            $assertion->setServiceField($this);
+        if (!$this->constraints->contains($constraint)) {
+            $this->constraints[] = $constraint;
+            $constraint->setServiceField($this);
         }
 
         return $this;
     }
 
-    public function removeAssertion(FieldAssert $assertion): self
+    public function removeAssertion(Constraint $constraint): self
     {
-        if ($this->assertions->contains($assertion)) {
-            $this->assertions->removeElement($assertion);
+        if ($this->constraints->contains($constraint)) {
+            $this->constraints->removeElement($constraint);
             // set the owning side to null (unless already changed)
-            if ($assertion->getServiceField() === $this) {
-                $assertion->setServiceField(null);
+            if ($constraint->getServiceField() === $this) {
+                $constraint->setServiceField(null);
             }
         }
 
         return $this;
     }
 
-    public function getRelation(): ?FieldRelation
+    public function getRelation(): ?Relation
     {
         return $this->relation;
     }
 
-    public function setRelation(?FieldRelation $relation): self
+    public function setRelation(?Relation $relation): self
     {
         $this->relation = $relation;
 

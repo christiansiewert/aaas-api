@@ -14,57 +14,38 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Serializer\Filter\GroupFilter;
-use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * Key-value pairs of options that get passed to the underlying
- * database platform when generating DDL statements.
+ * Field assertions.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start"
  *     }
  * )
- * @ApiFilter(
- *     GroupFilter::class,
- *     arguments={
- *         "whitelist" : {
- *             "option"
- *         }
- *     }
- * )
- * @ORM\Entity()
- * @ORM\Table(name="App_Field_Option")
+ * @ORM\Table(name="App_Field_Assert")
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldOption
+class Constraint
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("option")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("option")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("option")
-     */
-    private $value;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ServiceField", inversedBy="options")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="constraints")
      * @ORM\JoinColumn(nullable=false)
      */
     private $serviceField;
@@ -86,24 +67,12 @@ class FieldOption
         return $this;
     }
 
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
-
-    public function setValue(string $value): self
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    public function getServiceField(): ?ServiceField
+    public function getServiceField(): ?Field
     {
         return $this->serviceField;
     }
 
-    public function setServiceField(?ServiceField $serviceField): self
+    public function setServiceField(?Field $serviceField): self
     {
         $this->serviceField = $serviceField;
 

@@ -11,56 +11,63 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * Field assertions.
+ * Key-value pairs of options that get passed to the underlying
+ * database platform when generating DDL statements.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start"
  *     }
  * )
- * @ORM\Entity()
- * @ORM\Table(name="App_Field_Assert")
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "option"
+ *         }
+ *     }
+ * )
+ * @ORM\Table(name="App_Field_Option")
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldAssert
+class Option
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("option")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("option")
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AssertOption", mappedBy="fieldAssert", orphanRemoval=true)
+     * @ORM\Column(type="string", length=255)
+     * @Groups("option")
      */
-    private $options;
+    private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ServiceField", inversedBy="assertions")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
      */
     private $serviceField;
-
-    public function __construct()
-    {
-        $this->options = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -79,43 +86,24 @@ class FieldAssert
         return $this;
     }
 
-    /**
-     * @return Collection|AssertOption[]
-     */
-    public function getOptions(): Collection
+    public function getValue(): ?string
     {
-        return $this->options;
+        return $this->value;
     }
 
-    public function addOption(AssertOption $option): self
+    public function setValue(string $value): self
     {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-            $option->setFieldAssert($this);
-        }
+        $this->value = $value;
 
         return $this;
     }
 
-    public function removeOption(AssertOption $option): self
-    {
-        if ($this->options->contains($option)) {
-            $this->options->removeElement($option);
-            // set the owning side to null (unless already changed)
-            if ($option->getFieldAssert() === $this) {
-                $option->setFieldAssert(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getServiceField(): ?ServiceField
+    public function getServiceField(): ?Field
     {
         return $this->serviceField;
     }
 
-    public function setServiceField(?ServiceField $serviceField): self
+    public function setServiceField(?Field $serviceField): self
     {
         $this->serviceField = $serviceField;
 

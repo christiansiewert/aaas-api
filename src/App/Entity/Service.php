@@ -26,7 +26,8 @@ use InvalidArgumentException;
  * A service represents a table in your database and holds
  * several field definitions.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/repository")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -44,11 +45,10 @@ use InvalidArgumentException;
  *         }
  *     }
  * )
- * @ORM\Entity()
  * @ORM\Table(name="App_Repository_Service")
  * @author Christian Siewert <christian@sieware.international>
  */
-class RepositoryService
+class Service
 {
     const TYPE_LIST = 'list';
     const TYPE_TREE = 'tree';
@@ -82,13 +82,13 @@ class RepositoryService
     private $type = self::TYPE_LIST;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRepository", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="Repository", inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
     private $repository;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Field", mappedBy="service", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"service", "field"})
      */
     private $fields;
@@ -143,12 +143,12 @@ class RepositoryService
         return $this;
     }
 
-    public function getRepository(): ?ProjectRepository
+    public function getRepository(): ?Repository
     {
         return $this->repository;
     }
 
-    public function setRepository(?ProjectRepository $repository): self
+    public function setRepository(?Repository $repository): self
     {
         $this->repository = $repository;
 
@@ -160,7 +160,7 @@ class RepositoryService
         return $this->fields;
     }
 
-    public function addField(ServiceField $serviceField): self
+    public function addField(Field $serviceField): self
     {
         if (!$this->fields->contains($serviceField)) {
             $this->fields[] = $serviceField;
@@ -170,7 +170,7 @@ class RepositoryService
         return $this;
     }
 
-    public function removeField(ServiceField $serviceField): self
+    public function removeField(Field $serviceField): self
     {
         if ($this->fields->contains($serviceField)) {
             $this->fields->removeElement($serviceField);

@@ -11,19 +11,19 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\ProjectRepository;
-use App\Entity\RepositoryService;
-use App\Entity\ServiceField;
+use App\Entity\Repository;
+use App\Entity\Service;
+use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class RepositoryServiceTest extends TestCase
+class ServiceTest extends TestCase
 {
     /**
-     * @var RepositoryService
+     * @var Service
      */
     private $object;
 
@@ -32,7 +32,7 @@ class RepositoryServiceTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new RepositoryService();
+        $this->object = new Service();
     }
 
     public function testIdGettable()
@@ -64,13 +64,13 @@ class RepositoryServiceTest extends TestCase
 
     public function testTypeGettable()
     {
-        $this->assertEquals(RepositoryService::TYPE_LIST, $this->object->getType());
+        $this->assertEquals(Service::TYPE_LIST, $this->object->getType());
     }
 
     public function testTypeSettable()
     {
-        $this->object->setType(RepositoryService::TYPE_LIST);
-        $this->assertEquals(RepositoryService::TYPE_LIST, $this->object->getType());
+        $this->object->setType(Service::TYPE_LIST);
+        $this->assertEquals(Service::TYPE_LIST, $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()
@@ -86,8 +86,8 @@ class RepositoryServiceTest extends TestCase
 
     public function testRepositorySettable()
     {
-        $relation = new ProjectRepository();
-        $this->object->setRepository(new ProjectRepository());
+        $relation = new Repository();
+        $this->object->setRepository(new Repository());
         $this->assertEquals($relation, $this->object->getRepository());
     }
 
@@ -98,13 +98,13 @@ class RepositoryServiceTest extends TestCase
 
     public function testFieldsAddable()
     {
-        $this->object->addField(new ServiceField());
+        $this->object->addField(new Field());
         $this->assertCount(1, $this->object->getFields());
     }
 
     public function testFieldsRemovable()
     {
-        $relation = new ServiceField();
+        $relation = new Field();
         $this->object->addField($relation);
         $this->object->removeField($relation);
         $this->assertCount(0, $this->object->getFields());

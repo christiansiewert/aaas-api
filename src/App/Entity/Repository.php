@@ -22,9 +22,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * A ProjectRepository holds services.
+ * A Repository holds services.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/project")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -43,11 +44,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         }
  *     }
  * )
- * @ORM\Entity()
  * @ORM\Table(name="App_Project_Repository")
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectRepository
+class Repository
 {
     /**
      * @ORM\Id()
@@ -71,14 +71,14 @@ class ProjectRepository
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="repositories")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RepositoryService", mappedBy="repository", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="repository", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"repository", "service"})
      * @Assert\Valid
      */
@@ -135,7 +135,7 @@ class ProjectRepository
         return $this->services;
     }
 
-    public function addService(RepositoryService $service): self
+    public function addService(Service $service): self
     {
         if (!$this->services->contains($service)) {
             $this->services[] = $service;
@@ -145,7 +145,7 @@ class ProjectRepository
         return $this;
     }
 
-    public function removeService(RepositoryService $service): self
+    public function removeService(Service $service): self
     {
         if ($this->services->contains($service)) {
             $this->services->removeElement($service);

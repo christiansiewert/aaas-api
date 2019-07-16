@@ -12,17 +12,17 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Project;
-use App\Entity\ProjectRepository;
-use App\Entity\RepositoryService;
+use App\Entity\Repository;
+use App\Entity\Service;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectRepositoryTest extends TestCase
+class RepositoryTest extends TestCase
 {
     /**
-     * @var ProjectRepository
+     * @var Repository
      */
     private $object;
 
@@ -31,7 +31,7 @@ class ProjectRepositoryTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new ProjectRepository();
+        $this->object = new Repository();
     }
 
     public function testIdGettable()
@@ -80,13 +80,13 @@ class ProjectRepositoryTest extends TestCase
 
     public function testServicesAddable()
     {
-        $this->object->addService(new RepositoryService());
+        $this->object->addService(new Service());
         $this->assertCount(1, $this->object->getServices());
     }
 
     public function testServicesRemovable()
     {
-        $relation = new RepositoryService();
+        $relation = new Service();
         $this->object->addService($relation);
         $this->object->removeService($relation);
         $this->assertCount(0, $this->object->getServices());
