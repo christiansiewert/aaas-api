@@ -49,15 +49,15 @@ class ConstraintTest extends TestCase
         $this->assertEquals('name', $this->object->getName());
     }
 
-    public function testServiceFieldGettable()
+    public function testfieldGettable()
     {
-        $this->assertNull($this->object->getServiceField());
+        $this->assertNull($this->object->getfield());
     }
 
-    public function testServiceFieldSettable()
+    public function testfieldSettable()
     {
         $relation = new Field();
-        $this->object->setServiceField($relation);
-        $this->assertEquals($relation, $this->object->getServiceField());
+        $this->object->setfield($relation);
+        $this->assertEquals($relation, $this->object->getfield());
     }
 }

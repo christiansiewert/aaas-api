@@ -134,21 +134,21 @@ class Field
      * Key-value pairs of options that get passed to the underlying
      * database platform when generating DDL statements.
      *
-     * @ORM\OneToMany(targetEntity="Option", mappedBy="serviceField", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Option", mappedBy="field", orphanRemoval=true)
      * @Groups({"field", "option"})
      * @Assert\Valid
      */
     private $options;
 
     /**
-     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="serviceField", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true)
      * @Groups({"field", "constraint"})
      * @Assert\Valid
      */
     private $constraints;
 
     /**
-     * @ORM\OneToOne(targetEntity="Relation", inversedBy="serviceField", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Relation", inversedBy="field", cascade={"persist", "remove"})
      * @Groups({"field", "relation"})
      * @Assert\Valid
      */
@@ -289,7 +289,7 @@ class Field
     {
         if (!$this->options->contains($option)) {
             $this->options[] = $option;
-            $option->setServiceField($this);
+            $option->setfield($this);
         }
 
         return $this;
@@ -300,8 +300,8 @@ class Field
         if ($this->options->contains($option)) {
             $this->options->removeElement($option);
             // set the owning side to null (unless already changed)
-            if ($option->getServiceField() === $this) {
-                $option->setServiceField(null);
+            if ($option->getfield() === $this) {
+                $option->setfield(null);
             }
         }
 
@@ -320,7 +320,7 @@ class Field
     {
         if (!$this->constraints->contains($constraint)) {
             $this->constraints[] = $constraint;
-            $constraint->setServiceField($this);
+            $constraint->setfield($this);
         }
 
         return $this;
@@ -331,8 +331,8 @@ class Field
         if ($this->constraints->contains($constraint)) {
             $this->constraints->removeElement($constraint);
             // set the owning side to null (unless already changed)
-            if ($constraint->getServiceField() === $this) {
-                $constraint->setServiceField(null);
+            if ($constraint->getfield() === $this) {
+                $constraint->setfield(null);
             }
         }
 

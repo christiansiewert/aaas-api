@@ -160,23 +160,23 @@ class Service
         return $this->fields;
     }
 
-    public function addField(Field $serviceField): self
+    public function addField(Field $field): self
     {
-        if (!$this->fields->contains($serviceField)) {
-            $this->fields[] = $serviceField;
-            $serviceField->setService($this);
+        if (!$this->fields->contains($field)) {
+            $this->fields[] = $field;
+            $field->setService($this);
         }
 
         return $this;
     }
 
-    public function removeField(Field $serviceField): self
+    public function removeField(Field $field): self
     {
-        if ($this->fields->contains($serviceField)) {
-            $this->fields->removeElement($serviceField);
+        if ($this->fields->contains($field)) {
+            $this->fields->removeElement($field);
             // set the owning side to null (unless already changed)
-            if ($serviceField->getService() === $this) {
-                $serviceField->setService(null);
+            if ($field->getService() === $this) {
+                $field->setService(null);
             }
         }
 

@@ -67,7 +67,7 @@ class Option
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $serviceField;
+    private $field;
 
     public function getId(): ?int
     {
@@ -98,14 +98,14 @@ class Option
         return $this;
     }
 
-    public function getServiceField(): ?Field
+    public function getfield(): ?Field
     {
-        return $this->serviceField;
+        return $this->field;
     }
 
-    public function setServiceField(?Field $serviceField): self
+    public function setfield(?Field $field): self
     {
-        $this->serviceField = $serviceField;
+        $this->field = $field;
 
         return $this;
     }

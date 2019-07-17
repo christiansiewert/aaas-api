@@ -102,16 +102,16 @@ class RelationTest extends TestCase
         $this->assertTrue($this->object->getOrphanRemoval());
     }
 
-    public function testServiceFieldGettable()
+    public function testfieldGettable()
     {
-        $this->assertNull($this->object->getServiceField());
+        $this->assertNull($this->object->getfield());
     }
 
-    public function testServiceFieldSettable()
+    public function testfieldSettable()
     {
-        $serviceField = new Field();
-        $this->object->setServiceField($serviceField);
-        $this->assertEquals($serviceField, $this->object->getServiceField());
+        $field = new Field();
+        $this->object->setfield($field);
+        $this->assertEquals($field, $this->object->getfield());
     }
 
     public function testJoinColumnIsUniqueGettable()

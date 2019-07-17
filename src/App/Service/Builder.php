@@ -85,8 +85,8 @@ class Builder
 
         $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
 
-        foreach ($service->getFields() as $serviceField) {
-            $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
+        foreach ($service->getFields() as $field) {
+            $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
         $type === Service::TYPE_LIST ?
@@ -124,18 +124,18 @@ class Builder
     /**
      * Adds an entity field to our manipulator and returns the generated source code.
      *
-     * @param Field $serviceField
+     * @param Field $field
      * @param string $sourceCode
      * @return string
      */
-    public function buildServiceField(Field $serviceField, string $sourceCode) : string
+    public function buildfield(Field $field, string $sourceCode) : string
     {
-        $name = $serviceField->getName();
-        $dataType = $serviceField->getDataType();
+        $name = $field->getName();
+        $dataType = $field->getDataType();
         $manipulator = new ClassSourceManipulator($sourceCode);
 
         if ($dataType === 'relation') {
-            return $this->buildFieldRelation($serviceField, $manipulator);
+            return $this->buildFieldRelation($field, $manipulator);
         }
 
         $options = [
@@ -144,17 +144,17 @@ class Builder
             'options' => []
         ];
 
-        $serviceField->getIsUnique() === false ?: $options['unique'] = true;
-        $serviceField->getIsNullable() === false ?: $options['nullable'] = true;
+        $field->getIsUnique() === false ?: $options['unique'] = true;
+        $field->getIsNullable() === false ?: $options['nullable'] = true;
 
         if ($dataType === 'string') {
-            $options['length'] = $serviceField->getLength();
+            $options['length'] = $field->getLength();
         } elseif ($dataType === 'float') {
-            $options['precision'] = $serviceField->getDataTypePrecision();
-            $options['scale'] = $serviceField->getDataTypeScale();
+            $options['precision'] = $field->getDataTypePrecision();
+            $options['scale'] = $field->getDataTypeScale();
         }
 
-        foreach ($serviceField->getOptions() as $fieldOption) {
+        foreach ($field->getOptions() as $fieldOption) {
             $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
         }
 
@@ -166,21 +166,21 @@ class Builder
     /**
      * Adds a field relation to our manipulator and returns the generated source code.
      *
-     * @param Field $serviceField
+     * @param Field $field
      * @param ClassSourceManipulator $manipulator
      * @return string
      */
-    public function buildFieldRelation(Field $serviceField, ClassSourceManipulator $manipulator) : string
+    public function buildFieldRelation(Field $field, ClassSourceManipulator $manipulator) : string
     {
-        $relation = $serviceField->getRelation();
+        $relation = $field->getRelation();
         $relationType = $relation->getType();
         $inversedBy = $relation->getInversedBy();
-        $owningClass = self::ENTITY_NAMESPACE . $serviceField->getService()->getName();
+        $owningClass = self::ENTITY_NAMESPACE . $field->getService()->getName();
         $inverseClass = self::ENTITY_NAMESPACE . $relation->getTargetEntity();
 
         $entityRelation = new EntityRelation($relationType, $owningClass, $inverseClass);
-        $entityRelation->setOwningProperty($serviceField->getName());
-        $entityRelation->setIsNullable($serviceField->getIsNullable());
+        $entityRelation->setOwningProperty($field->getName());
+        $entityRelation->setIsNullable($field->getIsNullable());
         $entityRelation->setMapInverseRelation(false);
 
         // @todo https://github.com/siewert87/aaas-api/issues/10

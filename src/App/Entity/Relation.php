@@ -102,7 +102,7 @@ class Relation
     /**
      * @ORM\OneToOne(targetEntity="Field", mappedBy="relation", cascade={"persist", "remove"})
      */
-    private $serviceField;
+    private $field;
 
     public function getId(): ?int
     {
@@ -173,19 +173,19 @@ class Relation
         return $this;
     }
 
-    public function getServiceField(): ?Field
+    public function getfield(): ?Field
     {
-        return $this->serviceField;
+        return $this->field;
     }
 
-    public function setServiceField(?Field $serviceField): self
+    public function setfield(?Field $field): self
     {
-        $this->serviceField = $serviceField;
+        $this->field = $field;
 
         // set (or unset) the owning side of the relation if necessary
-        $newRelation = $serviceField === null ? null : $this;
-        if ($newRelation !== $serviceField->getRelation()) {
-            $serviceField->setRelation($newRelation);
+        $newRelation = $field === null ? null : $this;
+        if ($newRelation !== $field->getRelation()) {
+            $field->setRelation($newRelation);
         }
 
         return $this;
