@@ -149,7 +149,7 @@ class Builder
 
         if ($dataType === 'string') {
             $options['length'] = $field->getLength();
-        } elseif ($dataType === 'float') {
+        } elseif ($dataType === 'decimal') {
             $options['precision'] = $field->getDataTypePrecision();
             $options['scale'] = $field->getDataTypeScale();
         }

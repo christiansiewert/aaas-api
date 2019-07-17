@@ -60,6 +60,7 @@ class Field
         'boolean',
         'text',
         'float',
+        'decimal',
         'date',
         'time',
         'datetime',
