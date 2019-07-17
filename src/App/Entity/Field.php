@@ -128,6 +128,7 @@ class Field
     /**
      * @ORM\ManyToOne(targetEntity="Service", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $service;
 
