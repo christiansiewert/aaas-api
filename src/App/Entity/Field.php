@@ -96,6 +96,12 @@ class Field
     private $dataType = 'string';
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"unsigned"=true})
+     * @Groups("field")
+     */
+    private $length;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups("field")
      */
@@ -106,12 +112,6 @@ class Field
      * @Groups("field")
      */
     private $dataTypeScale = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true, options={"unsigned"=true})
-     * @Groups("field")
-     */
-    private $length;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -207,6 +207,18 @@ class Field
         return $this;
     }
 
+    public function getLength(): ?int
+    {
+        return $this->length;
+    }
+
+    public function setLength(?int $length): self
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
     public function getDataTypePrecision(): ?int
     {
         return $this->dataTypePrecision;
@@ -227,18 +239,6 @@ class Field
     public function setDataTypeScale(?int $dataTypeScale): self
     {
         $this->dataTypeScale = $dataTypeScale;
-
-        return $this;
-    }
-
-    public function getLength(): ?int
-    {
-        return $this->length;
-    }
-
-    public function setLength(?int $length): self
-    {
-        $this->length = $length;
 
         return $this;
     }
