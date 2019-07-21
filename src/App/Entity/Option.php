@@ -16,6 +16,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -54,18 +55,21 @@ class Option
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("option")
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("option")
+     * @Assert\NotBlank()
      */
     private $value;
 
     /**
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $field;
 
