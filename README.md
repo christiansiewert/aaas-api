@@ -103,7 +103,7 @@ docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.s
 
 ## Visit Docs
 
-For [Swagger UI] open https://localhost/aaas in your browser.
+For [Swagger UI] open https://localhost/ in your browser.
 
 ## Useful commands for development
 
