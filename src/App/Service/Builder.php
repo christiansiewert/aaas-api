@@ -15,7 +15,7 @@ use App\Entity\Project;
 use App\Entity\Field;
 use App\Entity\Repository;
 use App\Entity\Service;
-use Symfony\Bundle\MakerBundle\Generator;
+use App\Util\ClassGenerator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
@@ -36,23 +36,16 @@ class Builder
     const REPOSITORY_NAMESPACE = 'Aaas\\Repository\\';
 
     /**
-     * @var Generator
+     * @var ClassGenerator
      */
-    private $generator;
+    private $classGenerator;
 
     /**
-     * @var KernelInterface
+     * @param ClassGenerator $classGenerator
      */
-    private $kernel;
-
-    /**
-     * @param Generator $generator
-     * @param KernelInterface $kernel
-     */
-    public function __construct(Generator $generator, KernelInterface $kernel)
+    public function __construct(ClassGenerator $classGenerator)
     {
-        $this->generator = $generator;
-        $this->kernel = $kernel;
+        $this->classGenerator = $classGenerator;
     }
 
     /**
@@ -79,46 +72,19 @@ class Builder
         $name = $service->getName();
         $type = $service->getType();
 
-        $entityTargetPath = $type === Service::TYPE_LIST ?
-            $this->generateClass($name) :
-            $this->generateClass($name, false, true);
+        $entityTargetPath = $this->classGenerator->generateEntityClass($name, $type);
 
-        $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
+        $generator = $this->classGenerator->getGenerator();
+        $sourceCode = $generator->getFileContentsForPendingOperation($entityTargetPath);
 
         foreach ($service->getFields() as $field) {
             $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
-        $type === Service::TYPE_LIST ?
-            $this->generateClass($name, true) :
-            $this->generateClass($name, true, true) ;
+        $this->classGenerator->generateRepositoryClass($name, $type);
 
-        $this->generator->dumpFile($entityTargetPath, $sourceCode);
-        $this->generator->writeChanges();
-    }
-
-    /**
-     * Generates class target paths and adds them to pending operations of our generator.
-     *
-     * @param string $name
-     * @param bool $isRepository
-     * @param bool $isTree
-     * @return string
-     */
-    public function generateClass(string $name, bool $isRepository = false, bool $isTree = false) : string
-    {
-        $format = dirname(__DIR__) . '/Resources/skeleton/doctrine/%s.tpl.php';
-        $isTree !== true ?: $format = sprintf($format, 'Tree%s');
-        $templateName = sprintf($format, $isRepository ? 'Repository' : 'Entity');
-        $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
-
-        return $this->generator->generateClass($fqcn, $templateName, array(
-            'api_resource' => true,
-            'entity_class_name' => $name,
-            'entity_alias' => lcfirst($name)[0],
-            'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $name . 'Repository',
-            'entity_full_class_name' => self::ENTITY_NAMESPACE . $name
-        ));
+        $generator->dumpFile($entityTargetPath, $sourceCode);
+        $generator->writeChanges();
     }
 
     /**
