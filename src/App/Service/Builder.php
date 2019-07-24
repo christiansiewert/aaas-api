@@ -15,8 +15,6 @@ use App\Entity\Project;
 use App\Entity\Field;
 use App\Entity\Repository;
 use App\Entity\Service;
-use App\Util\ClassGenerator;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
@@ -33,7 +31,6 @@ class Builder
      * Namespaces to use for our generated entities and repositories
      */
     const ENTITY_NAMESPACE = 'Aaas\\Entity\\';
-    const REPOSITORY_NAMESPACE = 'Aaas\\Repository\\';
 
     /**
      * @var ClassGenerator
@@ -72,19 +69,16 @@ class Builder
         $name = $service->getName();
         $type = $service->getType();
 
+        $this->classGenerator->generateRepositoryClass($name, $type);
         $entityTargetPath = $this->classGenerator->generateEntityClass($name, $type);
-
-        $generator = $this->classGenerator->getGenerator();
-        $sourceCode = $generator->getFileContentsForPendingOperation($entityTargetPath);
+        $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
 
         foreach ($service->getFields() as $field) {
             $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
-        $this->classGenerator->generateRepositoryClass($name, $type);
-
-        $generator->dumpFile($entityTargetPath, $sourceCode);
-        $generator->writeChanges();
+        $this->classGenerator->generator->dumpFile($entityTargetPath, $sourceCode);
+        $this->classGenerator->generator->writeChanges();
     }
 
     /**

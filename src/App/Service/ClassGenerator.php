@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Util;
+namespace App\Service;
 
 use App\Entity\Service;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -20,11 +20,6 @@ use Symfony\Bundle\MakerBundle\Generator;
 class ClassGenerator
 {
     /**
-     * @var Generator
-     */
-    private $generator;
-
-    /**
      * Template path for our class templates
      */
     const TEMPLATE_PATH = '/Resources/skeleton/doctrine/%s';
@@ -32,8 +27,13 @@ class ClassGenerator
     /**
      * Namespaces to use for our generated entities and repositories
      */
-    const ENTITY_NAMESPACE      = 'Aaas\\Entity\\%s';
+    const ENTITY_NAMESPACE = 'Aaas\\Entity\\%s';
     const REPOSITORY_NAMESPACE  = 'Aaas\\Repository\\%sRepository';
+
+    /**
+     * @var Generator
+     */
+    public $generator;
 
     /**
      * @param Generator $generator
@@ -41,14 +41,6 @@ class ClassGenerator
     public function __construct(Generator $generator)
     {
         $this->generator = $generator;
-    }
-
-    /**
-     * @return Generator
-     */
-    public function getGenerator() : Generator
-    {
-        return $this->generator;
     }
 
     /**
