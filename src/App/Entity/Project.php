@@ -26,6 +26,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ORM\Entity
  * @ApiResource(
+ *     routePrefix="/aaas",
  *     itemOperations={
  *         "get",
  *         "put",

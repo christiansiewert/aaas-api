@@ -26,7 +26,7 @@ use InvalidArgumentException;
  * A Field represents a column in your database table.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/service")
+ * @ApiResource(routePrefix="/aaas/service")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

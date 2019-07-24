@@ -20,7 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * Field assertions.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/field")
+ * @ApiResource(routePrefix="/aaas/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

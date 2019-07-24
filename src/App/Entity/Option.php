@@ -24,7 +24,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * database platform when generating DDL statements.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/field")
+ * @ApiResource(routePrefix="/aaas/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

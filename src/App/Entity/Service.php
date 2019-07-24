@@ -27,7 +27,7 @@ use InvalidArgumentException;
  * several field definitions.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/repository")
+ * @ApiResource(routePrefix="/aaas/repository")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
