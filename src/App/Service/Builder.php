@@ -98,12 +98,7 @@ class Builder
             return $this->buildFieldRelation($field, $manipulator);
         }
 
-        $options = [
-            //'fieldName' => $name,
-            'type' => $dataType,
-            'options' => []
-        ];
-
+        $options = ['type' => $dataType];
         $field->getIsUnique() === false ?: $options['unique'] = true;
         $field->getIsNullable() === false ?: $options['nullable'] = true;
 
@@ -114,8 +109,11 @@ class Builder
             $options['scale'] = $field->getDataTypeScale();
         }
 
-        foreach ($field->getOptions() as $fieldOption) {
-            $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
+        if ($field->getOptions()->count() > 0) {
+            $options['options'] = [];
+            foreach ($field->getOptions() as $fieldOption) {
+                $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
+            }
         }
 
         $manipulator->addEntityField($name, $options);
