@@ -90,7 +90,6 @@ class Builder
      */
     public function buildfield(Field $field, string $sourceCode) : string
     {
-        $name = $field->getName();
         $dataType = $field->getDataType();
         $manipulator = new ClassSourceManipulator($sourceCode);
 
@@ -116,7 +115,7 @@ class Builder
             }
         }
 
-        $manipulator->addEntityField($name, $options);
+        $manipulator->addEntityField($field->getName(), $options);
 
         return $manipulator->getSourceCode();
     }
