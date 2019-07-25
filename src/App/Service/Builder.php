@@ -66,11 +66,8 @@ class Builder
      */
     public function buildService(Service $service)
     {
-        $name = $service->getName();
-        $type = $service->getType();
-
-        $this->classGenerator->generateRepositoryClass($name, $type);
-        $entityTargetPath = $this->classGenerator->generateEntityClass($name, $type);
+        $this->classGenerator->generateRepositoryClass($service);
+        $entityTargetPath = $this->classGenerator->generateEntityClass($service);
         $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
 
         foreach ($service->getFields() as $field) {

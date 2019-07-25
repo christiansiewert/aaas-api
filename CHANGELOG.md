@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - first parts of our documentation (https://aaas-api.readthedocs.io)
 - serialization groups for our entities
 - API filter for some entities
-- validation constraints for some entity fields
+- validation constraints for some entities
+- project repository prefix to generated api routes
 
 ## [0.4.0] - 2019-07-07
 

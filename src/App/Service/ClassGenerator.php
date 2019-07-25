@@ -51,13 +51,15 @@ class ClassGenerator
     }
 
     /**
-     * @param string $name
-     * @param string $type
+     * @param Service $service
      * @return string
      * @throws \Exception
      */
-    public function generateEntityClass(string $name, string $type = Service::TYPE_LIST) : string
+    public function generateEntityClass(Service $service) : string
     {
+        $name = $service->getName();
+        $type = $service->getType();
+
         $template = $type === Service::TYPE_TREE ? 'TreeEntity.tpl.php' : 'Entity.tpl.php';
         $targetPath = $this->fileManager->getRelativePathForFutureClass(sprintf(self::ENTITY_NAMESPACE, $name));
 
@@ -70,19 +72,22 @@ class ClassGenerator
             $this->getTemplatePath($template),
             [
                 'api_resource' => true,
-                'repository_full_class_name' => sprintf(self::REPOSITORY_NAMESPACE, $name)
+                'repository_full_class_name' => sprintf(self::REPOSITORY_NAMESPACE, $name),
+                'project_repository' => strtolower($service->getRepository()->getName())
             ]
         );
     }
 
     /**
-     * @param string $name
-     * @param string $type
+     * @param Service $service
      * @return string
      * @throws \Exception
      */
-    public function generateRepositoryClass(string $name, string $type = Service::TYPE_LIST) : string
+    public function generateRepositoryClass(Service $service) : string
     {
+        $name = $service->getName();
+        $type = $service->getType();
+
         $template = $type === Service::TYPE_TREE ? 'TreeRepository.tpl.php' : 'Repository.tpl.php';
         $targetPath = $this->fileManager->getRelativePathForFutureClass(sprintf(self::REPOSITORY_NAMESPACE, $name));
 

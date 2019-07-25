@@ -20,7 +20,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
-<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api")
+<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api/<?= $project_repository ?>")
 <?php endif ?>
  * @ORM\Entity(repositoryClass="<?= $repository_full_class_name ?>")
  * @ORM\Table(name="Api_<?= $class_name ?>")
