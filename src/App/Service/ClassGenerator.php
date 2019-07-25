@@ -12,6 +12,7 @@
 namespace App\Service;
 
 use App\Entity\Service;
+use Symfony\Bundle\MakerBundle\FileManager;
 use Symfony\Bundle\MakerBundle\Generator;
 
 /**
@@ -36,11 +37,17 @@ class ClassGenerator
     public $generator;
 
     /**
+     * @var FileManager
+     */
+    private $fileManager;
+
+    /**
      * @param Generator $generator
      */
-    public function __construct(Generator $generator)
+    public function __construct(Generator $generator, FileManager $fileManager)
     {
         $this->generator = $generator;
+        $this->fileManager = $fileManager;
     }
 
     /**
@@ -52,6 +59,11 @@ class ClassGenerator
     public function generateEntityClass(string $name, string $type = Service::TYPE_LIST) : string
     {
         $template = $type === Service::TYPE_TREE ? 'TreeEntity.tpl.php' : 'Entity.tpl.php';
+        $targetPath = $this->fileManager->getRelativePathForFutureClass(sprintf(self::ENTITY_NAMESPACE, $name));
+
+        if ($this->fileManager->fileExists($targetPath)) {
+            unlink($this->fileManager->absolutizePath($targetPath));
+        }
 
         return $this->generator->generateClass(
             sprintf(self::ENTITY_NAMESPACE, $name),
@@ -72,6 +84,11 @@ class ClassGenerator
     public function generateRepositoryClass(string $name, string $type = Service::TYPE_LIST) : string
     {
         $template = $type === Service::TYPE_TREE ? 'TreeRepository.tpl.php' : 'Repository.tpl.php';
+        $targetPath = $this->fileManager->getRelativePathForFutureClass(sprintf(self::REPOSITORY_NAMESPACE, $name));
+
+        if ($this->fileManager->fileExists($targetPath)) {
+            unlink($this->fileManager->absolutizePath($targetPath));
+        }
 
         return $this->generator->generateClass(
             sprintf(self::REPOSITORY_NAMESPACE, $name),
