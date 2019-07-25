@@ -11,17 +11,17 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\FieldOption;
-use App\Entity\ServiceField;
+use App\Entity\Option;
+use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldOptionTest extends TestCase
+class OptionTest extends TestCase
 {
     /**
-     * @var FieldOption
+     * @var Option
      */
     private $object;
 
@@ -30,7 +30,7 @@ class FieldOptionTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new FieldOption();
+        $this->object = new Option();
     }
 
     public function testIdGettable()
@@ -38,15 +38,15 @@ class FieldOptionTest extends TestCase
         $this->assertNull($this->object->getId());
     }
 
-    public function testServiceFieldGettable()
+    public function testfieldGettable()
     {
-        $this->assertNull($this->object->getServiceField());
+        $this->assertNull($this->object->getfield());
     }
 
-    public function testServiceFieldSettable()
+    public function testfieldSettable()
     {
-        $relation = new ServiceField();
-        $this->object->setServiceField($relation);
-        $this->assertEquals($relation, $this->object->getServiceField());
+        $relation = new Field();
+        $this->object->setfield($relation);
+        $this->assertEquals($relation, $this->object->getfield());
     }
 }

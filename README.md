@@ -3,6 +3,8 @@
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/siewert87/aaas-api.svg)](https://scrutinizer-ci.com/g/siewert87/aaas-api)
 ![Code Size](https://img.shields.io/github/languages/code-size/siewert87/aaas-api.svg)
 [![Latest Tag](https://img.shields.io/github/tag/siewert87/aaas-api.svg?)](https://github.com/siewert87/aaas-api/releases)
+[![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
+
 
 # API as a Service - API
 
@@ -101,7 +103,7 @@ docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.s
 
 ## Visit Docs
 
-For [Swagger UI] open https://localhost in your browser.
+For [Swagger UI] open https://localhost/ in your browser.
 
 ## Useful commands for development
 
@@ -156,7 +158,7 @@ Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of AaaS API
 [Docker Compose]: https://docs.docker.com/compose/install/
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
 [Docker Sync]: http://docker-sync.io/
-[AaaS-API-Wiki]: https://github.com/siewert87/aaas-api/wiki
+[AaaS-API-Wiki]: https://aaas-api.readthedocs.io
 
 
 

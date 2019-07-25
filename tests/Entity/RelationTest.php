@@ -11,9 +11,9 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\FieldRelation;
+use App\Entity\Relation;
 use App\Entity\RelationCascade;
-use App\Entity\ServiceField;
+use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
@@ -21,10 +21,10 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldRelationTest extends TestCase
+class RelationTest extends TestCase
 {
     /**
-     * @var FieldRelation
+     * @var Relation
      */
     private $object;
 
@@ -33,7 +33,7 @@ class FieldRelationTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new FieldRelation();
+        $this->object = new Relation();
     }
 
     public function testIdGettable()
@@ -102,16 +102,16 @@ class FieldRelationTest extends TestCase
         $this->assertTrue($this->object->getOrphanRemoval());
     }
 
-    public function testServiceFieldGettable()
+    public function testfieldGettable()
     {
-        $this->assertNull($this->object->getServiceField());
+        $this->assertNull($this->object->getfield());
     }
 
-    public function testServiceFieldSettable()
+    public function testfieldSettable()
     {
-        $serviceField = new ServiceField();
-        $this->object->setServiceField($serviceField);
-        $this->assertEquals($serviceField, $this->object->getServiceField());
+        $field = new Field();
+        $this->object->setfield($field);
+        $this->assertEquals($field, $this->object->getfield());
     }
 
     public function testJoinColumnIsUniqueGettable()
@@ -156,24 +156,5 @@ class FieldRelationTest extends TestCase
     {
         $this->object->setJoinColumnReferencedColumnName('name');
         $this->assertEquals('name', $this->object->getJoinColumnReferencedColumnName());
-    }
-
-    public function testCascadesGettable()
-    {
-        $this->assertCount(0, $this->object->getCascades());
-    }
-
-    public function testCascadesAddable()
-    {
-        $this->object->addCascade(new RelationCascade());
-        $this->assertCount(1, $this->object->getCascades());
-    }
-
-    public function testCascadesRemovable()
-    {
-        $cascade = new RelationCascade();
-        $this->object->addCascade($cascade);
-        $this->object->removeCascade($cascade);
-        $this->assertCount(0, $this->object->getCascades());
     }
 }

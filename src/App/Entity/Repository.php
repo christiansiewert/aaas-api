@@ -14,52 +14,73 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * A ProjectRepository holds services.
+ * A Repository holds services.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/aaas/project")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start",
- *         "description" : "word_start"
+ *         "description" : "word_start",
+ *         "project" : "exact"
  *     }
  * )
- * @ORM\Entity()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "project",
+ *             "repository",
+ *             "service"
+ *         }
+ *     }
+ * )
  * @ORM\Table(name="App_Project_Repository")
  * @author Christian Siewert <christian@sieware.international>
  */
-class ProjectRepository
+class Repository
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("repository")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("repository")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("repository")
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="repositories")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $project;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RepositoryService", mappedBy="repository", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="repository", orphanRemoval=true, cascade={"persist", "remove"})
+     * @Groups({"repository", "service"})
+     * @Assert\Valid
      */
     private $services;
 
@@ -109,15 +130,12 @@ class ProjectRepository
         return $this;
     }
 
-    /**
-     * @return Collection|RepositoryService[]
-     */
     public function getServices(): Collection
     {
         return $this->services;
     }
 
-    public function addService(RepositoryService $service): self
+    public function addService(Service $service): self
     {
         if (!$this->services->contains($service)) {
             $this->services[] = $service;
@@ -127,7 +145,7 @@ class ProjectRepository
         return $this;
     }
 
-    public function removeService(RepositoryService $service): self
+    public function removeService(Service $service): self
     {
         if ($this->services->contains($service)) {
             $this->services->removeElement($service);

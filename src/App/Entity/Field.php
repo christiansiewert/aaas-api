@@ -16,25 +16,40 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
 
 /**
- * A ServiceField represents a column in your database table.
+ * A Field represents a column in your database table.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/aaas/service")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start",
- *         "description" : "word_start"
+ *         "description" : "word_start",
+ *         "service" : "exact"
  *     }
  * )
- * @ORM\Entity()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "field",
+ *             "option",
+ *             "constraint",
+ *             "relation"
+ *         }
+ *     }
+ * )
  * @ORM\Table(name="App_Service_Field")
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceField
+class Field
 {
     /**
      * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.9/reference/types.html#types
@@ -45,6 +60,7 @@ class ServiceField
         'boolean',
         'text',
         'float',
+        'decimal',
         'date',
         'time',
         'datetime',
@@ -55,52 +71,64 @@ class ServiceField
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("field")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("field")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("field")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, options={"default" : "string"})
+     * @Groups("field")
+     * @Assert\NotBlank
      */
     private $dataType = 'string';
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default" : 255, "unsigned"=true})
+     * @ORM\Column(type="integer", nullable=true, options={"unsigned"=true})
+     * @Groups("field")
      */
-    private $length = 255;
+    private $length;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("field")
+     */
+    private $dataTypePrecision = null;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups("field")
+     */
+    private $dataTypeScale = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("field")
      */
     private $isUnique = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
+     * @Groups("field")
      */
     private $isNullable = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dataTypePrecision;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dataTypeScale;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RepositoryService", inversedBy="serviceFields")
+     * @ORM\ManyToOne(targetEntity="Service", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $service;
 
@@ -108,24 +136,30 @@ class ServiceField
      * Key-value pairs of options that get passed to the underlying
      * database platform when generating DDL statements.
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\FieldOption", mappedBy="serviceField", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Option", mappedBy="field", orphanRemoval=true)
+     * @Groups({"field", "option"})
+     * @Assert\Valid
      */
     private $options;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FieldAssert", mappedBy="serviceField", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true)
+     * @Groups({"field", "constraint"})
+     * @Assert\Valid
      */
-    private $assertions;
+    private $constraints;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\FieldRelation", inversedBy="serviceField", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Relation", inversedBy="field", cascade={"persist", "remove"})
+     * @Groups({"field", "relation"})
+     * @Assert\Valid
      */
     private $relation;
 
     public function __construct()
     {
         $this->options = new ArrayCollection();
-        $this->assertions = new ArrayCollection();
+        $this->constraints = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,30 +219,6 @@ class ServiceField
         return $this;
     }
 
-    public function getIsUnique(): ?bool
-    {
-        return $this->isUnique;
-    }
-
-    public function setIsUnique(bool $isUnique): self
-    {
-        $this->isUnique = $isUnique;
-
-        return $this;
-    }
-
-    public function getIsNullable(): ?bool
-    {
-        return $this->isNullable;
-    }
-
-    public function setIsNullable(bool $isNullable): self
-    {
-        $this->isNullable = $isNullable;
-
-        return $this;
-    }
-
     public function getDataTypePrecision(): ?int
     {
         return $this->dataTypePrecision;
@@ -233,12 +243,36 @@ class ServiceField
         return $this;
     }
 
-    public function getService(): ?RepositoryService
+    public function getIsUnique(): ?bool
+    {
+        return $this->isUnique;
+    }
+
+    public function setIsUnique(bool $isUnique): self
+    {
+        $this->isUnique = $isUnique;
+
+        return $this;
+    }
+
+    public function getIsNullable(): ?bool
+    {
+        return $this->isNullable;
+    }
+
+    public function setIsNullable(bool $isNullable): self
+    {
+        $this->isNullable = $isNullable;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
     {
         return $this->service;
     }
 
-    public function setService(?RepositoryService $service): self
+    public function setService(?Service $service): self
     {
         $this->service = $service;
 
@@ -246,30 +280,30 @@ class ServiceField
     }
 
     /**
-     * @return Collection|FieldOption[]
+     * @return Collection|Option[]
      */
     public function getOptions(): Collection
     {
         return $this->options;
     }
 
-    public function addOption(FieldOption $option): self
+    public function addOption(Option $option): self
     {
         if (!$this->options->contains($option)) {
             $this->options[] = $option;
-            $option->setServiceField($this);
+            $option->setfield($this);
         }
 
         return $this;
     }
 
-    public function removeOption(FieldOption $option): self
+    public function removeOption(Option $option): self
     {
         if ($this->options->contains($option)) {
             $this->options->removeElement($option);
             // set the owning side to null (unless already changed)
-            if ($option->getServiceField() === $this) {
-                $option->setServiceField(null);
+            if ($option->getfield() === $this) {
+                $option->setfield(null);
             }
         }
 
@@ -277,42 +311,42 @@ class ServiceField
     }
 
     /**
-     * @return Collection|FieldAssert[]
+     * @return Collection|Constraint[]
      */
-    public function getAssertions(): Collection
+    public function getConstraints(): Collection
     {
-        return $this->assertions;
+        return $this->constraints;
     }
 
-    public function addAssertion(FieldAssert $assertion): self
+    public function addConstraint(Constraint $constraint): self
     {
-        if (!$this->assertions->contains($assertion)) {
-            $this->assertions[] = $assertion;
-            $assertion->setServiceField($this);
+        if (!$this->constraints->contains($constraint)) {
+            $this->constraints[] = $constraint;
+            $constraint->setfield($this);
         }
 
         return $this;
     }
 
-    public function removeAssertion(FieldAssert $assertion): self
+    public function removeAssertion(Constraint $constraint): self
     {
-        if ($this->assertions->contains($assertion)) {
-            $this->assertions->removeElement($assertion);
+        if ($this->constraints->contains($constraint)) {
+            $this->constraints->removeElement($constraint);
             // set the owning side to null (unless already changed)
-            if ($assertion->getServiceField() === $this) {
-                $assertion->setServiceField(null);
+            if ($constraint->getfield() === $this) {
+                $constraint->setfield(null);
             }
         }
 
         return $this;
     }
 
-    public function getRelation(): ?FieldRelation
+    public function getRelation(): ?Relation
     {
         return $this->relation;
     }
 
-    public function setRelation(?FieldRelation $relation): self
+    public function setRelation(?Relation $relation): self
     {
         $this->relation = $relation;
 

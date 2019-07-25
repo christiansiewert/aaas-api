@@ -25,15 +25,6 @@ LOCK TABLES `Acl_Customer` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `App_Assert_Option`
---
-
-LOCK TABLES `App_Assert_Option` WRITE;
-/*!40000 ALTER TABLE `App_Assert_Option` DISABLE KEYS */;
-/*!40000 ALTER TABLE `App_Assert_Option` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `App_Field_Assert`
 --
 
@@ -87,17 +78,6 @@ INSERT INTO `App_Project_Repository` VALUES (2,1,'Catalog','Catalog repository h
 UNLOCK TABLES;
 
 --
--- Dumping data for table `App_Relation_Cascade`
---
-
-LOCK TABLES `App_Relation_Cascade` WRITE;
-/*!40000 ALTER TABLE `App_Relation_Cascade` DISABLE KEYS */;
-INSERT INTO `App_Relation_Cascade` VALUES (1,1,'persist');
-INSERT INTO `App_Relation_Cascade` VALUES (2,1,'remove');
-/*!40000 ALTER TABLE `App_Relation_Cascade` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `App_Repository_Service`
 --
 
@@ -118,20 +98,20 @@ UNLOCK TABLES;
 
 LOCK TABLES `App_Service_Field` WRITE;
 /*!40000 ALTER TABLE `App_Service_Field` DISABLE KEYS */;
-INSERT INTO `App_Service_Field` VALUES (1,1,NULL,'title','Title for our blog post.','string',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (2,1,NULL,'post','The actual blog post.','text',8192,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (3,2,NULL,'value','The label value.','string',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (4,3,NULL,'author','The author of the comment.','string',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (5,3,NULL,'timestamp','The timestamp of the comment.','datetime',8,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (6,4,NULL,'name','The actual product name.','string',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (7,4,NULL,'description','The product description.','text',4096,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (8,4,NULL,'prize','The product prize.','float',10,0,1,2,3);
-INSERT INTO `App_Service_Field` VALUES (9,5,NULL,'name','The category name.','string',255,1,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (10,5,NULL,'numProducts','The actual number of products of this category.','integer',NULL,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (11,6,NULL,'size','Product size','integer',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (12,6,NULL,'color','Product color','string',20,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (13,4,1,'detail','Product details','relation',255,0,0,NULL,NULL);
-INSERT INTO `App_Service_Field` VALUES (14,5,2,'products','Products belonging to a category.','relation',NULL,0,0,NULL,NULL);
+INSERT INTO `App_Service_Field` VALUES (1,1,NULL,'title','Title for our blog post.','string',255,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (2,1,NULL,'post','The actual blog post.','text',NULL,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (3,2,NULL,'value','The label value.','string',255,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (4,3,NULL,'author','The author of the comment.','string',255,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (5,3,NULL,'timestamp','The timestamp of the comment.','datetime',NULL,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (6,4,NULL,'name','The actual product name.','string',255,NULL,NULL,TRUE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (7,4,NULL,'description','The product description.','text',NULL,NULL,NULL,FALSE, TRUE);
+INSERT INTO `App_Service_Field` VALUES (8,4,NULL,'prize','The product prize.','decimal',NULL,10,2,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (9,5,NULL,'name','The category name.','string',255,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (10,5,NULL,'numProducts','The actual number of products of this category.','integer',NULL,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (11,6,NULL,'size','Product size','integer',NULL,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (12,6,NULL,'color','Product color','string',20,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (13,4,1,'detail','Product details','relation',NULL,NULL,NULL,FALSE, FALSE);
+INSERT INTO `App_Service_Field` VALUES (14,5,2,'products','Products belonging to a category.','relation',NULL,NULL,NULL,FALSE, FALSE);
 /*!40000 ALTER TABLE `App_Service_Field` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

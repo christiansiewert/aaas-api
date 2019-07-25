@@ -16,26 +16,39 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * A service represents a table in your database and holds
  * several field definitions.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/aaas/repository")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start",
- *         "description" : "word_start"
+ *         "description" : "word_start",
+ *         "repository" : "exact"
  *     }
  * )
- * @ORM\Entity()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "service",
+ *             "field"
+ *         }
+ *     }
+ * )
  * @ORM\Table(name="App_Repository_Service")
  * @author Christian Siewert <christian@sieware.international>
  */
-class RepositoryService
+class Service
 {
     const TYPE_LIST = 'list';
     const TYPE_TREE = 'tree';
@@ -44,38 +57,45 @@ class RepositoryService
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("service")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("service")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("service")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"default" : "list"})
+     * @Groups("service")
+     * @Assert\NotBlank
      */
-    private $type;
+    private $type = self::TYPE_LIST;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRepository", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="Repository", inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
     private $repository;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ServiceField", mappedBy="service", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Field", mappedBy="service", orphanRemoval=true, cascade={"persist", "remove"})
+     * @Groups({"service", "field"})
      */
-    private $serviceFields;
+    private $fields;
 
     public function __construct()
     {
-        $this->serviceFields = new ArrayCollection();
+        $this->fields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,43 +143,40 @@ class RepositoryService
         return $this;
     }
 
-    public function getRepository(): ?ProjectRepository
+    public function getRepository(): ?Repository
     {
         return $this->repository;
     }
 
-    public function setRepository(?ProjectRepository $repository): self
+    public function setRepository(?Repository $repository): self
     {
         $this->repository = $repository;
 
         return $this;
     }
 
-    /**
-     * @return Collection|ServiceField[]
-     */
-    public function getServiceFields(): Collection
+    public function getFields(): Collection
     {
-        return $this->serviceFields;
+        return $this->fields;
     }
 
-    public function addServiceField(ServiceField $serviceField): self
+    public function addField(Field $field): self
     {
-        if (!$this->serviceFields->contains($serviceField)) {
-            $this->serviceFields[] = $serviceField;
-            $serviceField->setService($this);
+        if (!$this->fields->contains($field)) {
+            $this->fields[] = $field;
+            $field->setService($this);
         }
 
         return $this;
     }
 
-    public function removeServiceField(ServiceField $serviceField): self
+    public function removeField(Field $field): self
     {
-        if ($this->serviceFields->contains($serviceField)) {
-            $this->serviceFields->removeElement($serviceField);
+        if ($this->fields->contains($field)) {
+            $this->fields->removeElement($field);
             // set the owning side to null (unless already changed)
-            if ($serviceField->getService() === $this) {
-                $serviceField->setService(null);
+            if ($field->getService() === $this) {
+                $field->setService(null);
             }
         }
 

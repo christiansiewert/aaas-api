@@ -14,46 +14,64 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * Options for field assertions.
+ * Key-value pairs of options that get passed to the underlying
+ * database platform when generating DDL statements.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/aaas/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start"
  *     }
  * )
- * @ORM\Entity()
- * @ORM\Table(name="App_Assert_Option")
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "option"
+ *         }
+ *     }
+ * )
+ * @ORM\Table(name="App_Field_Option")
  * @author Christian Siewert <christian@sieware.international>
  */
-class AssertOption
+class Option
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("option")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("option")
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("option")
+     * @Assert\NotBlank()
      */
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FieldAssert", inversedBy="options")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
-    private $fieldAssert;
+    private $field;
 
     public function getId(): ?int
     {
@@ -84,14 +102,14 @@ class AssertOption
         return $this;
     }
 
-    public function getFieldAssert(): ?FieldAssert
+    public function getfield(): ?Field
     {
-        return $this->fieldAssert;
+        return $this->field;
     }
 
-    public function setFieldAssert(?FieldAssert $fieldAssert): self
+    public function setfield(?Field $field): self
     {
-        $this->fieldAssert = $fieldAssert;
+        $this->field = $field;
 
         return $this;
     }

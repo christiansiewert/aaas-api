@@ -16,17 +16,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * A Project holds repositories.
  *
+ * @ORM\Entity
  * @ApiResource(
  *     routePrefix="/aaas",
  *     itemOperations={
- *         "get"={"method"="GET"},
- *         "put"={"method"="PUT"},
- *         "delete"={"method"="DELETE"},
+ *         "get",
+ *         "put",
+ *         "delete",
  *         "builder"={
  *             "route_name"="project_builder",
  *             "swagger_context"={
@@ -42,7 +46,20 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "description" : "word_start"
  *     }
  * )
- * @ORM\Entity()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "project",
+ *             "repository",
+ *             "service",
+ *             "field",
+ *             "option",
+ *             "constraint",
+ *             "relation"
+ *         }
+ *     }
+ * )
  * @ORM\Table(name="App_Project")
  * @author Christian Siewert <christian@sieware.international>
  */
@@ -52,21 +69,27 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("project")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("project")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("project")
      */
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectRepository", mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Repository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
+     * @Groups({"project", "repository"})
+     * @Assert\Valid
      */
     private $repositories;
 
@@ -104,15 +127,12 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection|ProjectRepository[]
-     */
     public function getRepositories(): Collection
     {
         return $this->repositories;
     }
 
-    public function addRepository(ProjectRepository $repository): self
+    public function addRepository(Repository $repository): self
     {
         if (!$this->repositories->contains($repository)) {
             $this->repositories[] = $repository;
@@ -122,7 +142,7 @@ class Project
         return $this;
     }
 
-    public function removeRepository(ProjectRepository $repository): self
+    public function removeRepository(Repository $repository): self
     {
         if ($this->repositories->contains($repository)) {
             $this->repositories->removeElement($repository);

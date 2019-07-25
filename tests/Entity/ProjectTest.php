@@ -12,7 +12,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Project;
-use App\Entity\ProjectRepository;
+use App\Entity\Repository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -67,13 +67,13 @@ class ProjectTest extends TestCase
 
     public function testRepositoriesAddable()
     {
-        $this->object->addRepository(new ProjectRepository());
+        $this->object->addRepository(new Repository());
         $this->assertCount(1, $this->object->getRepositories());
     }
 
     public function testRepositoriesRemovable()
     {
-        $relation = new ProjectRepository();
+        $relation = new Repository();
         $this->object->addRepository($relation);
         $this->object->removeRepository($relation);
         $this->assertCount(0, $this->object->getRepositories());

@@ -17,21 +17,20 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * Key-value pairs of options that get passed to the underlying
- * database platform when generating DDL statements.
+ * Field assertions.
  *
- * @ApiResource(routePrefix="/aaas")
+ * @ORM\Entity
+ * @ApiResource(routePrefix="/aaas/field")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start"
  *     }
  * )
- * @ORM\Entity()
- * @ORM\Table(name="App_Field_Option")
+ * @ORM\Table(name="App_Field_Assert")
  * @author Christian Siewert <christian@sieware.international>
  */
-class FieldOption
+class Constraint
 {
     /**
      * @ORM\Id()
@@ -46,15 +45,10 @@ class FieldOption
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $value;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ServiceField", inversedBy="options")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="constraints")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $serviceField;
+    private $field;
 
     public function getId(): ?int
     {
@@ -73,26 +67,14 @@ class FieldOption
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getfield(): ?Field
     {
-        return $this->value;
+        return $this->field;
     }
 
-    public function setValue(string $value): self
+    public function setfield(?Field $field): self
     {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    public function getServiceField(): ?ServiceField
-    {
-        return $this->serviceField;
-    }
-
-    public function setServiceField(?ServiceField $serviceField): self
-    {
-        $this->serviceField = $serviceField;
+        $this->field = $field;
 
         return $this;
     }

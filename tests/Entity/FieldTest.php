@@ -11,19 +11,19 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\FieldAssert;
-use App\Entity\FieldOption;
-use App\Entity\ServiceField;
+use App\Entity\Constraint;
+use App\Entity\Option;
+use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class ServiceFieldTest extends TestCase
+class FieldTest extends TestCase
 {
     /**
-     * @var ServiceField
+     * @var Field
      */
     private $object;
 
@@ -32,7 +32,7 @@ class ServiceFieldTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new ServiceField();
+        $this->object = new Field();
     }
 
     public function testIdGettable()
@@ -75,7 +75,7 @@ class ServiceFieldTest extends TestCase
 
     public function testLengthGettable()
     {
-        $this->assertEquals(255, $this->object->getLength());
+        $this->assertNull($this->object->getLength());
     }
 
     public function testLengthSettable()
@@ -135,13 +135,13 @@ class ServiceFieldTest extends TestCase
 
     public function testOptionsAddable()
     {
-        $this->object->addOption(new FieldOption());
+        $this->object->addOption(new Option());
         $this->assertCount(1, $this->object->getOptions());
     }
 
     public function testOptionsRemovable()
     {
-        $relation = new FieldOption();
+        $relation = new Option();
         $this->object->addOption($relation);
         $this->object->removeOption($relation);
         $this->assertCount(0, $this->object->getOptions());
@@ -149,21 +149,21 @@ class ServiceFieldTest extends TestCase
 
     public function testAssertionsGettable()
     {
-        $this->assertCount(0, $this->object->getAssertions());
+        $this->assertCount(0, $this->object->getConstraints());
     }
 
     public function testAssertionsAddable()
     {
-        $this->object->addAssertion(new FieldAssert());
-        $this->assertCount(1, $this->object->getAssertions());
+        $this->object->addConstraint(new Constraint());
+        $this->assertCount(1, $this->object->getConstraints());
     }
 
     public function testAssertionsRemovable()
     {
-        $relation = new FieldAssert();
-        $this->object->addAssertion($relation);
+        $relation = new Constraint();
+        $this->object->addConstraint($relation);
         $this->object->removeAssertion($relation);
-        $this->assertCount(0, $this->object->getAssertions());
+        $this->assertCount(0, $this->object->getConstraints());
     }
 
     public function testInvalidDataTypeRaisesException()

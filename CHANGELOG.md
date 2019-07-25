@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.0] - 2019-07-25
+
+### Added
+
+- first parts of our documentation (https://aaas-api.readthedocs.io)
+- serialization groups for our entities
+- API filter for some entities
+- validation constraints for some entities
+- project repository prefix for generated api routes
+
 ## [0.4.0] - 2019-07-07
 
 ### Added
@@ -120,7 +130,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/siewert87/aaas-api/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/siewert87/aaas-api/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/siewert87/aaas-api/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/siewert87/aaas-api/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/siewert87/aaas-api/compare/v0.1.0...v0.2.0

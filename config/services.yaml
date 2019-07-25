@@ -21,3 +21,4 @@ services:
         tags: ['controller.service_arguments']
 
     Symfony\Bundle\MakerBundle\Generator: '@maker.generator'
+    Symfony\Bundle\MakerBundle\FileManager: '@maker.file_manager'

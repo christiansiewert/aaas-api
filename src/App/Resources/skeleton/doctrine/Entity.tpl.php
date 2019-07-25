@@ -11,12 +11,11 @@
 
 namespace <?= $namespace ?>;
 
-<?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;
-<?php endif ?>
+<?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;<?php endif ?>
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api")
+<?php if ($api_resource): ?> * @ApiResource(routePrefix="/api/<?= $project_repository ?>")
 <?php endif ?>
  * @ORM\Entity(repositoryClass="<?= $repository_full_class_name ?>")
  * @ORM\Table(name="Api_<?= $class_name ?>")

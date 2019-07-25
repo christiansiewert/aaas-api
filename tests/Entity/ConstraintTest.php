@@ -11,17 +11,17 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\AssertOption;
-use App\Entity\FieldAssert;
+use App\Entity\Field;
+use App\Entity\Constraint;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class AssertOptionTest extends TestCase
+class ConstraintTest extends TestCase
 {
     /**
-     * @var AssertOption
+     * @var Constraint
      */
     private $object;
 
@@ -30,7 +30,7 @@ class AssertOptionTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new AssertOption();
+        $this->object = new Constraint();
     }
 
     public function testIdGettable()
@@ -49,26 +49,15 @@ class AssertOptionTest extends TestCase
         $this->assertEquals('name', $this->object->getName());
     }
 
-    public function testValueGettable()
+    public function testfieldGettable()
     {
-        $this->assertNull($this->object->getValue());
+        $this->assertNull($this->object->getfield());
     }
 
-    public function testValueSettable()
+    public function testfieldSettable()
     {
-        $this->object->setValue('value');
-        $this->assertEquals('value', $this->object->getValue());
-    }
-
-    public function testFieldAssertGettable()
-    {
-        $this->assertNull($this->object->getFieldAssert());
-    }
-
-    public function testFieldAssertSettable()
-    {
-        $relation = new FieldAssert();
-        $this->object->setFieldAssert($relation);
-        $this->assertEquals($relation, $this->object->getFieldAssert());
+        $relation = new Field();
+        $this->object->setfield($relation);
+        $this->assertEquals($relation, $this->object->getfield());
     }
 }

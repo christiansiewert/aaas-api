@@ -12,10 +12,9 @@
 namespace App\Service;
 
 use App\Entity\Project;
-use App\Entity\ServiceField;
-use App\Entity\ProjectRepository;
-use App\Entity\RepositoryService;
-use Symfony\Bundle\MakerBundle\Generator;
+use App\Entity\Field;
+use App\Entity\Repository;
+use App\Entity\Service;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
@@ -32,19 +31,18 @@ class Builder
      * Namespaces to use for our generated entities and repositories
      */
     const ENTITY_NAMESPACE = 'Aaas\\Entity\\';
-    const REPOSITORY_NAMESPACE = 'Aaas\\Repository\\';
 
     /**
-     * @var Generator
+     * @var ClassGenerator
      */
-    private $generator;
+    private $classGenerator;
 
     /**
-     * @param Generator $generator
+     * @param ClassGenerator $classGenerator
      */
-    public function __construct(Generator $generator)
+    public function __construct(ClassGenerator $classGenerator)
     {
-        $this->generator = $generator;
+        $this->classGenerator = $classGenerator;
     }
 
     /**
@@ -56,101 +54,65 @@ class Builder
     }
 
     /**
-     * @param ProjectRepository $repository
+     * @param Repository $repository
      */
-    public function buildRepository(ProjectRepository $repository)
+    public function buildRepository(Repository $repository)
     {
         array_map([$this, 'buildService'], $repository->getServices()->toArray());
     }
 
     /**
-     * @param RepositoryService $service
+     * @param Service $service
      */
-    public function buildService(RepositoryService $service)
+    public function buildService(Service $service)
     {
-        $name = $service->getName();
-        $type = $service->getType();
+        $this->classGenerator->generateRepositoryClass($service);
+        $entityTargetPath = $this->classGenerator->generateEntityClass($service);
+        $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
 
-        $entityTargetPath = $type === RepositoryService::TYPE_LIST ?
-            $this->generateClass($name) :
-            $this->generateClass($name, false, true);
-
-        $sourceCode = $this->generator->getFileContentsForPendingOperation($entityTargetPath);
-
-        foreach ($service->getServiceFields() as $serviceField) {
-            $sourceCode = $this->buildServiceField($serviceField, $sourceCode);
+        foreach ($service->getFields() as $field) {
+            $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
-        $type === RepositoryService::TYPE_LIST ?
-            $this->generateClass($name, true) :
-            $this->generateClass($name, true, true) ;
-
-        $this->generator->dumpFile($entityTargetPath, $sourceCode);
-        $this->generator->writeChanges();
-    }
-
-    /**
-     * Generates class target paths and adds them to pending operations of our generator.
-     *
-     * @param string $name
-     * @param bool $isRepository
-     * @param bool $isTree
-     * @return string
-     */
-    public function generateClass(string $name, bool $isRepository = false, bool $isTree = false) : string
-    {
-        $format = dirname(__DIR__) . '/Resources/skeleton/doctrine/%s.tpl.php';
-        $isTree !== true ?: $format = sprintf($format, 'Tree%s');
-        $templateName = sprintf($format, $isRepository ? 'Repository' : 'Entity');
-        $fqcn = $isRepository ? self::REPOSITORY_NAMESPACE . $name . 'Repository' : self::ENTITY_NAMESPACE . $name;
-
-        return $this->generator->generateClass($fqcn, $templateName, array(
-            'api_resource' => true,
-            'entity_class_name' => $name,
-            'entity_alias' => lcfirst($name)[0],
-            'repository_full_class_name' => self::REPOSITORY_NAMESPACE . $name . 'Repository',
-            'entity_full_class_name' => self::ENTITY_NAMESPACE . $name
-        ));
+        $this->classGenerator->generator->dumpFile($entityTargetPath, $sourceCode);
+        $this->classGenerator->generator->writeChanges();
     }
 
     /**
      * Adds an entity field to our manipulator and returns the generated source code.
      *
-     * @param ServiceField $serviceField
+     * @param Field $field
      * @param string $sourceCode
      * @return string
      */
-    public function buildServiceField(ServiceField $serviceField, string $sourceCode) : string
+    public function buildfield(Field $field, string $sourceCode) : string
     {
-        $name = $serviceField->getName();
-        $dataType = $serviceField->getDataType();
+        $dataType = $field->getDataType();
         $manipulator = new ClassSourceManipulator($sourceCode);
 
         if ($dataType === 'relation') {
-            return $this->buildFieldRelation($serviceField, $manipulator);
+            return $this->buildFieldRelation($field, $manipulator);
         }
 
-        $options = [
-            //'fieldName' => $name,
-            'type' => $dataType,
-            'options' => []
-        ];
-
-        $serviceField->getIsUnique() === false ?: $options['unique'] = true;
-        $serviceField->getIsNullable() === false ?: $options['nullable'] = true;
+        $options = ['type' => $dataType];
+        $field->getIsUnique() === false ?: $options['unique'] = true;
+        $field->getIsNullable() === false ?: $options['nullable'] = true;
 
         if ($dataType === 'string') {
-            $options['length'] = $serviceField->getLength();
-        } elseif ($dataType === 'float') {
-            $options['precision'] = $serviceField->getDataTypePrecision();
-            $options['scale'] = $serviceField->getDataTypeScale();
+            $options['length'] = $field->getLength();
+        } elseif ($dataType === 'decimal') {
+            $options['precision'] = $field->getDataTypePrecision();
+            $options['scale'] = $field->getDataTypeScale();
         }
 
-        foreach ($serviceField->getOptions() as $fieldOption) {
-            $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
+        if ($field->getOptions()->count() > 0) {
+            $options['options'] = [];
+            foreach ($field->getOptions() as $fieldOption) {
+                $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
+            }
         }
 
-        $manipulator->addEntityField($name, $options);
+        $manipulator->addEntityField($field->getName(), $options);
 
         return $manipulator->getSourceCode();
     }
@@ -158,21 +120,21 @@ class Builder
     /**
      * Adds a field relation to our manipulator and returns the generated source code.
      *
-     * @param ServiceField $serviceField
+     * @param Field $field
      * @param ClassSourceManipulator $manipulator
      * @return string
      */
-    public function buildFieldRelation(ServiceField $serviceField, ClassSourceManipulator $manipulator) : string
+    public function buildFieldRelation(Field $field, ClassSourceManipulator $manipulator) : string
     {
-        $relation = $serviceField->getRelation();
+        $relation = $field->getRelation();
         $relationType = $relation->getType();
         $inversedBy = $relation->getInversedBy();
-        $owningClass = self::ENTITY_NAMESPACE . $serviceField->getService()->getName();
+        $owningClass = self::ENTITY_NAMESPACE . $field->getService()->getName();
         $inverseClass = self::ENTITY_NAMESPACE . $relation->getTargetEntity();
 
         $entityRelation = new EntityRelation($relationType, $owningClass, $inverseClass);
-        $entityRelation->setOwningProperty($serviceField->getName());
-        $entityRelation->setIsNullable($serviceField->getIsNullable());
+        $entityRelation->setOwningProperty($field->getName());
+        $entityRelation->setIsNullable($field->getIsNullable());
         $entityRelation->setMapInverseRelation(false);
 
         // @todo https://github.com/siewert87/aaas-api/issues/10
