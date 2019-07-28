@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- migrator actions for clearing application cache and migrating database
+
 ## [0.5.0] - 2019-07-25
 
 ### Added
