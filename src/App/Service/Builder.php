@@ -128,7 +128,6 @@ class Builder
     {
         $relation = $field->getRelation();
         $relationType = $relation->getType();
-        $inversedBy = $relation->getInversedBy();
         $owningClass = self::ENTITY_NAMESPACE . $field->getService()->getName();
         $inverseClass = self::ENTITY_NAMESPACE . $relation->getTargetEntity();
 
@@ -138,6 +137,7 @@ class Builder
         $entityRelation->setMapInverseRelation(false);
 
         // @todo https://github.com/siewert87/aaas-api/issues/10
+        // $inversedBy = $relation->getInversedBy();
         /*if ($inversedBy !== null) {
             $entityRelation->setMapInverseRelation(true);
             $entityRelation->setInverseProperty($inversedBy);

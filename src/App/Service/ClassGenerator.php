@@ -43,6 +43,7 @@ class ClassGenerator
 
     /**
      * @param Generator $generator
+     * @param FileManager $fileManager
      */
     public function __construct(Generator $generator, FileManager $fileManager)
     {
