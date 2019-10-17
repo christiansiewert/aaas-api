@@ -32,6 +32,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "put",
  *         "delete",
  *         "builder"={
+ *             "method"="GET",
  *             "route_name"="project_builder",
  *             "swagger_context"={
  *                 "summary"="Generates API from an existing project."
