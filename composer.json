@@ -13,7 +13,6 @@
         "symfony/framework-bundle": "*",
         "symfony/yaml": "*",
         "symfony/flex": "^1.1",
-        "symfony/mercure-bundle": "^0.2",
         "symfony/monolog-bundle": "^3.3",
         "symfony/maker-bundle": "^1.11",
         "api-platform/core": "^2.4",
