@@ -13,7 +13,6 @@
         "symfony/framework-bundle": "*",
         "symfony/yaml": "*",
         "symfony/flex": "^1.1",
-        "symfony/mercure-bundle": "^0.2",
         "symfony/monolog-bundle": "^3.3",
         "symfony/maker-bundle": "^1.11",
         "api-platform/core": "^2.4",
@@ -31,6 +30,9 @@
         "squizlabs/php_codesniffer": "^3.4"
     },
     "config": {
+        "platform": {
+            "php": "7.2.5"
+        },
         "preferred-install": {
             "*": "dist"
         },
@@ -73,7 +75,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "5.*"
+            "require": "5.0.*"
         }
     }
 }
