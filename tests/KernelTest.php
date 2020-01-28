@@ -11,7 +11,7 @@
 
 namespace App\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class KernelTest extends WebTestCase
 {
     /**
-     * @var Client
+     * @var KernelBrowser
      */
     private $client;
 
