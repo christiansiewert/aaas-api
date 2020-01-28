@@ -30,6 +30,9 @@
         "squizlabs/php_codesniffer": "^3.4"
     },
     "config": {
+        "platform": {
+            "php": "7.2.5"
+        },
         "preferred-install": {
             "*": "dist"
         },
