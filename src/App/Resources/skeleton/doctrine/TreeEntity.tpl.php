@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Tree\Traits\NestedSetEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
 <?php if ($api_resource): ?> * @ApiResource(routePrefix="/api/<?= $project_repository ?>")
@@ -47,6 +48,7 @@ class <?= $class_name."\n" ?>
     /**
      * @ORM\OneToMany(targetEntity="<?= $class_name ?>", mappedBy="parent")
      * @ORM\OrderBy({"left" = "ASC"})
+     * @ApiSubresource
      */
     private $children;
 
