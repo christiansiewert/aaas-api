@@ -14,7 +14,7 @@ services:
             - mariadb_data:/bitnami
             - ./docs:/app/docs
     php:
-        image: webdevops/php-dev:7.3
+        image: webdevops/php-dev:7.4
         environment:
             - PHP_DATE_TIMEZONE=Europe/Berlin
         depends_on:
