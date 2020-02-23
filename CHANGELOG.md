@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- added @ApiSubresource annotation for tree entities
+
 ## [1.2.0] - 2020-01-28
 
 ### Changed
 
-- fixed some coding issues and continious integration stuff
+- fixed some coding issues and continuous integration stuff
 
 ## [1.1.0] - 2019-12-21
 
