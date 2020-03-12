@@ -25,12 +25,12 @@ LOCK TABLES `Acl_Customer` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `App_Field_Assert`
+-- Dumping data for table `App_Field_Constraint`
 --
 
-LOCK TABLES `App_Field_Assert` WRITE;
-/*!40000 ALTER TABLE `App_Field_Assert` DISABLE KEYS */;
-/*!40000 ALTER TABLE `App_Field_Assert` ENABLE KEYS */;
+LOCK TABLES `App_Field_Constraint` WRITE;
+/*!40000 ALTER TABLE `App_Field_Constraint` DISABLE KEYS */;
+/*!40000 ALTER TABLE `App_Field_Constraint` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
