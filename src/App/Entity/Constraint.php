@@ -27,7 +27,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "name": "word_start"
  *     }
  * )
- * @ORM\Table(name="App_Field_Assert")
+ * @ORM\Table(name="App_Field_Constraint")
  * @author Christian Siewert <christian@sieware.international>
  */
 class Constraint
