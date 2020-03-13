@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200312153224 extends AbstractMigration
+final class Version20200313094515 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -29,6 +29,7 @@ final class Version20200312153224 extends AbstractMigration
         $this->addSql('CREATE TABLE App_Field_Relation (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(10) DEFAULT \'OneToMany\' NOT NULL, target_entity VARCHAR(255) NOT NULL, mapped_by VARCHAR(255) DEFAULT NULL, inversed_by VARCHAR(255) DEFAULT NULL, orphan_removal TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_name VARCHAR(255) DEFAULT NULL, join_column_referenced_column_name VARCHAR(255) DEFAULT \'id\' NOT NULL, join_column_is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_is_nullable TINYINT(1) DEFAULT \'1\' NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Service_Field (id INT AUTO_INCREMENT NOT NULL, service_id INT NOT NULL, relation_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, data_type VARCHAR(255) DEFAULT \'string\' NOT NULL, length INT UNSIGNED DEFAULT NULL, data_type_precision INT DEFAULT NULL, data_type_scale INT DEFAULT NULL, is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, is_nullable TINYINT(1) DEFAULT \'0\' NOT NULL, INDEX IDX_34E6C318ED5CA9E6 (service_id), UNIQUE INDEX UNIQ_34E6C3183256915B (relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Constraint (id INT AUTO_INCREMENT NOT NULL, field_id INT NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_E2622E4D443707B0 (field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE App_Field_Constraint_Option (id INT AUTO_INCREMENT NOT NULL, constraint_id INT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_23E73F64E3087FFC (constraint_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE Acl_Customer (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_627894A6E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE App_Project_Repository ADD CONSTRAINT FK_BECDCEA4166D1F9C FOREIGN KEY (project_id) REFERENCES App_Project (id)');
         $this->addSql('ALTER TABLE App_Field_Option ADD CONSTRAINT FK_BAEE3380443707B0 FOREIGN KEY (field_id) REFERENCES App_Service_Field (id)');
@@ -36,6 +37,7 @@ final class Version20200312153224 extends AbstractMigration
         $this->addSql('ALTER TABLE App_Service_Field ADD CONSTRAINT FK_34E6C318ED5CA9E6 FOREIGN KEY (service_id) REFERENCES App_Repository_Service (id)');
         $this->addSql('ALTER TABLE App_Service_Field ADD CONSTRAINT FK_34E6C3183256915B FOREIGN KEY (relation_id) REFERENCES App_Field_Relation (id)');
         $this->addSql('ALTER TABLE App_Field_Constraint ADD CONSTRAINT FK_E2622E4D443707B0 FOREIGN KEY (field_id) REFERENCES App_Service_Field (id)');
+        $this->addSql('ALTER TABLE App_Field_Constraint_Option ADD CONSTRAINT FK_23E73F64E3087FFC FOREIGN KEY (constraint_id) REFERENCES App_Field_Constraint (id)');
     }
 
     public function down(Schema $schema) : void
@@ -49,6 +51,7 @@ final class Version20200312153224 extends AbstractMigration
         $this->addSql('ALTER TABLE App_Service_Field DROP FOREIGN KEY FK_34E6C3183256915B');
         $this->addSql('ALTER TABLE App_Field_Option DROP FOREIGN KEY FK_BAEE3380443707B0');
         $this->addSql('ALTER TABLE App_Field_Constraint DROP FOREIGN KEY FK_E2622E4D443707B0');
+        $this->addSql('ALTER TABLE App_Field_Constraint_Option DROP FOREIGN KEY FK_23E73F64E3087FFC');
         $this->addSql('DROP TABLE App_Project');
         $this->addSql('DROP TABLE App_Project_Repository');
         $this->addSql('DROP TABLE App_Field_Option');
@@ -56,6 +59,7 @@ final class Version20200312153224 extends AbstractMigration
         $this->addSql('DROP TABLE App_Field_Relation');
         $this->addSql('DROP TABLE App_Service_Field');
         $this->addSql('DROP TABLE App_Field_Constraint');
+        $this->addSql('DROP TABLE App_Field_Constraint_Option');
         $this->addSql('DROP TABLE Acl_Customer');
     }
 }

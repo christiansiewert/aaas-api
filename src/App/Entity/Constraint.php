@@ -11,9 +11,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -41,6 +45,8 @@ class Constraint
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"constraint"})
+     * @Assert\Valid
      */
     private $name;
 
@@ -49,6 +55,18 @@ class Constraint
      * @ORM\JoinColumn(nullable=false)
      */
     private $field;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ConstraintOption", mappedBy="constraint", orphanRemoval=true)
+     * @Groups({"constraint", "constraintOption"})
+     * @Assert\Valid
+     */
+    private $constraintOptions;
+
+    public function __construct()
+    {
+        $this->constraintOptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +93,37 @@ class Constraint
     public function setfield(?Field $field): self
     {
         $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConstraintOption[]
+     */
+    public function getConstraintOptions(): Collection
+    {
+        return $this->constraintOptions;
+    }
+
+    public function addConstraintOption(ConstraintOption $constraintOption): self
+    {
+        if (!$this->constraintOptions->contains($constraintOption)) {
+            $this->constraintOptions[] = $constraintOption;
+            $constraintOption->setConstraint($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstraintOption(ConstraintOption $constraintOption): self
+    {
+        if ($this->constraintOptions->contains($constraintOption)) {
+            $this->constraintOptions->removeElement($constraintOption);
+            // set the owning side to null (unless already changed)
+            if ($constraintOption->getConstraint() === $this) {
+                $constraintOption->setConstraint(null);
+            }
+        }
 
         return $this;
     }
