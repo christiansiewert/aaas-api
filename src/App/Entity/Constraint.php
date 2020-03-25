@@ -16,12 +16,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * Field assertions.
+ * Represents a validation constraint for a service field.
  *
  * @ORM\Entity
  * @ApiResource(routePrefix="/aaas/field")
@@ -29,6 +30,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     SearchFilter::class,
  *     properties={
  *         "name": "word_start"
+ *     }
+ * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "constraint",
+ *             "constraintOption"
+ *         }
  *     }
  * )
  * @ORM\Table(name="App_Field_Constraint")
@@ -46,7 +56,7 @@ class Constraint
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"constraint"})
-     * @Assert\Valid
+     * @Assert\NotBlank
      */
     private $name;
 
