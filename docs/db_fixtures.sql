@@ -35,13 +35,13 @@ INSERT INTO `App_Field_Constraint` VALUES (1,1,'NotBlank'),(2,8,'Range');
 UNLOCK TABLES;
 
 --
--- Dumping data for table `App_Field_Constraint_Option`
+-- Dumping data for table `App_Constraint_Option`
 --
 
-LOCK TABLES `App_Field_Constraint_Option` WRITE;
-/*!40000 ALTER TABLE `App_Field_Constraint_Option` DISABLE KEYS */;
-INSERT INTO `App_Field_Constraint_Option` VALUES (1,1,'message','This value must not be empty!'),(2,2,'min','5'),(3,2,'max','95'),(4,2,'minMessage','{{ value }} must be at least {{ limit }}.'),(5,2,'maxMessage','{{ value }} cannot be greater than {{ limit }}.');
-/*!40000 ALTER TABLE `App_Field_Constraint_Option` ENABLE KEYS */;
+LOCK TABLES `App_Constraint_Option` WRITE;
+/*!40000 ALTER TABLE `App_Constraint_Option` DISABLE KEYS */;
+INSERT INTO `App_Constraint_Option` VALUES (1,1,'message','This value must not be empty!'),(2,2,'min','5'),(3,2,'max','95'),(4,2,'minMessage','{{ value }} must be at least {{ limit }}.'),(5,2,'maxMessage','{{ value }} cannot be greater than {{ limit }}.');
+/*!40000 ALTER TABLE `App_Constraint_Option` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

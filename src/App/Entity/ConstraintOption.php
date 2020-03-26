@@ -30,7 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         }
  *     }
  * )
- * @ORM\Table(name="App_Field_Constraint_Option")
+ * @ORM\Table(name="App_Constraint_Option")
  * @author Christian Siewert <christian@sieware.international>
  */
 class ConstraintOption
