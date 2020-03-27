@@ -11,14 +11,15 @@
 
 namespace <?= $namespace ?>;
 
-<?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;
-<?php endif ?>
+<?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;<?php endif ?>
+
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Tree\Traits\NestedSetEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
 <?php if ($api_resource): ?> * @ApiResource(routePrefix="/api/<?= $project_repository ?>")

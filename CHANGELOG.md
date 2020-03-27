@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - added @ApiSubresource annotation for tree entities
+- builder support for validating constraints
 
 ## [1.2.0] - 2020-01-28
 

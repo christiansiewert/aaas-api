@@ -115,4 +115,52 @@ class ClassGenerator
     {
         return dirname(__DIR__) . sprintf(self::TEMPLATE_PATH, $template);
     }
+
+    /**
+     * @param string $annotationClass The annotation: e.g. "@ORM\Column"
+     * @param array  $options         Key-value pair of options for the annotation
+     *
+     * @return string
+     */
+    public function buildAnnotationLine(string $annotationClass, array $options)
+    {
+        $formattedOptions = array_map(function ($option, $value) {
+            if (\is_array($value)) {
+                if (!isset($value[0])) {
+                    return sprintf('%s={%s}', $option, implode(', ', array_map(function ($val, $key) {
+                        return sprintf('"%s" = %s', $key, $this->quoteAnnotationValue($val));
+                    }, $value, array_keys($value))));
+                }
+
+                return sprintf('%s={%s}', $option, implode(', ', array_map(function ($val) {
+                    return $this->quoteAnnotationValue($val);
+                }, $value)));
+            }
+
+            return sprintf('%s=%s', $option, $this->quoteAnnotationValue($value));
+        }, array_keys($options), array_values($options));
+
+        return sprintf('%s(%s)', $annotationClass, implode(', ', $formattedOptions));
+    }
+
+    private function quoteAnnotationValue($value)
+    {
+        if (\is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (null === $value) {
+            return 'null';
+        }
+
+        if (\is_int($value) || '0' === $value) {
+            return $value;
+        }
+
+        if (\is_array($value)) {
+            throw new \Exception('Invalid value: loop before quoting.');
+        }
+
+        return sprintf('"%s"', $value);
+    }
 }
