@@ -9,6 +9,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use InvalidArgumentException;
 
 /**
  * Field Constraint Option.
@@ -35,6 +36,31 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  */
 class ConstraintOption
 {
+    /**
+     * @see https://symfony.com/doc/current/reference/constraints.html#supported-constraints
+     *
+     * @todo add more constraint options
+     */
+    const VALID_OPTIONS = array(
+        'message',
+        'value',
+        'mode',
+        'version',
+        'normalizer',
+        'min',
+        'max',
+        'minMessage',
+        'maxMessage',
+        'allowEmptyString',
+        'charset',
+        'charsetMessage',
+        'exactMessage',
+        'type',
+        'isbn10Message',
+        'isbn13Message',
+        'bothIsbnMessage'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -74,6 +100,10 @@ class ConstraintOption
 
     public function setName(string $name): self
     {
+        if (!in_array($name, self::VALID_OPTIONS)) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
         $this->name = $name;
 
         return $this;
