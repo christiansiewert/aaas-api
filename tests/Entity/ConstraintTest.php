@@ -45,8 +45,8 @@ class ConstraintTest extends TestCase
 
     public function testNameSettable()
     {
-        $this->object->setName('name');
-        $this->assertEquals('name', $this->object->getName());
+        $this->object->setName('Null');
+        $this->assertEquals('Null', $this->object->getName());
     }
 
     public function testfieldGettable()

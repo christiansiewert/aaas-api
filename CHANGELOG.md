@@ -6,11 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-03-28
+
+### Added
+
+- added @ApiSubresource annotation for tree entities
+- builder support for validating constraints and theire options
+
 ## [1.2.0] - 2020-01-28
 
 ### Changed
 
-- fixed some coding issues and continious integration stuff
+- fixed some coding issues and continuous integration stuff
+- database table name conventions
 
 ## [1.1.0] - 2019-12-21
 
@@ -148,7 +156,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/siewert87/aaas-api/compare/v1.2.0...develop
+[Unreleased]: https://github.com/siewert87/aaas-api/compare/v1.3.0...develop
+[1.3.0]: https://github.com/siewert87/aaas-api/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/siewert87/aaas-api/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/siewert87/aaas-api/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/siewert87/aaas-api/compare/v0.5.0...v1.0.0

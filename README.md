@@ -1,9 +1,8 @@
-[![License: MIT](https://img.shields.io/github/license/siewert87/aaas-api.svg)](https://opensource.org/licenses/MIT)
+[![License: BSD-3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Travis Status](https://img.shields.io/travis/siewert87/aaas-api.svg)](https://travis-ci.org/siewert87/aaas-api)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/siewert87/aaas-api.svg)](https://scrutinizer-ci.com/g/siewert87/aaas-api)
-![Code Size](https://img.shields.io/github/languages/code-size/siewert87/aaas-api.svg)
-[![Latest Tag](https://img.shields.io/github/tag/siewert87/aaas-api.svg?)](https://github.com/siewert87/aaas-api/releases)
 [![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
+[![Latest Tag](https://img.shields.io/github/tag/siewert87/aaas-api.svg?)](https://github.com/siewert87/aaas-api/releases)
 
 
 # API as a Service - API

@@ -11,13 +11,19 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use InvalidArgumentException;
 
 /**
- * Field assertions.
+ * Represents a validation constraint for a service field.
  *
  * @ORM\Entity
  * @ApiResource(routePrefix="/aaas/field")
@@ -27,11 +33,61 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *         "name": "word_start"
  *     }
  * )
- * @ORM\Table(name="App_Field_Assert")
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *         "whitelist" : {
+ *             "constraint",
+ *             "constraintOption"
+ *         }
+ *     }
+ * )
+ * @ORM\Table(name="App_Field_Constraint")
  * @author Christian Siewert <christian@sieware.international>
  */
 class Constraint
 {
+    /**
+     * @see https://symfony.com/doc/current/reference/constraints.html#supported-constraints
+     *
+     * @todo add more validation constraints
+     */
+    const VALID_CONSTRAINTS = array(
+        'NotBlank',
+        'Null',
+        'NotNull',
+        'isNull',
+        'isTrue',
+        'isFalse',
+        'Email',
+        'Length',
+        'Url',
+        'Regex',
+        'Ip',
+        'Json',
+        'EqualTo',
+        'NotEqualTo',
+        'IdenticalTo',
+        'NotIdenticalTo',
+        'LessThan',
+        'LessThanOrEqual',
+        'GreaterThan',
+        'GreaterThanOrEqual',
+        'Range',
+        'DivisibleBy',
+        'Unique',
+        'Positive',
+        'PositiveOrZero',
+        'Negative',
+        'NegativeOrZero',
+        'Date',
+        'DateTime',
+        'Time',
+        'Timezone',
+        'Iban',
+        'Isbn'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,6 +97,8 @@ class Constraint
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"constraint"})
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -49,6 +107,18 @@ class Constraint
      * @ORM\JoinColumn(nullable=false)
      */
     private $field;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ConstraintOption", mappedBy="constraint", orphanRemoval=true)
+     * @Groups({"constraint", "constraintOption"})
+     * @Assert\Valid
+     */
+    private $constraintOptions;
+
+    public function __construct()
+    {
+        $this->constraintOptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,6 +132,10 @@ class Constraint
 
     public function setName(string $name): self
     {
+        if (!in_array($name, self::VALID_CONSTRAINTS)) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
         $this->name = $name;
 
         return $this;
@@ -75,6 +149,37 @@ class Constraint
     public function setfield(?Field $field): self
     {
         $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConstraintOption[]
+     */
+    public function getConstraintOptions(): Collection
+    {
+        return $this->constraintOptions;
+    }
+
+    public function addConstraintOption(ConstraintOption $constraintOption): self
+    {
+        if (!$this->constraintOptions->contains($constraintOption)) {
+            $this->constraintOptions[] = $constraintOption;
+            $constraintOption->setConstraint($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstraintOption(ConstraintOption $constraintOption): self
+    {
+        if ($this->constraintOptions->contains($constraintOption)) {
+            $this->constraintOptions->removeElement($constraintOption);
+            // set the owning side to null (unless already changed)
+            if ($constraintOption->getConstraint() === $this) {
+                $constraintOption->setConstraint(null);
+            }
+        }
 
         return $this;
     }
