@@ -14,6 +14,7 @@ namespace App\Service;
 use App\Entity\Service;
 use Symfony\Bundle\MakerBundle\FileManager;
 use Symfony\Bundle\MakerBundle\Generator;
+use \Exception;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
@@ -54,7 +55,7 @@ class ClassGenerator
     /**
      * @param Service $service
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function generateEntityClass(Service $service) : string
     {
@@ -82,7 +83,7 @@ class ClassGenerator
     /**
      * @param Service $service
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function generateRepositoryClass(Service $service) : string
     {
@@ -125,7 +126,7 @@ class ClassGenerator
     public function buildAnnotationLine(string $annotationClass, array $options)
     {
         $formattedOptions = array_map(function ($option, $value) {
-            if (\is_array($value)) {
+            if (is_array($value)) {
                 if (!isset($value[0])) {
                     return sprintf('%s={%s}', $option, implode(', ', array_map(function ($val, $key) {
                         return sprintf('"%s" = %s', $key, $this->quoteAnnotationValue($val));
@@ -145,7 +146,7 @@ class ClassGenerator
 
     private function quoteAnnotationValue($value)
     {
-        if (\is_bool($value)) {
+        if (is_bool($value)) {
             return $value ? 'true' : 'false';
         }
 
@@ -153,12 +154,12 @@ class ClassGenerator
             return 'null';
         }
 
-        if (\is_int($value) || '0' === $value) {
+        if (is_int($value) || '0' === $value) {
             return $value;
         }
 
-        if (\is_array($value)) {
-            throw new \Exception('Invalid value: loop before quoting.');
+        if (is_array($value)) {
+            throw new Exception('Invalid value: loop before quoting.');
         }
 
         return sprintf('"%s"', $value);
