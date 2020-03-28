@@ -8,8 +8,6 @@
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -20,18 +18,6 @@
 --
 
 LOCK TABLES `Acl_Customer` WRITE;
-/*!40000 ALTER TABLE `Acl_Customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Acl_Customer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `App_Field_Constraint`
---
-
-LOCK TABLES `App_Field_Constraint` WRITE;
-/*!40000 ALTER TABLE `App_Field_Constraint` DISABLE KEYS */;
-INSERT INTO `App_Field_Constraint` VALUES (1,1,'NotBlank'),(2,8,'Range');
-/*!40000 ALTER TABLE `App_Field_Constraint` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -39,9 +25,20 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Constraint_Option` WRITE;
-/*!40000 ALTER TABLE `App_Constraint_Option` DISABLE KEYS */;
-INSERT INTO `App_Constraint_Option` VALUES (1,1,'message','This value must not be empty!'),(2,2,'min','5'),(3,2,'max','95'),(4,2,'minMessage','{{ value }} must be at least {{ limit }}.'),(5,2,'maxMessage','{{ value }} cannot be greater than {{ limit }}.');
-/*!40000 ALTER TABLE `App_Constraint_Option` ENABLE KEYS */;
+INSERT INTO `App_Constraint_Option` (`id`, `constraint_id`, `name`, `value`) VALUES (1,1,'message','This value must not be empty!');
+INSERT INTO `App_Constraint_Option` (`id`, `constraint_id`, `name`, `value`) VALUES (2,2,'min','5');
+INSERT INTO `App_Constraint_Option` (`id`, `constraint_id`, `name`, `value`) VALUES (3,2,'max','95');
+INSERT INTO `App_Constraint_Option` (`id`, `constraint_id`, `name`, `value`) VALUES (4,2,'minMessage','{{ value }} must be at least {{ limit }}.');
+INSERT INTO `App_Constraint_Option` (`id`, `constraint_id`, `name`, `value`) VALUES (5,2,'maxMessage','{{ value }} cannot be greater than {{ limit }}.');
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `App_Field_Constraint`
+--
+
+LOCK TABLES `App_Field_Constraint` WRITE;
+INSERT INTO `App_Field_Constraint` (`id`, `field_id`, `name`) VALUES (1,1,'NotBlank');
+INSERT INTO `App_Field_Constraint` (`id`, `field_id`, `name`) VALUES (2,8,'Range');
 UNLOCK TABLES;
 
 --
@@ -49,9 +46,9 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Field_Option` WRITE;
-/*!40000 ALTER TABLE `App_Field_Option` DISABLE KEYS */;
-INSERT INTO `App_Field_Option` VALUES (1,6,'default','A fancy product'),(2,6,'comment','The name of our product.'),(3,10,'unsigned','true');
-/*!40000 ALTER TABLE `App_Field_Option` ENABLE KEYS */;
+INSERT INTO `App_Field_Option` (`id`, `field_id`, `name`, `value`) VALUES (1,6,'default','A fancy product');
+INSERT INTO `App_Field_Option` (`id`, `field_id`, `name`, `value`) VALUES (2,6,'comment','The name of our product.');
+INSERT INTO `App_Field_Option` (`id`, `field_id`, `name`, `value`) VALUES (3,10,'unsigned','true');
 UNLOCK TABLES;
 
 --
@@ -59,9 +56,8 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Field_Relation` WRITE;
-/*!40000 ALTER TABLE `App_Field_Relation` DISABLE KEYS */;
-INSERT INTO `App_Field_Relation` VALUES (1,'OneToOne','ProductDetail',NULL,NULL,0,NULL,'id',0,1),(2,'ManyToMany','Product',NULL,NULL,0,NULL,'id',0,1);
-/*!40000 ALTER TABLE `App_Field_Relation` ENABLE KEYS */;
+INSERT INTO `App_Field_Relation` (`id`, `type`, `target_entity`, `mapped_by`, `inversed_by`, `orphan_removal`, `join_column_name`, `join_column_referenced_column_name`, `join_column_is_unique`, `join_column_is_nullable`) VALUES (1,'OneToOne','ProductDetail',NULL,NULL,0,NULL,'id',0,1);
+INSERT INTO `App_Field_Relation` (`id`, `type`, `target_entity`, `mapped_by`, `inversed_by`, `orphan_removal`, `join_column_name`, `join_column_referenced_column_name`, `join_column_is_unique`, `join_column_is_nullable`) VALUES (2,'ManyToMany','Product',NULL,NULL,0,NULL,'id',0,1);
 UNLOCK TABLES;
 
 --
@@ -69,9 +65,7 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Project` WRITE;
-/*!40000 ALTER TABLE `App_Project` DISABLE KEYS */;
-INSERT INTO `App_Project` VALUES (1,'My Online Shop','My fance online shop which uses AaaS.');
-/*!40000 ALTER TABLE `App_Project` ENABLE KEYS */;
+INSERT INTO `App_Project` (`id`, `name`, `description`) VALUES (1,'My Online Shop','My fance online shop which uses AaaS.');
 UNLOCK TABLES;
 
 --
@@ -79,9 +73,8 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Project_Repository` WRITE;
-/*!40000 ALTER TABLE `App_Project_Repository` DISABLE KEYS */;
-INSERT INTO `App_Project_Repository` VALUES (1,1,'Blog','Blog repository holds services for our blog.'),(2,1,'Catalog','Catalog repository holds services for our catalog.');
-/*!40000 ALTER TABLE `App_Project_Repository` ENABLE KEYS */;
+INSERT INTO `App_Project_Repository` (`id`, `project_id`, `name`, `description`) VALUES (1,1,'Blog','Blog repository holds services for our blog.');
+INSERT INTO `App_Project_Repository` (`id`, `project_id`, `name`, `description`) VALUES (2,1,'Catalog','Catalog repository holds services for our catalog.');
 UNLOCK TABLES;
 
 --
@@ -89,9 +82,12 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Repository_Service` WRITE;
-/*!40000 ALTER TABLE `App_Repository_Service` DISABLE KEYS */;
-INSERT INTO `App_Repository_Service` VALUES (1,1,'Article','Articles for our blog repository.','list'),(2,1,'Label','Labels for our blog repository.','list'),(3,1,'Comment','Comments for our blog repository.','list'),(4,2,'Product','Products service for our catalog repository.','list'),(5,2,'Category','Categories for our catalog repository.','tree'),(6,2,'ProductDetail','Details for our products.','list');
-/*!40000 ALTER TABLE `App_Repository_Service` ENABLE KEYS */;
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (1,1,'Article','Articles for our blog repository.','list');
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (2,1,'Label','Labels for our blog repository.','list');
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (3,1,'Comment','Comments for our blog repository.','list');
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (4,2,'Product','Products service for our catalog repository.','list');
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (5,2,'Category','Categories for our catalog repository.','tree');
+INSERT INTO `App_Repository_Service` (`id`, `repository_id`, `name`, `description`, `type`) VALUES (6,2,'ProductDetail','Details for our products.','list');
 UNLOCK TABLES;
 
 --
@@ -99,11 +95,21 @@ UNLOCK TABLES;
 --
 
 LOCK TABLES `App_Service_Field` WRITE;
-/*!40000 ALTER TABLE `App_Service_Field` DISABLE KEYS */;
-INSERT INTO `App_Service_Field` VALUES (1,1,NULL,'title','Title for our blog post.','string',255,NULL,NULL,0,0),(2,1,NULL,'post','The actual blog post.','text',NULL,NULL,NULL,0,0),(3,2,NULL,'value','The label value.','string',255,NULL,NULL,0,0),(4,3,NULL,'author','The author of the comment.','string',255,NULL,NULL,0,0),(5,3,NULL,'timestamp','The timestamp of the comment.','datetime',NULL,NULL,NULL,0,0),(6,4,NULL,'name','The actual product name.','string',255,NULL,NULL,1,0),(7,4,NULL,'description','The product description.','text',NULL,NULL,NULL,0,1),(8,4,NULL,'prize','The product prize.','decimal',NULL,10,2,0,0),(9,5,NULL,'name','The category name.','string',255,NULL,NULL,0,0),(10,5,NULL,'numProducts','The actual number of products of this category.','integer',NULL,NULL,NULL,0,0),(11,6,NULL,'size','Product size','integer',NULL,NULL,NULL,0,0),(12,6,NULL,'color','Product color','string',20,NULL,NULL,0,0),(13,4,1,'detail','Product details','relation',NULL,NULL,NULL,0,0),(14,5,2,'products','Products belonging to a category.','relation',NULL,NULL,NULL,0,0);
-/*!40000 ALTER TABLE `App_Service_Field` ENABLE KEYS */;
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (1,1,NULL,'title','Title for our blog post.','string',255,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (2,1,NULL,'post','The actual blog post.','text',NULL,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (3,2,NULL,'value','The label value.','string',255,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (4,3,NULL,'author','The author of the comment.','string',255,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (5,3,NULL,'timestamp','The timestamp of the comment.','datetime',NULL,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (6,4,NULL,'name','The actual product name.','string',255,NULL,NULL,1,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (7,4,NULL,'description','The product description.','text',NULL,NULL,NULL,0,1);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (8,4,NULL,'price','The product price.','float',NULL,10,2,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (9,5,NULL,'name','The category name.','string',255,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (10,5,NULL,'numProducts','The actual number of products of this category.','integer',NULL,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (11,6,NULL,'size','Product size','integer',NULL,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (12,6,NULL,'color','Product color','string',20,NULL,NULL,0,0);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (13,4,1,'detail','Product details','relation',NULL,NULL,NULL,0,1);
+INSERT INTO `App_Service_Field` (`id`, `service_id`, `relation_id`, `name`, `description`, `data_type`, `length`, `data_type_precision`, `data_type_scale`, `is_unique`, `is_nullable`) VALUES (14,5,2,'products','Products belonging to a category.','relation',NULL,NULL,NULL,0,0);
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -113,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-26 14:16:58
+-- Dump completed on 2020-03-28 13:09:36
