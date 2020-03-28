@@ -112,7 +112,22 @@ class Builder
             }
         }
 
-        $manipulator->addEntityField($field->getName(), $options);
+        $comments = [];
+
+        if ($field->getConstraints()->count() > 0) {
+            foreach ($field->getConstraints() as $constraint) {
+
+                $constraintOptions = [];
+                foreach ($constraint->getConstraintOptions() as $constraintOption) {
+                    $constraintOptions[$constraintOption->getName()] = $constraintOption->getValue();
+                }
+
+                $comments[] = $this->classGenerator
+                    ->buildAnnotationLine('@Assert\\' . $constraint->getName(), $constraintOptions);
+            }
+        }
+
+        $manipulator->addEntityField($field->getName(), $options, $comments);
 
         return $manipulator->getSourceCode();
     }

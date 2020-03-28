@@ -12,7 +12,9 @@
 namespace <?= $namespace ?>;
 
 <?php if ($api_resource): ?>use ApiPlatform\Core\Annotation\ApiResource;<?php endif ?>
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
 <?php if ($api_resource): ?> * @ApiResource(routePrefix="/api/<?= $project_repository ?>")
