@@ -20,6 +20,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use InvalidArgumentException;
 
 /**
  * Represents a validation constraint for a service field.
@@ -46,6 +47,47 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  */
 class Constraint
 {
+    /**
+     * @see https://symfony.com/doc/current/reference/constraints.html#supported-constraints
+     *
+     * @todo add more validation constraints
+     */
+    const VALID_CONSTRAINTS = array(
+        'NotBlank',
+        'Null',
+        'NotNull',
+        'isNull',
+        'isTrue',
+        'isFalse',
+        'Email',
+        'Length',
+        'Url',
+        'Regex',
+        'Ip',
+        'Json',
+        'EqualTo',
+        'NotEqualTo',
+        'IdenticalTo',
+        'NotIdenticalTo',
+        'LessThan',
+        'LessThanOrEqual',
+        'GreaterThan',
+        'GreaterThanOrEqual',
+        'Range',
+        'DivisibleBy',
+        'Unique',
+        'Positive',
+        'PositiveOrZero',
+        'Negative',
+        'NegativeOrZero',
+        'Date',
+        'DateTime',
+        'Time',
+        'Timezone',
+        'Iban',
+        'Isbn'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -90,6 +132,10 @@ class Constraint
 
     public function setName(string $name): self
     {
+        if (!in_array($name, self::VALID_CONSTRAINTS)) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
         $this->name = $name;
 
         return $this;
