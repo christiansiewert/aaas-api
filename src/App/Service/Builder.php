@@ -151,7 +151,7 @@ class Builder
         $entityRelation->setIsNullable($field->getIsNullable());
         $entityRelation->setMapInverseRelation(false);
 
-        // @todo https://github.com/siewert87/aaas-api/issues/10
+        // @todo https://github.com/christiansiewert/aaas-api/issues/10
         // $inversedBy = $relation->getInversedBy();
         /*if ($inversedBy !== null) {
             $entityRelation->setMapInverseRelation(true);
