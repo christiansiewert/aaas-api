@@ -109,7 +109,7 @@ class Constraint
     private $field;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ConstraintOption", mappedBy="constraint", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ConstraintOption", mappedBy="constraint", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups({"constraint", "constraintOption"})
      * @Assert\Valid
      */
