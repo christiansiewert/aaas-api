@@ -15,6 +15,7 @@ use App\Entity\Project;
 use App\Entity\Field;
 use App\Entity\Repository;
 use App\Entity\Service;
+use Exception;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
@@ -63,6 +64,7 @@ class Builder
 
     /**
      * @param Service $service
+     * @throws Exception
      */
     public function buildService(Service $service)
     {
@@ -83,12 +85,14 @@ class Builder
      *
      * @param Field $field
      * @param string $sourceCode
+     * @throws Exception
      * @return string
      */
     public function buildfield(Field $field, string $sourceCode) : string
     {
         $dataType = $field->getDataType();
         $manipulator = new ClassSourceManipulator($sourceCode);
+        $annotations = [];
 
         if ($dataType === 'relation') {
             return $this->buildFieldRelation($field, $manipulator);
@@ -112,22 +116,18 @@ class Builder
             }
         }
 
-        $comments = [];
-
         if ($field->getConstraints()->count() > 0) {
             foreach ($field->getConstraints() as $constraint) {
-
                 $constraintOptions = [];
                 foreach ($constraint->getConstraintOptions() as $constraintOption) {
                     $constraintOptions[$constraintOption->getName()] = $constraintOption->getValue();
                 }
-
-                $comments[] = $this->classGenerator
+                $annotations[] = $this->classGenerator
                     ->buildAnnotationLine('@Assert\\' . $constraint->getName(), $constraintOptions);
             }
         }
 
-        $manipulator->addEntityField($field->getName(), $options, $comments);
+        $manipulator->addEntityField($field->getName(), $options, $annotations);
 
         return $manipulator->getSourceCode();
     }
@@ -137,6 +137,7 @@ class Builder
      *
      * @param Field $field
      * @param ClassSourceManipulator $manipulator
+     * @throws Exception
      * @return string
      */
     public function buildFieldRelation(Field $field, ClassSourceManipulator $manipulator) : string

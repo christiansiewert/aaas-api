@@ -70,14 +70,14 @@ class ConstraintOption
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"constraint", "constraintOption"})
+     * @Groups({"constraintOption"})
      * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"constraint", "constraintOption"})
+     * @Groups({"constraintOption"})
      * @Assert\NotBlank
      */
     private $value;
