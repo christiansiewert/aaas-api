@@ -123,7 +123,7 @@ class Builder
                     $constraintOptions[$constraintOption->getName()] = $constraintOption->getValue();
                 }
                 $annotations[] = $this->classGenerator
-                    ->buildAnnotationLine('@Assert\\' . $constraint->getName(), $constraintOptions);
+                    ->buildAnnotationLine('@Assert\\'.$constraint->getName(), $constraintOptions);
             }
         }
 
