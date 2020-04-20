@@ -17,7 +17,7 @@ use Symfony\Bundle\MakerBundle\Generator;
 use \Exception;
 
 /**
- * @author Christian Siewert <christian@sieware.international> test
+ * @author Christian Siewert <christian@sieware.international>
  */
 class ClassGenerator
 {
