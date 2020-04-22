@@ -20,12 +20,23 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * A Repository holds services.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/project")
+ * @ApiResource(
+ *     routePrefix="/project",
+ *     normalizationContext={
+ *         "groups"={"repository"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"repository"},
+ *         "enable_max_depth" = true
+ *     }
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -38,9 +49,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "project",
- *             "repository",
- *             "service"
+ *             "service",
+ *             "project"
  *         }
  *     }
  * )
@@ -73,6 +83,8 @@ class Repository
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"repository"})
+     * @MaxDepth(1)
      * @Assert\NotBlank
      */
     private $project;

@@ -114,7 +114,7 @@ class ClassGenerator
      */
     public function getTemplatePath(string $template = 'Entity.tpl.php') : string
     {
-        return dirname(__DIR__) . sprintf(self::TEMPLATE_PATH, $template);
+        return dirname(__DIR__).sprintf(self::TEMPLATE_PATH, $template);
     }
 
     /**

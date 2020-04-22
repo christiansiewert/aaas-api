@@ -20,13 +20,25 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use InvalidArgumentException;
 
 /**
  * Represents a validation constraint for a service field.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/field")
+ * @ApiResource(
+ *     routePrefix="/field",
+ *     attributes={
+ *         "normalization_context"={
+ *             "groups"={"constraint", "constraintOption"},
+ *         },
+ *         "denormalization_context"={
+ *             "groups"={"field", "constraint", "constraintOption"},
+ *             "enable_max_depth" = true
+ *         }
+ *     }
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -37,6 +49,7 @@ use InvalidArgumentException;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
+ *             "field",
  *             "constraint",
  *             "constraintOption"
  *         }
@@ -92,6 +105,7 @@ class Constraint
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("constraint")
      */
     private $id;
 
@@ -105,6 +119,9 @@ class Constraint
     /**
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="constraints")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"field"})
+     * @MaxDepth(1)
+     * @Assert\NotBlank
      */
     private $field;
 

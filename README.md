@@ -68,7 +68,7 @@ docker-compose exec php composer update
 If composer runs out of memory when doing this the first time you should run
 
 ```bash
-docker-compose exec php COMPOSER_MEMORY_LIMIT=-1 composer update
+docker-compose exec -e COMPOSER_MEMORY_LIMIT=-1 php composer update
 ```
 
 #### Generate JWT Certificate

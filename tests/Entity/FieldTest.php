@@ -12,7 +12,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Constraint;
-use App\Entity\Option;
+use App\Entity\FieldOption;
 use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
@@ -128,23 +128,23 @@ class FieldTest extends TestCase
         $this->assertEquals(1, $this->object->getDataTypeScale());
     }
 
-    public function testOptionsGettable()
+    public function testFieldOptionsGettable()
     {
-        $this->assertCount(0, $this->object->getOptions());
+        $this->assertCount(0, $this->object->getFieldOptions());
     }
 
     public function testOptionsAddable()
     {
-        $this->object->addOption(new Option());
-        $this->assertCount(1, $this->object->getOptions());
+        $this->object->addFieldOption(new FieldOption());
+        $this->assertCount(1, $this->object->getFieldOptions());
     }
 
     public function testOptionsRemovable()
     {
-        $relation = new Option();
-        $this->object->addOption($relation);
-        $this->object->removeOption($relation);
-        $this->assertCount(0, $this->object->getOptions());
+        $relation = new FieldOption();
+        $this->object->addFieldOption($relation);
+        $this->object->removeFieldOption($relation);
+        $this->assertCount(0, $this->object->getFieldOptions());
     }
 
     public function testAssertionsGettable()

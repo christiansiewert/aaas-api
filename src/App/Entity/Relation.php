@@ -24,7 +24,7 @@ use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
  * map One-To-One, One-To-Many and Many-To-One relations in our database.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/field")
+ * @ApiResource(routePrefix="/field")
  * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={

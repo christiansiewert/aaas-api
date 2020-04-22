@@ -123,7 +123,7 @@ class Builder
                     $constraintOptions[$constraintOption->getName()] = $constraintOption->getValue();
                 }
                 $annotations[] = $this->classGenerator
-                    ->buildAnnotationLine('@Assert\\' . $constraint->getName(), $constraintOptions);
+                    ->buildAnnotationLine('@Assert\\'.$constraint->getName(), $constraintOptions);
             }
         }
 
@@ -144,8 +144,8 @@ class Builder
     {
         $relation = $field->getRelation();
         $relationType = $relation->getType();
-        $owningClass = self::ENTITY_NAMESPACE . $field->getService()->getName();
-        $inverseClass = self::ENTITY_NAMESPACE . $relation->getTargetEntity();
+        $owningClass = self::ENTITY_NAMESPACE.$field->getService()->getName();
+        $inverseClass = self::ENTITY_NAMESPACE.$relation->getTargetEntity();
 
         $entityRelation = new EntityRelation($relationType, $owningClass, $inverseClass);
         $entityRelation->setOwningProperty($field->getName());
