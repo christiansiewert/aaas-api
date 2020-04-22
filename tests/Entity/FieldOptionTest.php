@@ -11,17 +11,17 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Option;
+use App\Entity\FieldOption;
 use App\Entity\Field;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  */
-class OptionTest extends TestCase
+class FieldOptionTest extends TestCase
 {
     /**
-     * @var Option
+     * @var FieldOption
      */
     private $object;
 
@@ -30,7 +30,7 @@ class OptionTest extends TestCase
      */
     protected function setUp()
     {
-        $this->object = new Option();
+        $this->object = new FieldOption();
     }
 
     public function testIdGettable()

@@ -26,7 +26,7 @@ use InvalidArgumentException;
  * A Field represents a column in your database table.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/service")
+ * @ApiResource(routePrefix="/service")
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -136,11 +136,11 @@ class Field
      * Key-value pairs of options that get passed to the underlying
      * database platform when generating DDL statements.
      *
-     * @ORM\OneToMany(targetEntity="Option", mappedBy="field", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="FieldOption", mappedBy="field", orphanRemoval=true)
      * @Groups({"field", "option"})
      * @Assert\Valid
      */
-    private $options;
+    private $fieldOptions;
 
     /**
      * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true)
@@ -158,7 +158,7 @@ class Field
 
     public function __construct()
     {
-        $this->options = new ArrayCollection();
+        $this->fieldOptions = new ArrayCollection();
         $this->constraints = new ArrayCollection();
     }
 
@@ -280,30 +280,30 @@ class Field
     }
 
     /**
-     * @return Collection|Option[]
+     * @return Collection|FieldOption[]
      */
-    public function getOptions(): Collection
+    public function getFieldOptions(): Collection
     {
-        return $this->options;
+        return $this->fieldOptions;
     }
 
-    public function addOption(Option $option): self
+    public function addFieldOption(FieldOption $fieldOption): self
     {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-            $option->setfield($this);
+        if (!$this->fieldOptions->contains($fieldOption)) {
+            $this->fieldOptions[] = $fieldOption;
+            $fieldOption->setfield($this);
         }
 
         return $this;
     }
 
-    public function removeOption(Option $option): self
+    public function removeFieldOption(FieldOption $fieldOption): self
     {
-        if ($this->options->contains($option)) {
-            $this->options->removeElement($option);
+        if ($this->fieldOptions->contains($fieldOption)) {
+            $this->fieldOptions->removeElement($fieldOption);
             // set the owning side to null (unless already changed)
-            if ($option->getfield() === $this) {
-                $option->setfield(null);
+            if ($fieldOption->getfield() === $this) {
+                $fieldOption->setfield(null);
             }
         }
 

@@ -18,6 +18,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
@@ -26,7 +27,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/aaas",
+ *     normalizationContext={
+ *         "groups"={"project"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"project"}
+ *     },
  *     itemOperations={
  *         "get",
  *         "put",
@@ -51,7 +58,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "project",
  *             "repository",
  *             "service",
  *             "field",
@@ -89,7 +95,8 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity="Repository", mappedBy="project", orphanRemoval=true, cascade={"persist", "remove"})
-     * @Groups({"project", "repository"})
+     * @Groups({"project"})
+     * @MaxDepth(1)
      * @Assert\Valid
      */
     private $repositories;

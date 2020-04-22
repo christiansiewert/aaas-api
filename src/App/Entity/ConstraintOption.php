@@ -15,7 +15,9 @@ use InvalidArgumentException;
  * Field Constraint Option.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/field/constraint")
+ * @ApiResource(
+ *     shortName="Constraint/Options"
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

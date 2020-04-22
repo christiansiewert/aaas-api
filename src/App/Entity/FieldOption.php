@@ -24,7 +24,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * database platform when generating DDL statements.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/aaas/field")
+ * @ApiResource(
+ *     shortName="Field/Options"
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -42,7 +44,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Table(name="App_Field_Option")
  * @author Christian Siewert <christian@sieware.international>
  */
-class Option
+class FieldOption
 {
     /**
      * @ORM\Id()
@@ -67,7 +69,7 @@ class Option
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Field", inversedBy="options")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldOptions")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
      */
