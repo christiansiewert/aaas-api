@@ -18,6 +18,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
@@ -26,7 +27,17 @@ use InvalidArgumentException;
  * A Field represents a column in your database table.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/service")
+ * @ApiResource(
+ *     routePrefix="/service",
+ *     normalizationContext={
+ *         "groups"={"field"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"field"},
+ *         "enable_max_depth" = true
+ *     }
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -39,10 +50,10 @@ use InvalidArgumentException;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "field",
- *             "option",
+ *             "relation",
  *             "constraint",
- *             "relation"
+ *             "constraintOption",
+ *             "fieldOption"
  *         }
  *     }
  * )
@@ -128,6 +139,8 @@ class Field
     /**
      * @ORM\ManyToOne(targetEntity="Service", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("field")
+     * @MaxDepth(1)
      * @Assert\NotBlank
      */
     private $service;
@@ -137,21 +150,24 @@ class Field
      * database platform when generating DDL statements.
      *
      * @ORM\OneToMany(targetEntity="FieldOption", mappedBy="field", orphanRemoval=true)
-     * @Groups({"field", "option"})
+     * @Groups("field")
+     * @MaxDepth(1)
      * @Assert\Valid
      */
     private $fieldOptions;
 
     /**
      * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true)
-     * @Groups({"field", "constraint"})
+     * @Groups("field")
+     * @MaxDepth(1)
      * @Assert\Valid
      */
     private $constraints;
 
     /**
      * @ORM\OneToOne(targetEntity="Relation", inversedBy="field", cascade={"persist", "remove"})
-     * @Groups({"field", "relation"})
+     * @Groups("field")
+     * @MaxDepth(1)
      * @Assert\Valid
      */
     private $relation;

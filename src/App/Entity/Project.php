@@ -59,11 +59,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     arguments={
  *         "whitelist" : {
  *             "repository",
- *             "service",
- *             "field",
- *             "option",
- *             "constraint",
- *             "relation"
+ *             "service"
  *         }
  *     }
  * )

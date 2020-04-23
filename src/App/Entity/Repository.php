@@ -49,8 +49,8 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "service",
- *             "project"
+ *             "project",
+ *             "service"
  *         }
  *     }
  * )
@@ -83,7 +83,7 @@ class Repository
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"repository"})
+     * @Groups("repository")
      * @MaxDepth(1)
      * @Assert\NotBlank
      */
@@ -91,7 +91,7 @@ class Repository
 
     /**
      * @ORM\OneToMany(targetEntity="Service", mappedBy="repository", orphanRemoval=true, cascade={"persist", "remove"})
-     * @Groups({"repository", "service"})
+     * @Groups("repository")
      * @Assert\Valid
      */
     private $services;
