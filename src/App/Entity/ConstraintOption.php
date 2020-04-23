@@ -16,6 +16,7 @@ use InvalidArgumentException;
  *
  * @ORM\Entity
  * @ApiResource(
+ *     routePrefix="/field",
  *     shortName="Constraint/Options"
  * )
  * @ApiFilter(

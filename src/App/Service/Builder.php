@@ -109,9 +109,9 @@ class Builder
             $options['scale'] = $field->getDataTypeScale();
         }
 
-        if ($field->getOptions()->count() > 0) {
+        if ($field->getFieldOptions()->count() > 0) {
             $options['options'] = [];
-            foreach ($field->getOptions() as $fieldOption) {
+            foreach ($field->getFieldOptions() as $fieldOption) {
                 $options['options'][$fieldOption->getName()] = $fieldOption->getValue();
             }
         }

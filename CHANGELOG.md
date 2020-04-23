@@ -8,9 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Route prefix for application API (now on /aaas; #33)  
-- Route prefixes for some entities (#33)
-- Introduced standard sets of serialized and deserialized object attributes for some entities (#27)
+- Route prefix for application API (now on /aaas)  
+- Route prefixes for some entities
+- Introduced standard sets of serialized and deserialized object attributes for some entities
 
 ## [1.3.0] - 2020-03-28
 
