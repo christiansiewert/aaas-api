@@ -81,7 +81,7 @@ class Repository
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="repositories", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("repository")
      * @MaxDepth(1)
