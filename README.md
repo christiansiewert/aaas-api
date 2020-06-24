@@ -4,6 +4,9 @@
 [![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
 [![Latest Tag](https://img.shields.io/github/tag/christiansiewert/aaas-api.svg?)](https://github.com/christiansiewert/aaas-api/releases)
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/logo.png" alt="API as a Service" />
+</p>
 
 # API as a Service - API
 
