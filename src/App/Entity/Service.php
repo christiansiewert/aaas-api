@@ -61,7 +61,14 @@ use InvalidArgumentException;
  */
 class Service
 {
+    /**
+     * A service of type `list` represents a list.
+     */
     const TYPE_LIST = 'list';
+
+    /**
+     * A service of type `tree` represents a nested set.
+     */
     const TYPE_TREE = 'tree';
 
     /**
