@@ -17,19 +17,31 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * A Field relation relates a service field to another service field. We use it to
  * map One-To-One, One-To-Many and Many-To-One relations in our database.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/field")
+ * @ApiResource(
+ *     routePrefix="/field",
+ *     normalizationContext={
+ *         "groups"={"relation"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"relation"},
+ *         "enable_max_depth" = true
+ *     }
+ * )
  * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "relation"
+ *             "field"
  *         }
  *     }
  * )
@@ -101,6 +113,9 @@ class Relation
 
     /**
      * @ORM\OneToOne(targetEntity="Field", mappedBy="relation", cascade={"persist", "remove"})
+     * @Assert\NotBlank()
+     * @MaxDepth(1)
+     * @Groups("relation")
      */
     private $field;
 
