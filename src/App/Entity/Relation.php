@@ -113,7 +113,7 @@ class Relation
 
     /**
      * @ORM\OneToOne(targetEntity="Field", mappedBy="relation", cascade={"persist", "remove"})
-     * @Assert\NotBlank()
+     * @Assert\Valid
      * @MaxDepth(1)
      * @Groups("relation")
      */
