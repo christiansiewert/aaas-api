@@ -9,6 +9,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use InvalidArgumentException;
 
 /**
@@ -17,7 +18,17 @@ use InvalidArgumentException;
  * @ORM\Entity
  * @ApiResource(
  *     routePrefix="/field",
- *     shortName="Constraint/Options"
+ *     shortName="Constraint/Options",
+ *     attributes={
+ *         "normalization_context"={
+ *             "groups"={"constraintOption"},
+ *             "enable_max_depth" = true
+ *         },
+ *         "denormalization_context"={
+ *             "groups"={"constraintOption"},
+ *             "enable_max_depth" = true
+ *         }
+ *     }
  * )
  * @ApiFilter(
  *     SearchFilter::class,
@@ -30,7 +41,6 @@ use InvalidArgumentException;
  *     arguments={
  *         "whitelist" : {
  *             "constraint",
- *             "constraintOption"
  *         }
  *     }
  * )
@@ -67,27 +77,30 @@ class ConstraintOption
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     * @Groups("constraintOption")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"constraintOption"})
+     * @Groups("constraintOption")
      * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"constraintOption"})
+     * @Groups("constraintOption")
      * @Assert\NotBlank
      */
     private $value;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Constraint", inversedBy="constraintOptions")
+     * @Groups("constraintOption")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $constraint;
 
