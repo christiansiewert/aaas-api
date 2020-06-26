@@ -25,7 +25,7 @@ Some important features of API as a Service are:
  * Use modern and industrial security standards and define detailed access rights, authentication and authorization
  * Based on the created API, your consumers can develop web applications, mobile applications, websites, etc.
  
-If you are interested in installing our application, take a look at [INSTALLATION.md] or visit our [Wiki].
+If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
 
 #### Quick example
 
@@ -44,4 +44,4 @@ You can then use your created API:
 <img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/quick_example_04.png" />
 
 [Wiki]: https://aaas-api.readthedocs.io
-[INSTALLATION.md]: https://github.com/christiansiewert/aaas-api/blob/develop/INSTALLATION.md
+[INSTALL.md]: https://github.com/christiansiewert/aaas-api/blob/develop/INSTALL.md
