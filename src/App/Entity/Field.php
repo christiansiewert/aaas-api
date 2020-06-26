@@ -344,7 +344,7 @@ class Field
         return $this;
     }
 
-    public function removeAssertion(Constraint $constraint): self
+    public function removeConstraint(Constraint $constraint): self
     {
         if ($this->constraints->contains($constraint)) {
             $this->constraints->removeElement($constraint);
