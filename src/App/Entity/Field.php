@@ -149,7 +149,7 @@ class Field
      * Key-value pairs of options that get passed to the underlying
      * database platform when generating DDL statements.
      *
-     * @ORM\OneToMany(targetEntity="FieldOption", mappedBy="field", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="FieldOption", mappedBy="field", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups("field")
      * @MaxDepth(1)
      * @Assert\Valid
@@ -157,7 +157,7 @@ class Field
     private $fieldOptions;
 
     /**
-     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Constraint", mappedBy="field", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups("field")
      * @MaxDepth(1)
      * @Assert\Valid
