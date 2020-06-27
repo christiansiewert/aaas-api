@@ -14,9 +14,9 @@ This is the API for _API as a Service_.
 
 With _API as a Service_ you can easily build PHP APIs via a GUI. The administration user interface is an independent application and separated from the rest of the system. 
 
-You can use the API of API as a Service to formally define your data models and then programmatically generate a PHP API from the definitions.
+You can use the API of _API as a Service_ to formally define your data models and then programmatically generate a PHP API from the definitions.
 
-Some important features of API as a Service are:
+Some important features of _API as a Service_ are:
 
  * Easily create your data models, including associated field definitions and relationships, while maintaining full control over the underlying database management system
  * Migrate your system quickly and cleanly to a new application state 
