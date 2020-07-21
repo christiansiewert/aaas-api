@@ -162,7 +162,7 @@ class FieldTest extends TestCase
     {
         $relation = new Constraint();
         $this->object->addConstraint($relation);
-        $this->object->removeAssertion($relation);
+        $this->object->removeConstraint($relation);
         $this->assertCount(0, $this->object->getConstraints());
     }
 

@@ -18,6 +18,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Key-value pairs of options that get passed to the underlying
@@ -25,19 +26,29 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ORM\Entity
  * @ApiResource(
- *     shortName="Field/Options"
+ *     shortName="Field/Options",
+ *     normalizationContext={
+ *         "groups"={"fieldOption"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"fieldOption"},
+ *         "enable_max_depth" = true
+ *     }
+ * )
  * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
- *         "name": "word_start"
+ *         "name": "word_start",
+ *         "field" : "exact"
  *     }
  * )
  * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "option"
+ *             "field"
  *         }
  *     }
  * )
@@ -50,20 +61,20 @@ class FieldOption
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("option")
+     * @Groups("fieldOption")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("option")
+     * @Groups("fieldOption")
      * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("option")
+     * @Groups("fieldOption")
      * @Assert\NotBlank()
      */
     private $value;
@@ -71,7 +82,9 @@ class FieldOption
     /**
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldOptions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("fieldOption")
      * @Assert\NotBlank()
+     * @MaxDepth(1)
      */
     private $field;
 

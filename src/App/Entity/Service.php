@@ -18,6 +18,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use InvalidArgumentException;
@@ -27,7 +28,17 @@ use InvalidArgumentException;
  * several field definitions.
  *
  * @ORM\Entity
- * @ApiResource(routePrefix="/repository")
+ * @ApiResource(
+ *     routePrefix="/repository",
+ *     normalizationContext={
+ *         "groups"={"service"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"service"},
+ *         "enable_max_depth" = true
+ *     }
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -40,8 +51,8 @@ use InvalidArgumentException;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
- *             "service",
- *             "field"
+ *             "project",
+ *             "repository"
  *         }
  *     }
  * )
@@ -50,7 +61,14 @@ use InvalidArgumentException;
  */
 class Service
 {
+    /**
+     * A service of type `list` represents a list.
+     */
     const TYPE_LIST = 'list';
+
+    /**
+     * A service of type `tree` represents a nested set.
+     */
     const TYPE_TREE = 'tree';
 
     /**
@@ -84,12 +102,15 @@ class Service
     /**
      * @ORM\ManyToOne(targetEntity="Repository", inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"service"})
+     * @MaxDepth(1)
+     * @Assert\NotBlank
      */
     private $repository;
 
     /**
      * @ORM\OneToMany(targetEntity="Field", mappedBy="service", orphanRemoval=true, cascade={"persist", "remove"})
-     * @Groups({"service", "field"})
+     * @Groups({"service"})
      */
     private $fields;
 

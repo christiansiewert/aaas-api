@@ -31,10 +31,11 @@ use InvalidArgumentException;
  *     routePrefix="/field",
  *     attributes={
  *         "normalization_context"={
- *             "groups"={"constraint", "constraintOption"},
+ *             "groups"={"constraint"},
+ *             "enable_max_depth" = true
  *         },
  *         "denormalization_context"={
- *             "groups"={"field", "constraint", "constraintOption"},
+ *             "groups"={"constraint"},
  *             "enable_max_depth" = true
  *         }
  *     }
@@ -50,7 +51,6 @@ use InvalidArgumentException;
  *     arguments={
  *         "whitelist" : {
  *             "field",
- *             "constraint",
  *             "constraintOption"
  *         }
  *     }
@@ -111,7 +111,7 @@ class Constraint
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"constraint"})
+     * @Groups("constraint")
      * @Assert\NotBlank
      */
     private $name;
@@ -119,7 +119,7 @@ class Constraint
     /**
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="constraints")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"field"})
+     * @Groups("constraint")
      * @MaxDepth(1)
      * @Assert\NotBlank
      */
@@ -127,7 +127,7 @@ class Constraint
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ConstraintOption", mappedBy="constraint", orphanRemoval=true, cascade={"persist", "remove"})
-     * @Groups({"constraint", "constraintOption"})
+     * @Groups("constraint")
      * @Assert\Valid
      */
     private $constraintOptions;
