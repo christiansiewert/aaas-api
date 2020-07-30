@@ -35,6 +35,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 
 ```yaml
 // POST /aaas/projects
+
 {
   "name": "Web Application",
   "repositories" : [
@@ -54,6 +55,51 @@ If you are interested in installing our application, take a look at [INSTALL.md]
           "type": "tree" 
         }
       ]
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+<details>
+<summary>Create your field definitions with a wide range of options</summary>
+<p>
+
+```yaml
+// POST /aaas/service/fields
+
+{
+  "name": "email",
+  "dataType": "string",
+  "isUnique": true,
+  "isNullable": false,
+  "service" : "/aaas/repository/services/2"
+}
+
+{
+  "name" : "isInStock",
+  "dataType" : "boolean",
+  "service" : "/aaas/repository/services/3"
+}
+
+{
+  "name" : "price",
+  "dataType" : "decimal",
+  "dataTypePrecision" : 10,
+  "dataTypeScale" : 2,
+  "service" : "/aaas/repository/services/3"
+}
+
+{
+  "name" : "sku",
+  "length" : 13,
+  "service" : "/aaas/repository/services/3",
+  "fieldOptions": [
+    {
+      "name" : "default",
+      "value" : "PRD-123456789"
     }
   ]
 }
