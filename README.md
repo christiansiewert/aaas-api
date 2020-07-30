@@ -30,33 +30,33 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 ##### Create your data models and field definitions
 
 <details>
-    <summary>Organize your data models into services and repositories</summary>
-    <p>
-        ```json
-        {
-          "name": "Web Application",
-          "repositories" : [
-            {
-              "name": "Blog",
-              "services": [
-                { "name": "Article" },
-                { "name": "Author" }
-              ]
-            },
-            {
-              "name": "Shop",
-              "services": [
-                { "name": "Product" },
-                { 
-                  "name": "Category", 
-                  "type": "tree" 
-                }
-              ]
-            }
-          ]
+<summary>Organize your data models into services and repositories</summary>
+<p>
+```json
+{
+  "name": "Web Application",
+  "repositories" : [
+    {
+      "name": "Blog",
+      "services": [
+        { "name": "Article" },
+        { "name": "Author" }
+      ]
+    },
+    {
+      "name": "Shop",
+      "services": [
+        { "name": "Product" },
+        { 
+          "name": "Category", 
+          "type": "tree" 
         }
-        ```
-    </p>
+      ]
+    }
+  ]
+}
+```
+</p>
 </details>
 
 ##### Generate your API and migrate your system
