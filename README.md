@@ -29,7 +29,32 @@ If you are interested in installing our application, take a look at [INSTALL.md]
  
 ##### Create your data models and field definitions
 
-<img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/example_001.png" />
+<details><summary>Organize your data models into services and repositories</summary>
+```json
+{
+  "name": "Web Application",
+  "repositories" : [
+    {
+      "name": "Blog",
+      "services": [
+        { "name": "Article" },
+        { "name": "Author" }
+      ]
+    },
+    {
+      "name": "Shop",
+      "services": [
+        { "name": "Product" },
+        { 
+          "name": "Category", 
+          "type": "tree" 
+        }
+      ]
+    }
+  ]
+}
+```
+</details>
 
 ##### Generate your API and migrate your system
 
