@@ -32,6 +32,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 <details>
 <summary>Organize your data models into services and repositories</summary>
 <p>
+
 ```json
 {
   "name": "Web Application",
@@ -56,6 +57,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
   ]
 }
 ```
+
 </p>
 </details>
 
