@@ -33,7 +33,8 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 <summary>Organize your data models into services and repositories</summary>
 <p>
 
-```json
+```yaml
+// POST /aaas/projects
 {
   "name": "Web Application",
   "repositories" : [
