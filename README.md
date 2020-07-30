@@ -33,7 +33,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 <summary>Organize your data models into services and repositories</summary>
 <p>
 
-```yaml
+```json
 // POST /aaas/projects
 
 {
@@ -67,7 +67,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 <summary>Create your field definitions with a wide range of options</summary>
 <p>
 
-```yaml
+```json
 // POST /aaas/service/fields
 
 {
@@ -79,7 +79,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 }
 ```
 
-```yaml
+```json
 {
   "name" : "isInStock",
   "dataType" : "boolean",
@@ -87,7 +87,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 }
 ```
 
-```yaml
+```json
 {
   "name" : "price",
   "dataType" : "decimal",
@@ -97,7 +97,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 }
 ```
 
-```yaml
+```json
 {
   "name" : "sku",
   "length" : 13,
