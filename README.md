@@ -29,7 +29,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
  
 ##### Create your data models and field definitions
 
-<img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/example_01.png" />
+<img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/example_001.png" />
 
 ##### Generate your API and migrate your system
 
