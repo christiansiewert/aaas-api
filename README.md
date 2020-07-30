@@ -77,13 +77,17 @@ If you are interested in installing our application, take a look at [INSTALL.md]
   "isNullable": false,
   "service" : "/aaas/repository/services/2"
 }
+```
 
+```yaml
 {
   "name" : "isInStock",
   "dataType" : "boolean",
   "service" : "/aaas/repository/services/3"
 }
+```
 
+```yaml
 {
   "name" : "price",
   "dataType" : "decimal",
@@ -91,7 +95,9 @@ If you are interested in installing our application, take a look at [INSTALL.md]
   "dataTypeScale" : 2,
   "service" : "/aaas/repository/services/3"
 }
+```
 
+```yaml
 {
   "name" : "sku",
   "length" : 13,
