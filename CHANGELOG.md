@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Introduced standard sets of serialized and deserialized object attributes for some entities
 - Revised documentation and wiki
 - Redesigned serialization groups
+- targetEntity attribute in field relations is now a service relation
 
 ## [1.3.0] - 2020-03-28
 
