@@ -114,9 +114,15 @@ class Service
      */
     private $fields;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Relation::class, mappedBy="service", orphanRemoval=true)
+     */
+    private $relations;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
+        $this->relations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +204,37 @@ class Service
             // set the owning side to null (unless already changed)
             if ($field->getService() === $this) {
                 $field->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Relation[]
+     */
+    public function getRelations(): Collection
+    {
+        return $this->relations;
+    }
+
+    public function addRelation(Relation $relation): self
+    {
+        if (!$this->relations->contains($relation)) {
+            $this->relations[] = $relation;
+            $relation->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Relation $relation): self
+    {
+        if ($this->relations->contains($relation)) {
+            $this->relations->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getService() === $this) {
+                $relation->setService(null);
             }
         }
 

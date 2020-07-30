@@ -100,6 +100,7 @@ class ConstraintOption
      * @ORM\ManyToOne(targetEntity="App\Entity\Constraint", inversedBy="constraintOptions")
      * @Groups("constraintOption")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      * @MaxDepth(1)
      */
     private $constraint;

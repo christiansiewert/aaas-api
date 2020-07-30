@@ -145,7 +145,7 @@ class Builder
         $relation = $field->getRelation();
         $relationType = $relation->getType();
         $owningClass = self::ENTITY_NAMESPACE.$field->getService()->getName();
-        $inverseClass = self::ENTITY_NAMESPACE.$relation->getTargetEntity();
+        $inverseClass = self::ENTITY_NAMESPACE.$relation->getService()->getName();
 
         $entityRelation = new EntityRelation($relationType, $owningClass, $inverseClass);
         $entityRelation->setOwningProperty($field->getName());

@@ -64,12 +64,6 @@ class Relation
     private $type = EntityRelation::ONE_TO_MANY;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("relation")
-     */
-    private $targetEntity;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("relation")
      */
@@ -119,6 +113,15 @@ class Relation
      */
     private $field;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="relations")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid
+     * @MaxDepth(1)
+     * @Groups("relation")
+     */
+    private $service;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,18 +139,6 @@ class Relation
         }
 
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getTargetEntity(): ?string
-    {
-        return $this->targetEntity;
-    }
-
-    public function setTargetEntity(string $targetEntity): self
-    {
-        $this->targetEntity = $targetEntity;
 
         return $this;
     }
@@ -184,24 +175,6 @@ class Relation
     public function setOrphanRemoval(bool $orphanRemoval): self
     {
         $this->orphanRemoval = $orphanRemoval;
-
-        return $this;
-    }
-
-    public function getfield(): ?Field
-    {
-        return $this->field;
-    }
-
-    public function setfield(?Field $field): self
-    {
-        $this->field = $field;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newRelation = $field === null ? null : $this;
-        if ($newRelation !== $field->getRelation()) {
-            $field->setRelation($newRelation);
-        }
 
         return $this;
     }
@@ -250,6 +223,36 @@ class Relation
     public function setJoinColumnIsNullable(bool $joinColumnIsNullable): self
     {
         $this->joinColumnIsNullable = $joinColumnIsNullable;
+
+        return $this;
+    }
+
+    public function getfield(): ?Field
+    {
+        return $this->field;
+    }
+
+    public function setfield(?Field $field): self
+    {
+        $this->field = $field;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newRelation = $field === null ? null : $this;
+        if ($newRelation !== $field->getRelation()) {
+            $field->setRelation($newRelation);
+        }
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

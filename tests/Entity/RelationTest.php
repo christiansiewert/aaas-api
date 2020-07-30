@@ -58,17 +58,6 @@ class RelationTest extends TestCase
         $this->object->setType('NIL');
     }
 
-    public function testTargetEntityGettable()
-    {
-        $this->assertNull($this->object->getTargetEntity());
-    }
-
-    public function testTargetEntitySettable()
-    {
-        $this->object->setTargetEntity('target');
-        $this->assertEquals('target', $this->object->getTargetEntity());
-    }
-
     public function testMappedByGettable()
     {
         $this->assertNull($this->object->getMappedBy());
