@@ -37,7 +37,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 
 ##### You can use your generated API for building apps, websites, etc.
 
-<img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/example_03.png" />
+<img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/readme_example_003.png" />
 
 [Wiki]: https://aaas-api.readthedocs.io
 [INSTALL.md]: https://github.com/christiansiewert/aaas-api/blob/develop/INSTALL.md

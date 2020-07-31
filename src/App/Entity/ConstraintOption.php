@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/field",
+ *     routePrefix="/aaas/field",
  *     shortName="Constraint/Options",
  *     attributes={
  *         "normalization_context"={

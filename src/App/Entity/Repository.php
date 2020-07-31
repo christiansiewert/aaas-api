@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *
  * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/project",
+ *     routePrefix="/aaas/project",
  *     normalizationContext={
  *         "groups"={"repository"},
  *         "enable_max_depth" = true
