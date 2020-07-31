@@ -29,7 +29,7 @@ use InvalidArgumentException;
  *
  * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/repository",
+ *     routePrefix="/aaas/repository",
  *     normalizationContext={
  *         "groups"={"service"},
  *         "enable_max_depth" = true

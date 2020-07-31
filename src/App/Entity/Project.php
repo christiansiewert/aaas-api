@@ -27,6 +27,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ORM\Entity
  * @ApiResource(
+ *     routePrefix="/aaas",
  *     normalizationContext={
  *         "groups"={"project"},
  *         "enable_max_depth" = true
