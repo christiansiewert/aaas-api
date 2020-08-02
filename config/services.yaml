@@ -22,3 +22,5 @@ services:
 
     Symfony\Bundle\MakerBundle\Generator: '@maker.generator'
     Symfony\Bundle\MakerBundle\FileManager: '@maker.file_manager'
+
+    App\Operation\CamelCasePathSegmentNameGenerator: ~
