@@ -14,3 +14,4 @@ api_platform:
     description: This is the API for API as a Service.
     version: 1.3.0
     enable_re_doc: false
+    path_segment_name_generator: 'App\Operation\CamelCasePathSegmentNameGenerator'

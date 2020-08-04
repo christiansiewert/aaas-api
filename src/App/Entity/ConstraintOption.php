@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of API as a Service.
+ *
+ * Copyright (c) 2019 Christian Siewert <christian@sieware.international>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +27,6 @@ use InvalidArgumentException;
  * @ORM\Entity
  * @ApiResource(
  *     routePrefix="/aaas/field",
- *     shortName="Constraint/Options",
  *     attributes={
  *         "normalization_context"={
  *             "groups"={"constraintOption"},

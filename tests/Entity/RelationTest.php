@@ -43,13 +43,13 @@ class RelationTest extends TestCase
 
     public function testTypeGettable()
     {
-        $this->assertEquals(EntityRelation::ONE_TO_MANY, $this->object->getType());
+        $this->assertEquals(EntityRelation::MANY_TO_ONE, $this->object->getType());
     }
 
     public function testTypeSettable()
     {
-        $this->object->setType(EntityRelation::MANY_TO_ONE);
-        $this->assertEquals(EntityRelation::MANY_TO_ONE, $this->object->getType());
+        $this->object->setType(EntityRelation::MANY_TO_MANY);
+        $this->assertEquals(EntityRelation::MANY_TO_MANY, $this->object->getType());
     }
 
     public function testInvalidTypeRaisesException()
