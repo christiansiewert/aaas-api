@@ -19,6 +19,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
@@ -38,6 +39,13 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *         "type": "word_start",
+ *         "service" : "exact"
+ *     }
+ * )
+ * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
@@ -46,6 +54,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  * @ORM\Table(name="App_Field_Relation")
+ * @author Christian Siewert <christian@sieware.international>
  */
 class Relation
 {
@@ -58,10 +67,10 @@ class Relation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10, options={"default" : "OneToMany"})
+     * @ORM\Column(type="string", length=10, options={"default" : "ManyToOne"})
      * @Groups("relation")
      */
-    private $type = EntityRelation::ONE_TO_MANY;
+    private $type = EntityRelation::MANY_TO_ONE;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
