@@ -70,18 +70,30 @@ class Builder
      */
     public function buildService(Service $service)
     {
+        /**
+         * Generate entity and repository class
+         */
         $this->classGenerator->generateRepositoryClass($service);
         $entityTargetPath = $this->classGenerator->generateEntityClass($service);
         $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
 
+        /**
+         * Build annotations for api filters
+         */
         foreach ($service->getFilters() as $filter) {
             $sourceCode = $this->buildFilter($filter, $sourceCode);
         }
 
+        /**
+         * Build entity fields, getters, setters, options and constraints
+         */
         foreach ($service->getFields() as $field) {
             $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
+        /**
+         * Dump file to filesystem
+         */
         $this->classGenerator->generator->dumpFile($entityTargetPath, $sourceCode);
         $this->classGenerator->generator->writeChanges();
     }
@@ -115,6 +127,9 @@ class Builder
             $options['scale'] = $field->getDataTypeScale();
         }
 
+        /**
+         * Build field options
+         */
         if ($field->getFieldOptions()->count() > 0) {
             $options['options'] = [];
             foreach ($field->getFieldOptions() as $fieldOption) {
@@ -122,6 +137,9 @@ class Builder
             }
         }
 
+        /**
+         * Build field constraints
+         */
         if ($field->getConstraints()->count() > 0) {
             foreach ($field->getConstraints() as $constraint) {
                 $constraintOptions = [];
