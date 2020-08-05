@@ -192,7 +192,13 @@ class Builder
         $filterClass = Filter::VALID_TYPES[$filter->getType()];
 
         foreach ($filter->getProperties() as $property) {
-            $properties[$property->getField()->getName()] = $property->getValue();
+            $value = $property->getValue();
+            $name = $property->getField()->getName();
+            if ($value === null) {
+                array_push($properties, $name);
+            } else {
+                $properties[$name] = $property->getValue();
+            }
         }
 
         $manipulator->addAnnotationToClass('ApiPlatform\Core\Annotation\ApiFilter', [
