@@ -199,7 +199,7 @@ class Builder
     }
 
     /**
-     * Builds a annotation for the entity class and adds it to our sourcecode.
+     * Builds a annotation for adding filters to the entity class and adds it to our sourcecode.
      *
      * @param Filter $filter
      * @param string $sourceCode
