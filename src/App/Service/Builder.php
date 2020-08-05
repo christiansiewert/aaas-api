@@ -65,6 +65,8 @@ class Builder
     }
 
     /**
+     * Builds the sourcecode of a repository service
+     *
      * @param Service $service
      * @throws Exception
      */
