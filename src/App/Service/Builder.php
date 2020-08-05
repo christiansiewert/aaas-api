@@ -11,12 +11,14 @@
 
 namespace App\Service;
 
+use App\Entity\Filter;
 use App\Entity\Project;
 use App\Entity\Field;
 use App\Entity\Repository;
 use App\Entity\Service;
 use Exception;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
+use Symfony\Bundle\MakerBundle\Util\ClassNameValue;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
@@ -63,19 +65,37 @@ class Builder
     }
 
     /**
+     * Builds the sourcecode of a repository service
+     *
      * @param Service $service
      * @throws Exception
      */
     public function buildService(Service $service)
     {
+        /**
+         * Generate entity and repository class
+         */
         $this->classGenerator->generateRepositoryClass($service);
         $entityTargetPath = $this->classGenerator->generateEntityClass($service);
         $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
 
+        /**
+         * Build annotations for api filters
+         */
+        foreach ($service->getFilters() as $filter) {
+            $sourceCode = $this->buildFilter($filter, $sourceCode);
+        }
+
+        /**
+         * Build entity fields, getters, setters, options and constraints
+         */
         foreach ($service->getFields() as $field) {
             $sourceCode = $this->buildfield($field, $sourceCode);
         }
 
+        /**
+         * Dump file to filesystem
+         */
         $this->classGenerator->generator->dumpFile($entityTargetPath, $sourceCode);
         $this->classGenerator->generator->writeChanges();
     }
@@ -109,6 +129,9 @@ class Builder
             $options['scale'] = $field->getDataTypeScale();
         }
 
+        /**
+         * Build field options
+         */
         if ($field->getFieldOptions()->count() > 0) {
             $options['options'] = [];
             foreach ($field->getFieldOptions() as $fieldOption) {
@@ -116,6 +139,9 @@ class Builder
             }
         }
 
+        /**
+         * Build field constraints
+         */
         if ($field->getConstraints()->count() > 0) {
             foreach ($field->getConstraints() as $constraint) {
                 $constraintOptions = [];
@@ -168,6 +194,37 @@ class Builder
         } else {
             $manipulator->addManyToManyRelation($entityRelation->getOwningRelation());
         }
+
+        return $manipulator->getSourceCode();
+    }
+
+    /**
+     * Builds a annotation for the entity class and adds it to our sourcecode.
+     *
+     * @param Filter $filter
+     * @param string $sourceCode
+     * @return string
+     */
+    public function buildFilter(Filter $filter, string $sourceCode) : string
+    {
+        $properties = array();
+        $manipulator = new ClassSourceManipulator($sourceCode);
+        $filterClass = Filter::VALID_TYPES[$filter->getType()];
+
+        foreach ($filter->getProperties() as $property) {
+            $value = $property->getValue();
+            $name = $property->getField()->getName();
+            if ($value === null) {
+                array_push($properties, $name);
+            } else {
+                $properties[$name] = $property->getValue();
+            }
+        }
+
+        $manipulator->addAnnotationToClass('ApiPlatform\Core\Annotation\ApiFilter', [
+            'value' => new ClassNameValue('Filter\\' . $filterClass, $filterClass),
+            'properties' => $properties
+        ]);
 
         return $manipulator->getSourceCode();
     }
