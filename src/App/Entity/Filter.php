@@ -54,12 +54,12 @@ class Filter
      * @todo implement more filter types
      */
     const VALID_TYPES = array(
-        'String' => 'SearchFilter',
-        'Date' => 'DateFilter',
-        'Boolean' => 'BooleanFilter',
-        'Numeric' => 'NumericFilter',
-        'Range' => 'RangeFilter',
-        'Order' => 'OrderFilter'
+        'string' => 'SearchFilter',
+        'date' => 'DateFilter',
+        'boolean' => 'BooleanFilter',
+        'numeric' => 'NumericFilter',
+        'range' => 'RangeFilter',
+        'order' => 'OrderFilter'
     );
 
     /**
