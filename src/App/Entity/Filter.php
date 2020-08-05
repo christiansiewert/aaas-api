@@ -11,11 +11,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,6 +48,20 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  */
 class Filter
 {
+    /**
+     * Valid filter types.
+     *
+     * @todo implement more filter types
+     */
+    const VALID_TYPES = array(
+        'String' => 'SearchFilter',
+        'Date' => 'DateFilter',
+        'Boolean' => 'BooleanFilter',
+        'Numeric' => 'NumericFilter',
+        'Range' => 'RangeFilter',
+        'Order' => 'OrderFilter'
+    );
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -89,6 +104,10 @@ class Filter
 
     public function setType(string $type): self
     {
+        if (!isset(self::VALID_TYPES[$type])) {
+            throw new InvalidArgumentException("Invalid type");
+        }
+
         $this->type = $type;
 
         return $this;

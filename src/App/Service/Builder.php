@@ -11,12 +11,14 @@
 
 namespace App\Service;
 
+use App\Entity\Filter;
 use App\Entity\Project;
 use App\Entity\Field;
 use App\Entity\Repository;
 use App\Entity\Service;
 use Exception;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
+use Symfony\Bundle\MakerBundle\Util\ClassNameValue;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 
 /**
@@ -71,6 +73,10 @@ class Builder
         $this->classGenerator->generateRepositoryClass($service);
         $entityTargetPath = $this->classGenerator->generateEntityClass($service);
         $sourceCode = $this->classGenerator->generator->getFileContentsForPendingOperation($entityTargetPath);
+
+        foreach ($service->getFilters() as $filter) {
+            $sourceCode = $this->buildFilter($filter, $sourceCode);
+        }
 
         foreach ($service->getFields() as $field) {
             $sourceCode = $this->buildfield($field, $sourceCode);
@@ -168,6 +174,31 @@ class Builder
         } else {
             $manipulator->addManyToManyRelation($entityRelation->getOwningRelation());
         }
+
+        return $manipulator->getSourceCode();
+    }
+
+    /**
+     * Builds a annotation for the entity class and adds it to our sourcecode.
+     *
+     * @param Filter $filter
+     * @param string $sourceCode
+     * @return string
+     */
+    public function buildFilter(Filter $filter, string $sourceCode) : string
+    {
+        $properties = array();
+        $manipulator = new ClassSourceManipulator($sourceCode);
+        $filterClass = Filter::VALID_TYPES[$filter->getType()];
+
+        foreach ($filter->getProperties() as $property) {
+            $properties[$property->getField()->getName()] = $property->getValue();
+        }
+
+        $manipulator->addAnnotationToClass('ApiPlatform\Core\Annotation\ApiFilter', [
+            'value' => new ClassNameValue('Filter\\' . $filterClass, $filterClass),
+            'properties' => $properties
+        ]);
 
         return $manipulator->getSourceCode();
     }
