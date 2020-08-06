@@ -70,6 +70,7 @@ class Filter
         'boolean' => 'BooleanFilter',
         'numeric' => 'NumericFilter',
         'range' => 'RangeFilter',
+        'exists' => 'ExistsFilter',
         'order' => 'OrderFilter'
     );
 
