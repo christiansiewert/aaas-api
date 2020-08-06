@@ -100,7 +100,7 @@ class Filter
     private $service;
 
     /**
-     * @ORM\OneToMany(targetEntity=FilterProperty::class, mappedBy="filter", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FilterProperty::class, mappedBy="filter", orphanRemoval=true, cascade={"persist", "remove"})
      * @Groups("filter")
      * @MaxDepth(1)
      * @Assert\Valid
