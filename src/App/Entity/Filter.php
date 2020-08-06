@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -27,7 +28,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *
  * @ORM\Entity
  * @ApiResource(
- *     routePrefix="/aaas/service"
+ *     routePrefix="/aaas/service",
+ *     normalizationContext={
+ *         "groups"={"filter"},
+ *         "enable_max_depth" = true
+ *     },
+ *     denormalizationContext={
+ *         "groups"={"filter"},
+ *         "enable_max_depth" = true
+ *     }
  * )
  * @ApiFilter(
  *     SearchFilter::class,
@@ -40,6 +49,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     GroupFilter::class,
  *     arguments={
  *         "whitelist" : {
+ *             "service",
+ *             "filterProperty"
  *         }
  *     }
  * )
@@ -66,12 +77,14 @@ class Filter
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("filter")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank
+     * @Groups("filter")
      */
     private $type;
 
@@ -79,11 +92,17 @@ class Filter
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="filters")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
+     * @Groups("filter")
+     * @MaxDepth(1)
+     * @Assert\Valid
      */
     private $service;
 
     /**
      * @ORM\OneToMany(targetEntity=FilterProperty::class, mappedBy="filter", orphanRemoval=true)
+     * @Groups("filter")
+     * @MaxDepth(1)
+     * @Assert\Valid
      */
     private $properties;
 
