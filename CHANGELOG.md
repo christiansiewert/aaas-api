@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Builder support for api filters and filter properties
-- Introduced standard sets of serialized and deserialized object attributes for some entities
+- Introduced standard sets of serialized and deserialized object attributes for our entities
 
 ### Changed
 
