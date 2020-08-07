@@ -6,11 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.4.0] - 2020-08-07
+
+### Added
+
+- Builder support for api filters and filter properties
+- Introduced standard sets of serialized and deserialized object attributes for our entities
+
 ### Changed
 
 - Route prefix for application API (now on /aaas)  
 - Route prefixes for some entities
-- Introduced standard sets of serialized and deserialized object attributes for some entities
 - Revised documentation and wiki
 - Redesigned serialization groups
 - targetEntity attribute in field relations is now a service relation
@@ -165,7 +171,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.3.0...develop
+[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.4.0...develop
+[1.4.0]: https://github.com/christiansiewert/aaas-api/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/christiansiewert/aaas-api/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/christiansiewert/aaas-api/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/christiansiewert/aaas-api/compare/v1.0.0...v1.1.0
