@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200805165047 extends AbstractMigration
+final class Version20200807184146 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -29,7 +29,7 @@ final class Version20200805165047 extends AbstractMigration
         $this->addSql('CREATE TABLE App_Field_Option (id INT AUTO_INCREMENT NOT NULL, field_id INT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, INDEX IDX_BAEE3380443707B0 (field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Project_Repository (id INT AUTO_INCREMENT NOT NULL, project_id INT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, INDEX IDX_BECDCEA4166D1F9C (project_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE Acl_Customer (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_627894A6E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE App_Filter_Property (id INT AUTO_INCREMENT NOT NULL, filter_id INT NOT NULL, field_id INT NOT NULL, value VARCHAR(255) DEFAULT NULL, INDEX IDX_BB70162BD395B25E (filter_id), UNIQUE INDEX UNIQ_BB70162B443707B0 (field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE App_Filter_Property (id INT AUTO_INCREMENT NOT NULL, filter_id INT NOT NULL, field_id INT NOT NULL, value VARCHAR(255) DEFAULT NULL, INDEX IDX_BB70162BD395B25E (filter_id), INDEX IDX_BB70162B443707B0 (field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Field_Relation (id INT AUTO_INCREMENT NOT NULL, service_id INT NOT NULL, type VARCHAR(10) DEFAULT \'ManyToOne\' NOT NULL, mapped_by VARCHAR(255) DEFAULT NULL, inversed_by VARCHAR(255) DEFAULT NULL, orphan_removal TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_name VARCHAR(255) DEFAULT NULL, join_column_referenced_column_name VARCHAR(255) DEFAULT \'id\' NOT NULL, join_column_is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, join_column_is_nullable TINYINT(1) DEFAULT \'1\' NOT NULL, INDEX IDX_21FF0C4ED5CA9E6 (service_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Project (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE App_Service_Field (id INT AUTO_INCREMENT NOT NULL, service_id INT NOT NULL, relation_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, data_type VARCHAR(255) DEFAULT \'string\' NOT NULL, length INT UNSIGNED DEFAULT NULL, data_type_precision INT DEFAULT NULL, data_type_scale INT DEFAULT NULL, is_unique TINYINT(1) DEFAULT \'0\' NOT NULL, is_nullable TINYINT(1) DEFAULT \'0\' NOT NULL, INDEX IDX_34E6C318ED5CA9E6 (service_id), UNIQUE INDEX UNIQ_34E6C3183256915B (relation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

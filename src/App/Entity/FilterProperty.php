@@ -79,7 +79,7 @@ class FilterProperty
     private $filter;
 
     /**
-     * @ORM\OneToOne(targetEntity=Field::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Field::class)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid
      * @MaxDepth(1)
@@ -121,7 +121,7 @@ class FilterProperty
         return $this->field;
     }
 
-    public function setField(Field $field): self
+    public function setField(?Field $field): self
     {
         $this->field = $field;
 
