@@ -17,5 +17,6 @@ api_platform:
     path_segment_name_generator: 'App\Operation\CamelCasePathSegmentNameGenerator'
     collection:
         pagination:
+            maximum_items_per_page: 100
             client_items_per_page: true
             items_per_page_parameter_name: itemsPerPage
