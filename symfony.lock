@@ -119,6 +119,15 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "guzzlehttp/guzzle": {
+        "version": "7.0.1"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "lcobucci/jwt": {
         "version": "3.2.5"
     },
@@ -188,11 +197,20 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
