@@ -11,6 +11,8 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Filter;
+use App\Entity\Relation;
 use App\Entity\Repository;
 use App\Entity\Service;
 use App\Entity\Field;
@@ -108,5 +110,43 @@ class ServiceTest extends TestCase
         $this->object->addField($relation);
         $this->object->removeField($relation);
         $this->assertCount(0, $this->object->getFields());
+    }
+
+    public function testRelationsGettable()
+    {
+        $this->assertCount(0, $this->object->getRelations());
+    }
+
+    public function testRelationsAddable()
+    {
+        $this->object->addRelation(new Relation());
+        $this->assertCount(1, $this->object->getRelations());
+    }
+
+    public function testRelationsRemovable()
+    {
+        $relation = new Relation();
+        $this->object->addRelation($relation);
+        $this->object->removeRelation($relation);
+        $this->assertCount(0, $this->object->getRelations());
+    }
+
+    public function testFiltersGettable()
+    {
+        $this->assertCount(0, $this->object->getFilters());
+    }
+
+    public function testFiltersAddable()
+    {
+        $this->object->addFilter(new Filter());
+        $this->assertCount(1, $this->object->getFilters());
+    }
+
+    public function testFiltersRemovable()
+    {
+        $filter = new Filter();
+        $this->object->addFilter($filter);
+        $this->object->removeFilter($filter);
+        $this->assertCount(0, $this->object->getFilters());
     }
 }

@@ -12,8 +12,8 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Relation;
-use App\Entity\RelationCascade;
 use App\Entity\Field;
+use App\Entity\Service;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityRelation;
@@ -91,12 +91,12 @@ class RelationTest extends TestCase
         $this->assertTrue($this->object->getOrphanRemoval());
     }
 
-    public function testfieldGettable()
+    public function testFieldGettable()
     {
         $this->assertNull($this->object->getfield());
     }
 
-    public function testfieldSettable()
+    public function testFieldSettable()
     {
         $field = new Field();
         $this->object->setfield($field);
@@ -145,5 +145,17 @@ class RelationTest extends TestCase
     {
         $this->object->setJoinColumnReferencedColumnName('name');
         $this->assertEquals('name', $this->object->getJoinColumnReferencedColumnName());
+    }
+
+    public function testServiceGettable()
+    {
+        $this->assertNull($this->object->getService());
+    }
+
+    public function testServiceSettable()
+    {
+        $service = new Service();
+        $this->object->setService($service);
+        $this->assertEquals($service, $this->object->getService());
     }
 }
