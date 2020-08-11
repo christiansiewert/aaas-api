@@ -120,6 +120,14 @@ It is recommended to add short aliases for the following frequently used contain
 docker-compose exec php php bin/phpunit
 ```
 
+Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yaml``. You should run 
+
+```bash
+docker-compose exec php php bin/console doctrine:migrations:migrate --no-interaction --env=test
+```
+
+to populate this database with our schema if you want to run the tests.
+
 #### Generate PHP CodeSniffer XML Report
 
 ```bash
