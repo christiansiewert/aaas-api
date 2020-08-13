@@ -12,7 +12,7 @@ matrix:
 before_install:
     - mysql -u root -e 'CREATE DATABASE app_test;'
     - mysql -u root -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
-    - mysql -u root -e "GRANT ALL ON app.* TO 'app'@'localhost';"
+    - mysql -u root -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
 
 install:
     - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --no-interaction
