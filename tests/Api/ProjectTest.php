@@ -12,15 +12,23 @@
 namespace App\Tests\Api;
 
 use App\Test\ApiTestCase;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
+ *
+ * @todo refactore and rethink how we test
  */
 class ProjectTest extends ApiTestCase
 {
-    const URI = '/aaas/projects';
+    const PROJECT_DATA = [
+        'name' => 'My project',
+        'description' => 'My project description.'
+    ];
+
+    const REPOSITORY_DATA = [
+        'name' => 'My repository',
+        'description' => 'My repository description.'
+    ];
 
     /**
      * @inheritDoc
@@ -32,9 +40,9 @@ class ProjectTest extends ApiTestCase
 
     public function testApiProjectAddable()
     {
-        $this->request('POST', self::URI, [
-            'name' => 'test',
-            'description' => 'desc'
+        $this->request('POST', '/aaas/projects', [
+            'name' => self::PROJECT_DATA['name'],
+            'description' => self::PROJECT_DATA['description']
         ]);
 
         $response = $this->client->getResponse();
@@ -42,7 +50,32 @@ class ProjectTest extends ApiTestCase
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
-        $this->assertEquals('test', $content->name);
-        $this->assertEquals('desc', $content->description);
+        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+    }
+
+    public function testApiProjectWithRepositoriesAddable()
+    {
+        $this->request('POST', '/aaas/projects?groups[]=repository', [
+            'name' => self::PROJECT_DATA['name'],
+            'description' => self::PROJECT_DATA['description'],
+            'repositories' => [
+                [
+                    'name' => self::REPOSITORY_DATA['name'],
+                    'description' => self::REPOSITORY_DATA['description']
+                ]
+            ]
+        ]);
+
+        $response = $this->client->getResponse();
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertIsNumeric($content->id);
+        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+
+        $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
+        $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
     }
 }

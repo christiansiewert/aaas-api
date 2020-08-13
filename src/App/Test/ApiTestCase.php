@@ -11,7 +11,6 @@
 
 namespace App\Test;
 
-use http\Client;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
