@@ -9,10 +9,23 @@ matrix:
     allow_failures:
         - php: nightly
 
+env:
+    - SYMFONY_VERSION="5.1.*" DB=mariadb_test
+
+before_install:
+    - mysql -u root -e 'CREATE DATABASE app_test;'
+    - mysql -u root -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
+    - mysql -u root -e "GRANT ALL ON app.* TO 'app'@'localhost';"
+
 install:
     - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --no-interaction
+    - php bin/console doctrine:migrations:migrate --no-interaction --env=test
+
 script:
     - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
+
+addons:
+    mariadb: '10.3'
 
 cache:
     directories:
