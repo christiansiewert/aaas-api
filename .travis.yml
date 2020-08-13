@@ -9,9 +9,6 @@ matrix:
     allow_failures:
         - php: nightly
 
-env:
-    - SYMFONY_VERSION="5.1.*" DB=mariadb_test
-
 before_install:
     - mysql -u root -e 'CREATE DATABASE app_test;'
     - mysql -u root -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
@@ -26,6 +23,8 @@ script:
 
 addons:
     mariadb: '10.3'
+    hosts:
+        - mariadb_test
 
 cache:
     directories:
