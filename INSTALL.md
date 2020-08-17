@@ -97,9 +97,35 @@ If you want to load the fixtures run:
 docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
 ```
 
+### Create an administration account
+
+You should create an administration account:
+
+```bash
+docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
+```
+
 ## Visit Docs
 
 For [Swagger UI] open https://localhost/docs in your browser.
+
+### Retrieving an JWT Access Token
+
+You can retrieve an JWT Access Token by posting your credentials to `/auth/login_check`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" http://localhost/api/login_check -d '{"email": EMAIL, "password": PASSWORD}'
+```
+
+If your credentials are correct the server should respond with an JWT Access Token:
+
+```json
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTc2ODE0ODcsImV4cCI6MTU5NzY4NTA4Nywicm9sZXMiOlsiUk9MRV9..."
+}
+```
+
+Do not forget to send an `Authorization` HTTP-Header when requesting `/aaas` resources and set the value to `Bearer YOUR_TOKEN`. You get an `401 Unauthorized Error` otherwise. See more information about that in our [Wiki].
 
 ## Useful commands for development
 
@@ -154,13 +180,13 @@ docker-compose exec php php vendor/bin/pdepend --summary-xml=build/ci/php-pdepen
 
 ## Wiki
 
-Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of AaaS API.
+Visit our [Wiki] to familiarize yourself with the possibilities of AaaS API.
 
 [Docker]: https://docs.docker.com/engine/installation
 [Docker Compose]: https://docs.docker.com/compose/install/
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
 [Docker Sync]: http://docker-sync.io/
-[AaaS-API-Wiki]: https://aaas-api.readthedocs.io
+[Wiki]: https://aaas-api.readthedocs.io
 
 
 
