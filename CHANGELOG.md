@@ -9,12 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Enabled pagination via itemsPerPage parameter
+- Introduced AaaS security roles (ROLE_AAAS_USER, ROLE_AAAS_ADMIN)
 
 ### Changed
 
 - Disabled entry point. GET / now returns a 404 not found
 - API OAS Docs, Swagger UI and ReDoc are now on /docs
-- Updated security configuration and introduced aaas security roles (ROLE_AAAS_USER, ROLE_AAAS_ADMIN)
+- Updated security configuration 
 
 ## [1.4.0] - 2020-08-07
 
