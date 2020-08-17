@@ -110,14 +110,14 @@ docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
 You can retrieve an JWT Access Token by posting your credentials to `/auth/login_check`:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" http://localhost/api/login_check -d '{"email": EMAIL, "password": PASSWORD}'
+curl -X POST -H "Content-Type: application/json" http://HOST/api/login_check -d '{"email": EMAIL, "password": PASSWORD}'
 ```
 
 If your credentials are correct the server should respond with an JWT Access Token:
 
 ```json
 {
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTc2ODE0ODcsImV4cCI6MTU5NzY4NTA4Nywicm9sZXMiOlsiUk9MRV9..."
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOcm9sZXMiOlsiUk9MRV9..."
 }
 ```
 
