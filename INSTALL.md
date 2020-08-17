@@ -105,10 +105,6 @@ You should create an administration account:
 docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
 ```
 
-## Visit Docs
-
-For [Swagger UI] open https://localhost/docs in your browser.
-
 ### Retrieving an JWT Access Token
 
 You can retrieve an JWT Access Token by posting your credentials to `/auth/login_check`:
@@ -126,6 +122,10 @@ If your credentials are correct the server should respond with an JWT Access Tok
 ```
 
 Do not forget to send an `Authorization` HTTP-Header when requesting `/aaas` resources and set the value to `Bearer YOUR_TOKEN`. You get an `401 Unauthorized Error` otherwise. See more information about that in our [Wiki].
+
+## Visit Docs
+
+For [Swagger UI] open https://localhost/docs in your browser. Please note that Swagger UI is disabled when you set `APP_ENV` to `prod` in `.env`. 
 
 ## Useful commands for development
 
