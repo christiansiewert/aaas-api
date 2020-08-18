@@ -97,9 +97,9 @@ If you want to load the fixtures run:
 docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
 ```
 
-### Create an administration account
+### Create an administrator account
 
-You should create an administration account:
+You should create an administrator account:
 
 ```bash
 docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
@@ -110,7 +110,7 @@ docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
 You can retrieve an JWT Access Token by posting your credentials to `/auth/login_check`:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" http://HOST/auth/login_check -d '{"email":EMAIL, "password":PASSWORD}'
+curl -X POST -H "Content-Type: application/json" https://HOST/auth/login_check -d '{"email":EMAIL, "password":PASSWORD}'
 ```
 
 If your credentials are correct the server should respond with an JWT Access Token:
