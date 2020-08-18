@@ -94,7 +94,7 @@ docker-compose exec php php bin/console doctrine:migrations:diff
 If you want to load the fixtures run:
 
 ```bash
-docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
+docker-compose exec php php bin/console doctrine:fixtures:load --no-interaction
 ```
 
 ### Create an administrator account
