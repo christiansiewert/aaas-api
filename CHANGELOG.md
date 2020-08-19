@@ -8,7 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- enabled pagination via itemsPerPage parameter
+- Enabled pagination via itemsPerPage parameter
+- Introduced AaaS security roles (ROLE_AAAS_USER, ROLE_AAAS_ADMIN)
+- We can add users via a console command now (php bin/console acl:create-user EMAIL PASSWORD [--admin])
+- New way for creating data fixtures
+- JWT authenticator and application security
+
+### Changed
+
+- Disabled entry point. GET / now returns a 404 not found
+- API OAS Docs, Swagger UI and ReDoc are now on /docs
+- Updated security configuration
 
 ## [1.4.0] - 2020-08-07
 

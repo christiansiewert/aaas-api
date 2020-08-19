@@ -13,6 +13,7 @@ namespace App\Test;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
@@ -20,26 +21,66 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ApiTestCase extends WebTestCase
 {
     /**
-     * Accept and Content-Type HTTP header will be
-     * set to application/json in our test suite.
-     */
-    const HTTP_HEADER = [
-        'HTTP_ACCEPT' => 'application/json',
-        'CONTENT_TYPE' => 'application/json'
-    ];
-
-    /**
      * @var KernelBrowser
      */
-    protected $client;
+    private static $client = null;
 
     /**
-     * @param string $method
+     * Create a client with a default Authorization header.
+     *
+     * @param string $username
+     * @param string $password
+     * @return KernelBrowser
+     */
+    protected function createAuthenticatedClient($username = 'test.user@aaas.api', $password = 'test')
+    {
+        if (self::$client !== null) {
+            return self::$client;
+        }
+
+        $client = static::createClient();
+        $client->request(
+            'POST',
+            '/auth/login_check',
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            json_encode([
+                'email' => $username,
+                'password' => $password
+            ])
+        );
+
+        $data = json_decode($client->getResponse()->getContent());
+        $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data->token));
+
+        return $client;
+    }
+
+    /**
      * @param string $uri
      * @param array $data
+     * @return Response
      */
-    protected function request(string $method = 'POST', string $uri = '/', array $data = [])
+    protected function post(string $uri, array $data = [])
     {
-        $this->client->request($method, $uri, [], [], self::HTTP_HEADER, json_encode($data));
+        $client = $this->createAuthenticatedClient();
+
+        $client->request(
+            'POST',
+            $uri,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            json_encode($data)
+        );
+
+        return $client->getResponse();
     }
 }

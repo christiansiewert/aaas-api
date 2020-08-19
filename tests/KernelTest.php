@@ -35,6 +35,6 @@ class KernelTest extends WebTestCase
     public function testApplicationExecutable()
     {
         $this->client->request('GET', '/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 }

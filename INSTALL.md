@@ -94,12 +94,39 @@ docker-compose exec php php bin/console doctrine:migrations:diff
 If you want to load the fixtures run:
 
 ```bash
-docker-compose exec mariadb sh -c "mysql -u app -p app < /app/docs/db_fixtures.sql"
+docker-compose exec php php bin/console doctrine:fixtures:load --no-interaction
 ```
+
+### Create an administrator account
+
+You should create an administrator account:
+
+```bash
+docker-compose exec php php bin/console acl:create-user EMAIL PASSWORD --admin
+```
+
+### Retrieving an JWT Access Token
+
+You can retrieve an JWT Access Token by posting your credentials to `/auth/login_check`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" http://localhost/auth/login_check \
+-d '{ "email" : "EMAIL", "password" : "PASSWORD" }'
+```
+
+If your credentials are correct the server should respond with an JWT Access Token:
+
+```json
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOcm9sZXMiOlsiUk9MRV9..."
+}
+```
+
+Do not forget to send an `Authorization` HTTP-Header when requesting `/aaas` resources and set the value to `Bearer YOUR_TOKEN`. You get an `401 Unauthorized Error` otherwise. See more information about that in our [Wiki].
 
 ## Visit Docs
 
-For [Swagger UI] open https://localhost in your browser.
+For [Swagger UI] open https://localhost/docs in your browser. Please note that Swagger UI is disabled when you set `APP_ENV` to `prod` in `.env`. 
 
 ## Useful commands for development
 
@@ -116,14 +143,24 @@ It is recommended to add short aliases for the following frequently used contain
 
 #### Running PHPUnit Tests
 
-```bash
-docker-compose exec php php bin/phpunit
-```
-
-Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yaml``. You should run the command below to populate this database with our schema if you want to run the tests.
+Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yaml``. You should run the commands below to populate this database with our schema and to load the data fixtures if you want to run the tests.
 
 ```bash
 docker-compose exec php php bin/console doctrine:migrations:migrate --no-interaction --env=test
+docker-compose exec php php bin/console doctrine:fixtures:load --no-interaction --env=test
+```
+
+The test environment uses another SSL key pair. Do not forget to generate it. Add ``-passout pass:app!`` when generating the private key and ``-passin pass:app!`` when generating the public key if you want to skip interaction.
+
+```bash
+docker-compose exec php openssl genrsa -out config/jwt/private-test.pem -aes256 4096
+docker-compose exec php openssl rsa -pubout -in config/jwt/private-test.pem -out config/jwt/public-test.pem
+```
+
+If you want to run the testsuite execute the command below:
+
+```bash
+docker-compose exec php php bin/phpunit
 ```
 
 #### Generate PHP CodeSniffer XML Report
@@ -154,13 +191,13 @@ docker-compose exec php php vendor/bin/pdepend --summary-xml=build/ci/php-pdepen
 
 ## Wiki
 
-Visit [AaaS-API-Wiki] to familiarize yourself with the possibilities of AaaS API.
+Visit our [Wiki] to familiarize yourself with the possibilities of AaaS API.
 
 [Docker]: https://docs.docker.com/engine/installation
 [Docker Compose]: https://docs.docker.com/compose/install/
 [Swagger UI]: https://swagger.io/tools/swagger-ui/
 [Docker Sync]: http://docker-sync.io/
-[AaaS-API-Wiki]: https://aaas-api.readthedocs.io
+[Wiki]: https://aaas-api.readthedocs.io
 
 
 

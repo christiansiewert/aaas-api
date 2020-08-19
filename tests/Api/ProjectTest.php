@@ -30,22 +30,13 @@ class ProjectTest extends ApiTestCase
         'description' => 'My repository description.'
     ];
 
-    /**
-     * @inheritDoc
-     */
-    protected function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
     public function testApiProjectAddable()
     {
-        $this->request('POST', '/aaas/projects', [
+        $response = $this->post('/aaas/projects', [
             'name' => self::PROJECT_DATA['name'],
             'description' => self::PROJECT_DATA['description']
         ]);
 
-        $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -54,9 +45,10 @@ class ProjectTest extends ApiTestCase
         $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
     }
 
+
     public function testApiProjectWithRepositoriesAddable()
     {
-        $this->request('POST', '/aaas/projects?groups[]=repository', [
+        $response = $this->post('/aaas/projects?groups[]=repository', [
             'name' => self::PROJECT_DATA['name'],
             'description' => self::PROJECT_DATA['description'],
             'repositories' => [
@@ -67,7 +59,6 @@ class ProjectTest extends ApiTestCase
             ]
         ]);
 
-        $response = $this->client->getResponse();
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
