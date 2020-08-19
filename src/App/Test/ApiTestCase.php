@@ -17,11 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
+ * @todo Save one token for whole test suite
  */
 class ApiTestCase extends WebTestCase
 {
     /**
-     * @var KernelBrowser
+     * @var KernelBrowser | null
      */
     private static $client = null;
 
@@ -34,8 +35,11 @@ class ApiTestCase extends WebTestCase
      */
     protected function createAuthenticatedClient($username = 'test.user@aaas.api', $password = 'test')
     {
+        /**
+         * @todo refactore
+         */
         if (self::$client !== null) {
-            return self::$client;
+            //return self::$client;
         }
 
         $client = static::createClient();
@@ -79,6 +83,23 @@ class ApiTestCase extends WebTestCase
                 'HTTP_ACCEPT' => 'application/json'
             ],
             json_encode($data)
+        );
+
+        return $client->getResponse();
+    }
+
+    protected function get(string $uri)
+    {
+        $client = $this->createAuthenticatedClient();
+
+        $client->request(
+            'GET',
+            $uri,
+            [],
+            [],
+            [
+                'HTTP_ACCEPT' => 'application/json'
+            ]
         );
 
         return $client->getResponse();

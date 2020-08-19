@@ -12,11 +12,13 @@
 namespace App\Tests\Api;
 
 use App\Test\ApiTestCase;
+use \stdClass;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
  *
  * @todo refactore and rethink how we test
+ * @todo seperate test data from test
  */
 class ProjectTest extends ApiTestCase
 {
@@ -30,13 +32,19 @@ class ProjectTest extends ApiTestCase
         'description' => 'My repository description.'
     ];
 
+    const SERVICE_DATA = [
+        'name' => 'My service',
+        'description' => 'My service description.'
+    ];
+
     public function testApiProjectAddable()
     {
-        $response = $this->post('/aaas/projects', [
+        $data = [
             'name' => self::PROJECT_DATA['name'],
             'description' => self::PROJECT_DATA['description']
-        ]);
+        ];
 
+        $response = $this->post('/aaas/projects', $data);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -48,7 +56,7 @@ class ProjectTest extends ApiTestCase
 
     public function testApiProjectWithRepositoriesAddable()
     {
-        $response = $this->post('/aaas/projects?groups[]=repository', [
+        $data = [
             'name' => self::PROJECT_DATA['name'],
             'description' => self::PROJECT_DATA['description'],
             'repositories' => [
@@ -57,8 +65,9 @@ class ProjectTest extends ApiTestCase
                     'description' => self::REPOSITORY_DATA['description']
                 ]
             ]
-        ]);
+        ];
 
+        $response = $this->post('/aaas/projects?groups[]=repository', $data);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -68,5 +77,65 @@ class ProjectTest extends ApiTestCase
 
         $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
+    }
+
+    public function testApiProjectWithRepositoriesAndServicesAddable()
+    {
+        $data = [
+            'name' => self::PROJECT_DATA['name'],
+            'description' => self::PROJECT_DATA['description'],
+            'repositories' => [
+                [
+                    'name' => self::REPOSITORY_DATA['name'],
+                    'description' => self::REPOSITORY_DATA['description'],
+                    'services' => [
+                        [
+                            'name' => self::SERVICE_DATA['name'],
+                            'description' => self::SERVICE_DATA['description']
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $response = $this->post('/aaas/projects?groups[]=repository&groups[]=service', $data);
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertIsNumeric($content->id);
+        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+
+        $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
+        $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
+
+        $this->assertEquals(self::SERVICE_DATA['name'], $content->repositories[0]->services[0]->name);
+        $this->assertEquals(self::SERVICE_DATA['description'], $content->repositories[0]->services[0]->description);
+    }
+
+    public function testApiProjectListGettable()
+    {
+        $response = $this->get('/aaas/projects');
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEmpty($content[0]);
+
+        return $content[0];
+    }
+
+    /**
+     * @depends testApiProjectListGettable
+     * @param stdClass $project
+     */
+    public function testApiProjectGettable(stdClass $project)
+    {
+        $response = $this->get(sprintf('/aaas/projects/%s', $project->id));
+        $content = json_decode($response->getContent());
+
+        $this->assertIsNumeric($content->id);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
     }
 }
