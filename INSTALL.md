@@ -143,14 +143,23 @@ It is recommended to add short aliases for the following frequently used contain
 
 #### Running PHPUnit Tests
 
-```bash
-docker-compose exec php php bin/phpunit
-```
-
 Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yaml``. You should run the command below to populate this database with our schema if you want to run the tests.
 
 ```bash
 docker-compose exec php php bin/console doctrine:migrations:migrate --no-interaction --env=test
+```
+
+The test environment uses another SSL key pair. Do not forget to generate it:
+
+```bash
+docker-compose exec php openssl genrsa -out config/jwt/private-test.pem -aes256 -passout pass:app! 4096
+docker-compose exec php openssl rsa -pubout -in config/jwt/private-test.pem -out config/jwt/public-test.pem -passin pass:app!
+```
+
+If you want to run the testsuite execute the command below:
+
+```bash
+docker-compose exec php php bin/phpunit
 ```
 
 #### Generate PHP CodeSniffer XML Report
