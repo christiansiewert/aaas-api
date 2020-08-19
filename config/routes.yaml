@@ -1,2 +1,3 @@
-auth_login_check:
-  path: /auth/login_check
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
