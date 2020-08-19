@@ -38,21 +38,17 @@ An `app` database is created by default with user `app` and password `app`. root
 
 ### Start Containers 
 
-Run 
+To start the docker containers execute: 
 
 ```bash
 docker-compose up
 ```
 
-to start docker containers.
-
-If you want to use `Docker Sync` on OSX or Windows you can run
+If you want to use `Docker Sync` on OSX or Windows you can execute the command below from your OSX- or WSL-Console instead:
 
 ```bash
 docker-sync-stack start
 ```
-
-from your OSX- or WSL-Console instead.
 
 ### Build Backend
 
