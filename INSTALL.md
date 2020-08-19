@@ -122,7 +122,9 @@ Do not forget to send an `Authorization` HTTP-Header when requesting `/aaas` res
 
 ## Visit Docs
 
-For [Swagger UI] open https://localhost/docs in your browser. Please note that Swagger UI is disabled when you set `APP_ENV` to `prod` in `.env`. 
+For [Swagger UI] open https://localhost/docs in your browser. 
+
+Please note that Swagger UI is disabled when you set `APP_ENV` to `prod` in `.env`. 
 
 ## Useful commands for development
 
