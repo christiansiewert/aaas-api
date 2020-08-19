@@ -141,7 +141,7 @@ It is recommended to add short aliases for the following frequently used contain
 
 #### Running PHPUnit Tests
 
-Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yaml``. You should run the commands below to populate this database with our schema and to load the data fixtures if you want to run the tests.
+Our test suite uses an ``app_test`` database whose container service can be viewed under ``mariadb_test`` in ``docker-compose.yml``. You should run the commands below to populate this database with our schema and to load the data fixtures if you want to run the tests.
 
 ```bash
 docker-compose exec php php bin/console doctrine:migrations:migrate --no-interaction --env=test
