@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Introduced AaaS security roles (ROLE_AAAS_USER, ROLE_AAAS_ADMIN)
 - We can add users via a console command now (php bin/console acl:create-user EMAIL PASSWORD [--admin])
 - New way for creating data fixtures
+- JWT authenticator and application security
 
 ### Changed
 
