@@ -11,55 +11,31 @@
 
 namespace App\Test;
 
+use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
- * @todo Save one token for whole test suite
  */
 class ApiTestCase extends WebTestCase
 {
     /**
-     * @var KernelBrowser | null
-     */
-    private static $client = null;
-
-    /**
      * Create a client with a default Authorization header.
      *
      * @param string $username
-     * @param string $password
      * @return KernelBrowser
      */
-    protected function createAuthenticatedClient($username = 'test.user@aaas.api', $password = 'test')
+    protected function createAuthenticatedClient($username = 'test.user@aaas.api') : KernelBrowser
     {
-        /**
-         * @todo refactore
-         */
-        if (self::$client !== null) {
-            //return self::$client;
-        }
-
         $client = static::createClient();
-        $client->request(
-            'POST',
-            '/auth/login_check',
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
-            ],
-            json_encode([
-                'email' => $username,
-                'password' => $password
-            ])
-        );
 
-        $data = json_decode($client->getResponse()->getContent());
-        $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data->token));
+        $userRepository = self::$container->get(CustomerRepository::class);
+        $testUser = $userRepository->findOneByEmail($username);
+        $token = self::$container->get('lexik_jwt_authentication.jwt_manager')->create($testUser);
+
+        $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $token));
 
         return $client;
     }
