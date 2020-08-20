@@ -18,7 +18,6 @@ use \stdClass;
  * @author Christian Siewert <christian@sieware.international>
  *
  * @todo refactore and rethink how we test
- * @todo seperate test data from test
  */
 class ProjectTest extends ApiTestCase
 {
@@ -37,14 +36,27 @@ class ProjectTest extends ApiTestCase
         'description' => 'My service description.'
     ];
 
+    private $data = [
+        'name' => self::PROJECT_DATA['name'],
+        'description' => self::PROJECT_DATA['description'],
+        'repositories' => [
+            [
+                'name' => self::REPOSITORY_DATA['name'],
+                'description' => self::REPOSITORY_DATA['description'],
+                'services' => [
+                    [
+                        'name' => self::SERVICE_DATA['name'],
+                        'description' => self::SERVICE_DATA['description']
+                    ]
+                ]
+            ]
+        ]
+    ];
+
     public function testApiProjectAddable()
     {
-        $data = [
-            'name' => self::PROJECT_DATA['name'],
-            'description' => self::PROJECT_DATA['description']
-        ];
-
-        $response = $this->post('/aaas/projects', $data);
+        unset($this->data['repositories']);
+        $response = $this->post('/aaas/projects', $this->data);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -56,59 +68,29 @@ class ProjectTest extends ApiTestCase
 
     public function testApiProjectWithRepositoriesAddable()
     {
-        $data = [
-            'name' => self::PROJECT_DATA['name'],
-            'description' => self::PROJECT_DATA['description'],
-            'repositories' => [
-                [
-                    'name' => self::REPOSITORY_DATA['name'],
-                    'description' => self::REPOSITORY_DATA['description']
-                ]
-            ]
-        ];
-
-        $response = $this->post('/aaas/projects?groups[]=repository', $data);
+        unset($this->data['repositories'][0]['services']);
+        $response = $this->post('/aaas/projects?groups[]=repository', $this->data);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
         $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
         $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
-
         $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
     }
 
     public function testApiProjectWithRepositoriesAndServicesAddable()
     {
-        $data = [
-            'name' => self::PROJECT_DATA['name'],
-            'description' => self::PROJECT_DATA['description'],
-            'repositories' => [
-                [
-                    'name' => self::REPOSITORY_DATA['name'],
-                    'description' => self::REPOSITORY_DATA['description'],
-                    'services' => [
-                        [
-                            'name' => self::SERVICE_DATA['name'],
-                            'description' => self::SERVICE_DATA['description']
-                        ]
-                    ]
-                ]
-            ]
-        ];
-
-        $response = $this->post('/aaas/projects?groups[]=repository&groups[]=service', $data);
+        $response = $this->post('/aaas/projects?groups[]=repository&groups[]=service', $this->data);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
         $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
         $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
-
         $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
-
         $this->assertEquals(self::SERVICE_DATA['name'], $content->repositories[0]->services[0]->name);
         $this->assertEquals(self::SERVICE_DATA['description'], $content->repositories[0]->services[0]->description);
     }

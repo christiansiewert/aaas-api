@@ -8,6 +8,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/framework-bundle": "*",

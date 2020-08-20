@@ -22,6 +22,59 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiTestCase extends WebTestCase
 {
     /**
+     * Send a KernelBrowser HTTP-POST-Request
+     *
+     * @param string $uri
+     * @param array $data
+     * @param bool $auth
+     * @return Response
+     */
+    protected function post(string $uri, array $data = [], bool $auth = true)
+    {
+        return $this->request('POST', $uri, $data, $auth);
+    }
+
+    /**
+     * Send a KernelBrowser HTTP-GET-Request
+     *
+     * @param string $uri
+     * @param bool $auth
+     * @return Response
+     */
+    protected function get(string $uri, bool $auth = true)
+    {
+        return $this->request('GET', $uri, [], $auth);
+    }
+
+    /**
+     * Send a KernelBrowser HTTP-Request
+     *
+     * @param string $method
+     * @param string $uri
+     * @param array $data
+     * @param bool $auth
+     * @return Response
+     */
+    public function request(string $method, string $uri, array $data = [], bool $auth = true) : Response
+    {
+        $client = $auth === true ? $this->createAuthenticatedClient() : static::createClient();
+
+        $client->request(
+            $method,
+            $uri,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            json_encode($data)
+        );
+
+        return $client->getResponse();
+    }
+
+    /**
      * Create a client with a default Authorization header.
      *
      * @param string $username
@@ -38,46 +91,5 @@ class ApiTestCase extends WebTestCase
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $token));
 
         return $client;
-    }
-
-    /**
-     * @param string $uri
-     * @param array $data
-     * @return Response
-     */
-    protected function post(string $uri, array $data = [])
-    {
-        $client = $this->createAuthenticatedClient();
-
-        $client->request(
-            'POST',
-            $uri,
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
-            ],
-            json_encode($data)
-        );
-
-        return $client->getResponse();
-    }
-
-    protected function get(string $uri)
-    {
-        $client = $this->createAuthenticatedClient();
-
-        $client->request(
-            'GET',
-            $uri,
-            [],
-            [],
-            [
-                'HTTP_ACCEPT' => 'application/json'
-            ]
-        );
-
-        return $client->getResponse();
     }
 }
