@@ -22,6 +22,18 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiTestCase extends WebTestCase
 {
     /**
+     * Send a KernelBrowser HTTP-GET-Request
+     *
+     * @param string $uri
+     * @param bool $auth
+     * @return Response
+     */
+    protected function get(string $uri, bool $auth = true)
+    {
+        return $this->request('GET', $uri, [], $auth);
+    }
+
+    /**
      * Send a KernelBrowser HTTP-POST-Request
      *
      * @param string $uri
@@ -35,15 +47,16 @@ class ApiTestCase extends WebTestCase
     }
 
     /**
-     * Send a KernelBrowser HTTP-GET-Request
+     * Send a KernelBrowser HTTP-PUT-Request
      *
      * @param string $uri
+     * @param array $data
      * @param bool $auth
      * @return Response
      */
-    protected function get(string $uri, bool $auth = true)
+    protected function put(string $uri, array $data = [], bool $auth = true)
     {
-        return $this->request('GET', $uri, [], $auth);
+        return $this->request('PUT', $uri, $data, $auth);
     }
 
     /**

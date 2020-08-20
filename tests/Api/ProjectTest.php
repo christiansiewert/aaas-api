@@ -120,4 +120,17 @@ class ProjectTest extends ApiTestCase
         $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
         $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
     }
+
+    /**
+     * @depends testApiProjectListGettable
+     * @param stdClass $project
+     */
+    public function testApiProjectEditable(stdClass $project)
+    {
+        $response = $this->put(sprintf('/aaas/projects/%s', $project->id), ['name' => 'My updated project']);
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('My updated project', $content->name);
+    }
 }
