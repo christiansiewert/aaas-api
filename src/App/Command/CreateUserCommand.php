@@ -106,6 +106,8 @@ class CreateUserCommand extends Command
         $this->em->persist($user);
         $this->em->flush();
 
+        $output->writeln(sprintf('User created with Email: %s', $user->getEmail()));
+
         return Command::SUCCESS;
     }
 }

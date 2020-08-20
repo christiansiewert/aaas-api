@@ -12,7 +12,6 @@
 namespace App\Tests\Api;
 
 use App\Test\ApiTestCase;
-use \stdClass;
 
 /**
  * @author Christian Siewert <christian@sieware.international>
