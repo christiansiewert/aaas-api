@@ -30,7 +30,7 @@ class FilterPropertyTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->object = new FilterProperty();
     }

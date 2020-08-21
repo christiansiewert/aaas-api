@@ -27,7 +27,7 @@ class KernelTest extends WebTestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->client = static::createClient();
     }

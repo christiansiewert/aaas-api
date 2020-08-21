@@ -29,7 +29,7 @@ class FilterTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->object = new Filter();
     }
