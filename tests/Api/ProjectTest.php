@@ -53,7 +53,7 @@ class ProjectTest extends ApiTestCase
         ]
     ];
 
-    public function testApiProjectAddable()
+    public function testCanBeCreated()
     {
         unset($this->data['repositories']);
         $response = $this->post('/aaas/projects', $this->data);
@@ -66,7 +66,7 @@ class ProjectTest extends ApiTestCase
     }
 
 
-    public function testApiProjectWithRepositoriesAddable()
+    public function testCanBeCreatedWithRepositories()
     {
         unset($this->data['repositories'][0]['services']);
         $response = $this->post('/aaas/projects?groups[]=repository', $this->data);
@@ -80,7 +80,7 @@ class ProjectTest extends ApiTestCase
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
     }
 
-    public function testApiProjectWithRepositoriesAndServicesAddable()
+    public function testCanBeCreatedWithRepositoriesAndServices()
     {
         $response = $this->post('/aaas/projects?groups[]=repository&groups[]=service', $this->data);
         $content = json_decode($response->getContent());
@@ -95,22 +95,11 @@ class ProjectTest extends ApiTestCase
         $this->assertEquals(self::SERVICE_DATA['description'], $content->repositories[0]->services[0]->description);
     }
 
-    public function testApiProjectListGettable()
-    {
-        $response = $this->get('/aaas/projects');
-        $content = json_decode($response->getContent());
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertNotEmpty($content[0]);
-
-        return $content[0];
-    }
-
     /**
-     * @depends testApiProjectListGettable
+     * @depends testCollectionCanBeFetched
      * @param stdClass $project
      */
-    public function testApiProjectGettable(stdClass $project)
+    public function testCanBeFetched(stdClass $project)
     {
         $response = $this->get(sprintf('/aaas/projects/%s', $project->id));
         $content = json_decode($response->getContent());
@@ -122,15 +111,26 @@ class ProjectTest extends ApiTestCase
     }
 
     /**
-     * @depends testApiProjectListGettable
+     * @depends testCollectionCanBeFetched
      * @param stdClass $project
      */
-    public function testApiProjectEditable(stdClass $project)
+    public function testCanBeEdited(stdClass $project)
     {
         $response = $this->put(sprintf('/aaas/projects/%s', $project->id), ['name' => 'My updated project']);
         $content = json_decode($response->getContent());
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('My updated project', $content->name);
+    }
+
+    public function testCollectionCanBeFetched()
+    {
+        $response = $this->get('/aaas/projects');
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEmpty($content[0]);
+
+        return $content[0];
     }
 }
