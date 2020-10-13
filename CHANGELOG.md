@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.4.88] - 2020-10-13 (Mini Release)
+
 ### Added
 
 - Enabled pagination via itemsPerPage parameter
@@ -185,7 +187,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.4.0...develop
+[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.4.88...develop
+[1.4.88]: https://github.com/christiansiewert/aaas-api/compare/v1.4.0...v1.4.88
 [1.4.0]: https://github.com/christiansiewert/aaas-api/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/christiansiewert/aaas-api/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/christiansiewert/aaas-api/compare/v1.1.0...v1.2.0
