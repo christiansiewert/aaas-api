@@ -21,15 +21,22 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 class ProjectFixtures extends Fixture
 {
     /**
+     * Reference to our project fixture
+     */
+    public const PROJECT = 'project';
+
+    /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
         $project = new Project();
-        $project->setName('My project');
-        $project->setDescription('My project description.');
+        $project->setName('Webapplication');
+        $project->setDescription('Our webapplication includes a shop, a website and an API. ');
 
         $manager->persist($project);
         $manager->flush();
+
+        $this->addReference(self::PROJECT, $project);
     }
 }

@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Missing data fixtures for testing purposes 
+
+### Changed
+
 ## [1.4.88] - 2020-10-13 (Mini Release)
 
 ### Added
