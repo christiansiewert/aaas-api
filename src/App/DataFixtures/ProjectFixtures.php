@@ -26,13 +26,21 @@ class ProjectFixtures extends Fixture
     public const PROJECT = 'project';
 
     /**
+     * Fixture data is also used for tests later
+     */
+    const PROJECT_DATA = [
+        'name' => 'Webapplication',
+        'description' => 'Our webapplication includes a shop, a website and an API.'
+    ];
+
+    /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
         $project = new Project();
-        $project->setName('Webapplication');
-        $project->setDescription('Our webapplication includes a shop, a website and an API. ');
+        $project->setName(self::PROJECT_DATA['name']);
+        $project->setDescription(self::PROJECT_DATA['description']);
 
         $manager->persist($project);
         $manager->flush();
