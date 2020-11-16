@@ -9,6 +9,8 @@
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/christiansiewert/aaas-api.svg)](https://scrutinizer-ci.com/g/christiansiewert/aaas-api)
 [![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
 [![Latest Tag](https://img.shields.io/github/tag/christiansiewert/aaas-api.svg?)](https://github.com/christiansiewert/aaas-api/releases)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
+
 
 This is the API for _API as a Service_.
 
