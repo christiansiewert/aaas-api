@@ -26,6 +26,10 @@ Some important features of _API as a Service_ are:
  * Based on the created API, your consumers can develop web applications, mobile applications, websites, etc.
  
 If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
+
+You can also spin up a container in the cloud and try it there:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
  
 ##### Create your data models and field definitions
 

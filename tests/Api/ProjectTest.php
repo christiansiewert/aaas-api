@@ -11,6 +11,7 @@
 
 namespace App\Tests\Api;
 
+use App\DataFixtures\ProjectFixtures;
 use App\Test\ApiTestCase;
 use \stdClass;
 
@@ -21,11 +22,6 @@ use \stdClass;
  */
 class ProjectTest extends ApiTestCase
 {
-    const PROJECT_DATA = [
-        'name' => 'My project',
-        'description' => 'My project description.'
-    ];
-
     const REPOSITORY_DATA = [
         'name' => 'My repository',
         'description' => 'My repository description.'
@@ -37,8 +33,8 @@ class ProjectTest extends ApiTestCase
     ];
 
     private $data = [
-        'name' => self::PROJECT_DATA['name'],
-        'description' => self::PROJECT_DATA['description'],
+        'name' => ProjectFixtures::PROJECT_DATA['name'],
+        'description' => ProjectFixtures::PROJECT_DATA['description'],
         'repositories' => [
             [
                 'name' => self::REPOSITORY_DATA['name'],
@@ -61,8 +57,8 @@ class ProjectTest extends ApiTestCase
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
-        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
-        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['description'], $content->description);
     }
 
 
@@ -74,8 +70,8 @@ class ProjectTest extends ApiTestCase
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
-        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
-        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['description'], $content->description);
         $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
     }
@@ -87,8 +83,8 @@ class ProjectTest extends ApiTestCase
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertIsNumeric($content->id);
-        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
-        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['description'], $content->description);
         $this->assertEquals(self::REPOSITORY_DATA['name'], $content->repositories[0]->name);
         $this->assertEquals(self::REPOSITORY_DATA['description'], $content->repositories[0]->description);
         $this->assertEquals(self::SERVICE_DATA['name'], $content->repositories[0]->services[0]->name);
@@ -106,8 +102,8 @@ class ProjectTest extends ApiTestCase
 
         $this->assertIsNumeric($content->id);
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(self::PROJECT_DATA['name'], $content->name);
-        $this->assertEquals(self::PROJECT_DATA['description'], $content->description);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['name'], $content->name);
+        $this->assertEquals(ProjectFixtures::PROJECT_DATA['description'], $content->description);
     }
 
     /**

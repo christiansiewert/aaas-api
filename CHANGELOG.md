@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Missing data fixtures for testing purposes 
+
+### Changed
+
+- Test data is now located at the data fixtures and is also used by our API tests
+
 ## [1.4.88] - 2020-10-13 (Mini Release)
 
 ### Added
