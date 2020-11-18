@@ -27,9 +27,7 @@ Some important features of _API as a Service_ are:
  
 If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
 
-You can also spin up a container in the cloud and try it there:
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
+**Try it in GitPod**
 
 If you want to set up our application as a workspace in GitPod, we recommend installing the Symfony binary file and setting the `PATH` environmental variable. After that you can start the local web server of Symfony via `symfony server:start`:
 
@@ -37,6 +35,8 @@ If you want to set up our application as a workspace in GitPod, we recommend ins
 wget https://get.symfony.com/cli/installer -O - | bash
 export PATH="$HOME/.symfony/bin:$PATH"
 ```
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
 
 ##### Create your data models and field definitions
 
