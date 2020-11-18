@@ -30,7 +30,17 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 You can also spin up a container in the cloud and try it there:
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
- 
+
+If you want to set up our application as a workspace in GitPod, we recommend installing the Symfony binary file and setting the `PATH` environmental variable: 
+
+```bash
+wget https://get.symfony.com/cli/installer -O - | bash
+export PATH="$HOME/.symfony/bin:$PATH"
+```
+
+You can then start the local web server of Symfony via `symfony server:start`.
+
+
 ##### Create your data models and field definitions
 
 <img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/readme_example_01.png" />
