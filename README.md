@@ -27,7 +27,7 @@ Some important features of _API as a Service_ are:
  
 If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
 
-**Try it in GitPod**
+##### Try it in GitPod
 
 If you want to set up our application as a workspace in GitPod, we recommend installing the Symfony binary file and setting the `PATH` environmental variable. After that you can start the local web server of Symfony via `symfony server:start`:
 
