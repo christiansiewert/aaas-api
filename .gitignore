@@ -1,8 +1,8 @@
 /.idea
+/.phpunit.result.cache
 
 /build/
-
-/.phpunit.result.cache
+/bin/symfony
 
 ###> symfony/framework-bundle ###
 /.env.local
