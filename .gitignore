@@ -2,7 +2,6 @@
 /.phpunit.result.cache
 
 /build/
-/bin/symfony
 
 ###> symfony/framework-bundle ###
 /.env.local
