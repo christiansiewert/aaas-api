@@ -12,10 +12,10 @@ USER gitpod
 # More information: https://www.gitpod.io/docs/config-docker/
 
 # Install Redis.
-RUN sudo apt-get update && \
-    sudo apt-get install -y && \
-    redis-server && \
-    sudo rm -rf /var/lib/apt/lists/*
+# RUN sudo apt-get update && \
+#     sudo apt-get install -y && \
+#     redis-server && \ # Fails with 'redis-server' not found on this workspace-mysql
+#     sudo rm -rf /var/lib/apt/lists/*
 
 ENV DATABASE_USER=gitpod
 ENV DATABASE_HOST=127.0.0.1
