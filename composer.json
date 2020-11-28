@@ -20,7 +20,7 @@
         "api-platform/api-pack": "^1.2",
         "doctrine/doctrine-migrations-bundle": "^2.2",
         "antishov/doctrine-extensions-bundle": "^1.4",
-        "lexik/jwt-authentication-bundle": "^2.8"
+        "lexik/jwt-authentication-bundle": "2.9"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.3",

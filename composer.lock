@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a8eab14a0583314c936aec89f0999a7",
+    "content-hash": "28a837636d8c043b2cde920b75fb0583",
     "packages": [
         {
             "name": "antishov/doctrine-extensions-bundle",
@@ -1952,23 +1952,23 @@
         },
         {
             "name": "lexik/jwt-authentication-bundle",
-            "version": "v2.10.0",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
-                "reference": "3c9f4e7f5a0e0817de2dd88ae8347d4da4b0c57b"
+                "reference": "2c3448975c5560f4a29ac6f3bfc1fb24673609c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/3c9f4e7f5a0e0817de2dd88ae8347d4da4b0c57b",
-                "reference": "3c9f4e7f5a0e0817de2dd88ae8347d4da4b0c57b",
+                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/2c3448975c5560f4a29ac6f3bfc1fb24673609c0",
+                "reference": "2c3448975c5560f4a29ac6f3bfc1fb24673609c0",
                 "shasum": ""
             },
             "require": {
                 "ext-openssl": "*",
                 "lcobucci/jwt": "^3.2",
                 "namshi/jose": "^7.2",
-                "php": ">=5.6",
+                "php": "^5.6|^7.0",
                 "symfony/framework-bundle": "^3.4|^4.0|^5.0",
                 "symfony/security-bundle": "^3.4|^4.0|^5.0"
             },
@@ -2050,7 +2050,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-23T15:31:35+00:00"
+            "time": "2020-10-27T17:30:41+00:00"
         },
         {
             "name": "monolog/monolog",
