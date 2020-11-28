@@ -11,6 +11,10 @@ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem -aes25
 docker-compose exec php openssl genrsa -out config/jwt/private-test.pem -aes256 4096  -passout pass:app!
 docker-compose exec php openssl rsa -pubout -in config/jwt/private-test.pem -out config/jwt/public-test.pem  -passin pass:app!
 
+# Create databases
+mysql -e 'CREATE DATABASE app;'
+mysql -e 'CREATE DATABASE app_test;'
+
 # Populate database with schema
 php bin/console doctrine:migrations:migrate --no-interaction
 
