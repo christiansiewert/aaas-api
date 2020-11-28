@@ -4,8 +4,8 @@
 
 # API as a Service - API
 
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
 [![License: BSD-3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
 [![Travis Status](https://img.shields.io/travis/christiansiewert/aaas-api.svg)](https://travis-ci.org/christiansiewert/aaas-api)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/christiansiewert/aaas-api.svg)](https://scrutinizer-ci.com/g/christiansiewert/aaas-api)
 [![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
