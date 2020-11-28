@@ -5,6 +5,7 @@
 # API as a Service - API
 
 [![License: BSD-3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
 [![Travis Status](https://img.shields.io/travis/christiansiewert/aaas-api.svg)](https://travis-ci.org/christiansiewert/aaas-api)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/christiansiewert/aaas-api.svg)](https://scrutinizer-ci.com/g/christiansiewert/aaas-api)
 [![Documentation Status](https://readthedocs.org/projects/aaas-api/badge/?version=latest)](https://aaas-api.readthedocs.io)
@@ -27,10 +28,10 @@ Some important features of _API as a Service_ are:
  
 If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
 
-You can also spin up a container in the cloud and try it there:
+##### Try it in GitPod
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
- 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
+
 ##### Create your data models and field definitions
 
 <img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/readme_example_01.png" />
