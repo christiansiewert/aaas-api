@@ -4,6 +4,7 @@
 
 # API as a Service - API
 
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
 [![License: BSD-3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Travis Status](https://img.shields.io/travis/christiansiewert/aaas-api.svg)](https://travis-ci.org/christiansiewert/aaas-api)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/christiansiewert/aaas-api.svg)](https://scrutinizer-ci.com/g/christiansiewert/aaas-api)
@@ -29,14 +30,7 @@ If you are interested in installing our application, take a look at [INSTALL.md]
 
 ##### Try it in GitPod
 
-If you want to set up our application as a workspace in GitPod, we recommend installing the Symfony binary file and setting the `PATH` environmental variable. After that you can start the local web server of Symfony via `symfony server:start`:
-
-```bash
-wget https://get.symfony.com/cli/installer -O - | bash
-export PATH="$HOME/.symfony/bin:$PATH"
-```
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
 
 ##### Create your data models and field definitions
 
