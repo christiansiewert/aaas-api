@@ -17,7 +17,7 @@ USER gitpod
 #     redis-server && \ # Fails with 'redis-server' not found on this workspace-mysql
 #     sudo rm -rf /var/lib/apt/lists/*
 
-ENV DATABASE_USER=gitpod
+ENV DATABASE_USER=root
 ENV DATABASE_HOST=127.0.0.1
 ENV DATABASE_PORT=3306
 ENV DATABASE_NAME=app
