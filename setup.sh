@@ -19,5 +19,5 @@ php bin/console doctrine:migrations:migrate --no-interaction
 # docker-compose exec php php bin/console doctrine:fixtures:load --no-interaction --env=test
 
 # Download Symfony binary and export $PATH
-wget https://get.symfony.com/cli/installer -O - | bash
+wget https://get.symfony.com/cli/installer -O - | bash && \
 export PATH="$HOME/.symfony/bin:$PATH"
