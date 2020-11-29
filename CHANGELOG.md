@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Missing data fixtures for testing purposes 
+- Missing data fixtures for testing purposes
+- Gitpod integration for improving development environment and DevOps workflow
 
 ### Changed
 
