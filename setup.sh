@@ -20,4 +20,4 @@ php bin/console doctrine:migrations:migrate --no-interaction
 
 # Populate test database with schema and install fixtures
 php bin/console doctrine:migrations:migrate --no-interaction --env=test
-php php bin/console doctrine:fixtures:load --no-interaction --env=test
+php bin/console doctrine:fixtures:load --no-interaction --env=test
