@@ -8,6 +8,10 @@ This is the API for _API as a Service_.
 
 With _API as a Service_ you can easily build PHP APIs via a GUI.
 
+If you want to try out our application quickly in the cloud, you can set it up as a workspace in Gitpod. Otherwise, please continue reading.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
+
 ## Table of Contents
 
 1. [Essential](#essential)
