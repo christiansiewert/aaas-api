@@ -28,10 +28,6 @@ Some important features of _API as a Service_ are:
  
 If you are interested in installing our application, take a look at [INSTALL.md] or visit our [Wiki].
 
-##### Try it in GitPod
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/christiansiewert/aaas-api/tree/develop)
-
 ##### Create your data models and field definitions
 
 <img src="https://raw.githubusercontent.com/christiansiewert/aaas-api/develop/docs/images/readme_example_01.png" />
