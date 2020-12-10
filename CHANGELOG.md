@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Test data is now located at the data fixtures and is also used by our API tests
+- Upgraded to Symfony 5.2
 
 ## [1.4.88] - 2020-10-13 (Mini Release)
 
