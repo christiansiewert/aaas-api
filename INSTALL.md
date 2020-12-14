@@ -162,7 +162,7 @@ docker-compose exec php openssl rsa -pubout -in config/jwt/private-test.pem -out
 If you want to run the testsuite execute the command below:
 
 ```bash
-docker-compose exec php php bin/phpunit
+docker-compose exec php php bin/phpunit -c config/ci/phpunit.xml.dist
 ```
 
 #### Generate PHP CodeSniffer XML Report
@@ -174,7 +174,7 @@ docker-compose exec php php vendor/bin/phpcs --report=xml --report-file=build/ci
 #### Generate PHPUnit Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html build/ci/coverage
+docker-compose exec php php bin/phpunit -c config/ci/phpunit.xml.dist --coverage-html build/ci/coverage
 ```
 
 #### Generate PHP Mess Detector HTML Report

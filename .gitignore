@@ -1,5 +1,5 @@
 /.idea
-/.phpunit.result.cache
+/config/ci/.phpunit.result.cache
 
 /build/
 
