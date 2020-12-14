@@ -23,10 +23,10 @@
 
     <filter>
         <whitelist>
-            <directory>src</directory>
+            <directory>../../src</directory>
             <exclude>
-                <directory suffix=".php">src/App/Migrations/</directory>
-                <directory suffix=".php">src/App/Resources/</directory>
+                <directory suffix=".php">../../src/App/Migrations/</directory>
+                <directory suffix=".php">../../src/App/Resources/</directory>
             </exclude>
         </whitelist>
     </filter>
