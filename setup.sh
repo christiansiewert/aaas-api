@@ -23,4 +23,4 @@ php bin/console doctrine:migrations:migrate --no-interaction --env=test
 php bin/console doctrine:fixtures:load --no-interaction --env=test
 
 # Run test suite
-php bin/phpunit
+php bin/phpunit -c config/ci/phpunit.xml.dist
