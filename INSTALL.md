@@ -59,13 +59,13 @@ docker-sync-stack start
 #### Install dependencies
 
 ```bash
-docker-compose exec php composer update
+docker-compose exec php composer install
 ```
 
 If composer runs out of memory when doing this the first time you should run
 
 ```bash
-docker-compose exec -e COMPOSER_MEMORY_LIMIT=-1 php composer update
+docker-compose exec -e COMPOSER_MEMORY_LIMIT=-1 php composer install
 ```
 
 #### Generate JWT Certificate
