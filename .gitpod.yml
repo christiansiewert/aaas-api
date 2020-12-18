@@ -11,5 +11,5 @@ image:
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
     - init: gp await-port 3306 && ./setup.sh
-    - before: wget https://get.symfony.com/cli/installer -O - | bash  
+      before: wget https://get.symfony.com/cli/installer -O - | bash  
       command: export PATH="$HOME/.symfony/bin:$PATH" && symfony server:start
