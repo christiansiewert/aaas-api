@@ -28,7 +28,7 @@ script:
     - $TRAVIS_BUILD_DIR/bin/phpunit -c config/ci/phpunit.xml.dist --no-coverage
 
 addons:
-    mariadb: '10.3'
+    mariadb: '10.5'
     hosts:
         - mariadb_test
 
