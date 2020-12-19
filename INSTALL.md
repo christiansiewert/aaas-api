@@ -180,7 +180,7 @@ docker-compose exec php php bin/phpunit -c config/ci/phpunit.xml.dist --coverage
 #### Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile build/ci/phpmd.html
+docker-compose exec php php vendor/bin/phpmd src/ html config/ci/phpmd.xml.dist --reportfile build/ci/phpmd.html
 ```
 
 #### Generate PHP Depend Metrics
