@@ -13,9 +13,9 @@ matrix:
         - php: nightly
 
 before_install:
-    - mysql -e 'CREATE DATABASE app_test;'
-    - mysql -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
-    - mysql -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
+    - mysql -u travis -e 'CREATE DATABASE app_test;'
+    - mysql -u travis -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
+    - mysql -u travis -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
 
 install:
     - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction
