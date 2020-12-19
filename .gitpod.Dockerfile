@@ -29,4 +29,5 @@ RUN wget http://xdebug.org/files/xdebug-2.9.1.tgz \
 # Export environment variables
 ENV DATABASE_USER=root
 ENV DATABASE_HOST=127.0.0.1
+ENV DATABASE_PORT=3306
 ENV DATABASE_PASSWORD=
