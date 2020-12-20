@@ -1,3 +1,4 @@
+dist: precise
 language: php
 php: [ 7.2, 7.3, 7.4 ]
 sudo: false
@@ -13,9 +14,9 @@ matrix:
         - php: nightly
 
 before_install:
-    - mysql -u travis --password="" -e 'CREATE DATABASE app_test;'
-    - mysql -u travis --password="" -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
-    - mysql -u travis --password="" -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
+    - mysql -u travis -e 'CREATE DATABASE app_test;'
+    - mysql -u travis -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
+    - mysql -u travis -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
 
 install:
     - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction
