@@ -1,5 +1,5 @@
 language: php
-php: [ 7.2, 7.3, 7.4 ]
+php: [ 7.2, 7.3, 7.4, 8.0 ]
 sudo: false
 
 branches:
@@ -39,3 +39,4 @@ cache:
         
 env:
     - DATABASE_PORT=3306
+    - DATABASE_HOST=mariadb_test
