@@ -27,7 +27,7 @@ matrix:
 cache:
     directories:
         - $HOME/.composer
-        - ./docker
+        - $TRAVIS_BUILD_DIR/bin/.phpunit
 
 before_install:
     - sudo mysql -u root -e 'CREATE DATABASE app_test;'
