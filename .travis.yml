@@ -9,6 +9,7 @@ env:
     global:
         - DATABASE_PORT=3306
         - DATABASE_HOST=mariadb_test
+        - DATABASE_NAME=app_test
 
 addons:
     mariadb: '10.5'
