@@ -146,6 +146,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "lcobucci/jwt": {
         "version": "3.2.5"
     },
@@ -423,6 +426,9 @@
     },
     "symfony/property-info": {
         "version": "v4.2.3"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.2.1"
     },
     "symfony/routing": {
         "version": "4.2",
