@@ -14,7 +14,7 @@ services:
             - mariadb_data:/bitnami
             - ./docs:/app/docs
     php:
-        image: webdevops/php-dev:8.0
+        image: webdevops/php-dev:7.4
         environment:
             - PHP_DATE_TIMEZONE=Europe/Berlin
         depends_on:
@@ -43,7 +43,7 @@ services:
         volumes:
             - redis_data:/bitnami/redis
     mariadb_test:
-        image: bitnami/mariadb:10.3
+        image: bitnami/mariadb:10.5
         environment:
             - MARIADB_USER=app
             - MARIADB_PASSWORD=app
