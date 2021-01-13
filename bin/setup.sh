@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# NOTE: So far, we only use this setup file for installation routines on Gitpod.
+# Of course, you can also use the file for other platforms, but you will probably
+# have to adapt it accordingly.
+
 # Install databases
 mysql -e 'CREATE DATABASE app;'
 mysql -e 'CREATE DATABASE app_test;'
