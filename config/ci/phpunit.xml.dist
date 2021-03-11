@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="config/bootstrap.php"
+         bootstrap="../bootstrap.php"
          convertNoticesToExceptions="false"
 >
     <php>
@@ -17,16 +17,16 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+            <directory>../../tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>src</directory>
+            <directory>../../src</directory>
             <exclude>
-                <directory suffix=".php">src/App/Migrations/</directory>
-                <directory suffix=".php">src/App/Resources/</directory>
+                <directory suffix=".php">../../src/App/Migrations/</directory>
+                <directory suffix=".php">../../src/App/Resources/</directory>
             </exclude>
         </whitelist>
     </filter>

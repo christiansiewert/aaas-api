@@ -1,7 +1,7 @@
 version: '3'
 services:
     mariadb:
-        image: bitnami/mariadb:10.3
+        image: bitnami/mariadb:10.5
         environment:
             - MARIADB_USER=app
             - MARIADB_PASSWORD=app
@@ -43,7 +43,7 @@ services:
         volumes:
             - redis_data:/bitnami/redis
     mariadb_test:
-        image: bitnami/mariadb:10.3
+        image: bitnami/mariadb:10.5
         environment:
             - MARIADB_USER=app
             - MARIADB_PASSWORD=app

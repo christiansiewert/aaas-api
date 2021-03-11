@@ -9,14 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Missing data fixtures for testing purposes
-- Gitpod integration for improving development environment and DevOps workflow
 
 ### Changed
 
 - Test data is now located at the data fixtures and is also used by our API tests
-- Upgraded to Symfony 5.2
 
-## [1.4.88] - 2020-10-13 (Mini Release)
+## [1.4.1] - 2021-03-11
 
 ### Added
 
@@ -25,12 +23,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - We can add users via a console command now (php bin/console acl:create-user EMAIL PASSWORD [--admin])
 - New way for creating data fixtures
 - JWT authenticator and application security
+- Gitpod integration for improving development environment and DevOps workflow
 
 ### Changed
 
 - Disabled entry point. GET / now returns a 404 not found
 - API OAS Docs, Swagger UI and ReDoc are now on /docs
 - Updated security configuration
+- Upgraded to Symfony 5.2
+- Outsourced configuration files for PHPUnit, PHP mess detector and PHP code sniffer
 
 ## [1.4.0] - 2020-08-07
 
@@ -197,8 +198,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - base app
 
-[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.4.88...develop
-[1.4.88]: https://github.com/christiansiewert/aaas-api/compare/v1.4.0...v1.4.88
+[Unreleased]: https://github.com/christiansiewert/aaas-api/compare/v1.4.1...develop
+[1.4.1]: https://github.com/christiansiewert/aaas-api/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/christiansiewert/aaas-api/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/christiansiewert/aaas-api/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/christiansiewert/aaas-api/compare/v1.1.0...v1.2.0

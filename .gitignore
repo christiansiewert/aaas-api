@@ -1,5 +1,6 @@
 /.idea
-/.phpunit.result.cache
+/config/ci/.phpunit.result.cache
+/config/ci/.phpcs-cache
 
 /build/
 

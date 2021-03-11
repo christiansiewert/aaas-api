@@ -59,13 +59,13 @@ docker-sync-stack start
 #### Install dependencies
 
 ```bash
-docker-compose exec php composer update
+docker-compose exec php composer install
 ```
 
 If composer runs out of memory when doing this the first time you should run
 
 ```bash
-docker-compose exec -e COMPOSER_MEMORY_LIMIT=-1 php composer update
+docker-compose exec -e COMPOSER_MEMORY_LIMIT=-1 php composer install
 ```
 
 #### Generate JWT Certificate
@@ -162,25 +162,25 @@ docker-compose exec php openssl rsa -pubout -in config/jwt/private-test.pem -out
 If you want to run the testsuite execute the command below:
 
 ```bash
-docker-compose exec php php bin/phpunit
+docker-compose exec php php bin/phpunit -c config/ci/phpunit.xml.dist
 ```
 
 #### Generate PHP CodeSniffer XML Report
 
 ```bash
-docker-compose exec php php vendor/bin/phpcs --report=xml --report-file=build/ci/phpcs.xml
+docker-compose exec php php vendor/bin/phpcs --report=xml --report-file=build/ci/phpcs.xml --standard=config/ci/phpcs.xml.dist
 ```
 
 #### Generate PHPUnit Code Coverage HTML Report
 
 ```bash
-docker-compose exec php php bin/phpunit --coverage-html build/ci/coverage
+docker-compose exec php php bin/phpunit -c config/ci/phpunit.xml.dist --coverage-html build/ci/coverage
 ```
 
 #### Generate PHP Mess Detector HTML Report
 
 ```bash
-docker-compose exec php php vendor/bin/phpmd src/ html phpmd.xml.dist --reportfile build/ci/phpmd.html
+docker-compose exec php php vendor/bin/phpmd src/ html config/ci/phpmd.xml.dist --reportfile build/ci/phpmd.html
 ```
 
 #### Generate PHP Depend Metrics

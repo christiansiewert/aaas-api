@@ -1,18 +1,40 @@
+dist: bionic
+
 language: php
-php: [ 7.2, 7.3, 7.4 ]
-sudo: false
 
 branches:
+    only:
+        - release
+        - develop
+        
+env:
+    global:
+        - DATABASE_PORT=3306
+        - DATABASE_HOST=mariadb_test
+        - DATABASE_NAME=app_test
+
+addons:
+    mariadb: '10.5'
+    hosts:
+        - mariadb_test
 
 matrix:
     fast_finish: true
-    allow_failures:
-        - php: nightly
+    include:
+        - php: 7.2
+        - php: 7.3
+        - php: 7.4
+        # - php: 8.0
+
+cache:
+    directories:
+        - $HOME/.composer
+        - $TRAVIS_BUILD_DIR/bin/.phpunit
 
 before_install:
-    - mysql -u root -e 'CREATE DATABASE app_test;'
-    - mysql -u root -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
-    - mysql -u root -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
+    - sudo mysql -u root -e 'CREATE DATABASE app_test;'
+    - sudo mysql -u root -e "CREATE USER 'app'@'localhost' IDENTIFIED BY 'app';"
+    - sudo mysql -u root -e "GRANT ALL ON app_test.* TO 'app'@'localhost';"
 
 install:
     - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --no-interaction
@@ -22,14 +44,4 @@ install:
     - openssl rsa -pubout -in config/jwt/private-test.pem -out config/jwt/public-test.pem -passin pass:app!
 
 script:
-    - $TRAVIS_BUILD_DIR/bin/phpunit --no-coverage
-
-addons:
-    mariadb: '10.3'
-    hosts:
-        - mariadb_test
-
-cache:
-    directories:
-        - $HOME/.composer
-        - ./docker
+    - $TRAVIS_BUILD_DIR/bin/phpunit -c config/ci/phpunit.xml.dist --no-coverage
